@@ -1,6 +1,6 @@
 | filetreePackagePath filetreePath metacelloPath |
 filetreePackagePath := '/home/vagrant/builds/dalehenrich/builderCI/packages'.
-mfiletreePath := '/home/vagrant/filetree/repository'.
+filetreePath := '/home/vagrant/filetree/repository'.
 metacelloPath := '/home/vagrant/metacello-work/repository'.
 
 Gofer new
