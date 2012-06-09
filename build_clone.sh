@@ -17,10 +17,13 @@ function display_help() {
 while getopts ":g:?" OPT ; do
 	case "$OPT" in
 
-		g) echo "$OPT"
+		g) 
       cd $GIT_PATH
-      git clone $OPT	
-      if [ $? -ne 0 ]; then exit 1; fi
+      git clone $OPTARG	
+      if [ $? -ne 0 ]; then
+       echo "invalid `git clone` arguments : ${OPTARG}" 
+       exit 1; 
+      fi
     ;;
 		# show help
 		\?)	display_help
