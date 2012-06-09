@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/bin/bash -x
 #
-# build_image.sh -- Downloads and installs the desired Smalltalk
-#   installation: PharoCore-1-3 or Squeak4.3
+# build_clone.sh -- Clone the git repositories
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
@@ -10,16 +9,17 @@
 
 # help function
 function display_help() {
-	echo "$(basename $0) -s smalltalk "
-	echo " -s name of Smalltalk version to be downloaded and installed"
+	echo "$(basename $0) -g clone_args"
+	echo " -g one or more command lines `git clone` command"
 }
 
 # parse options
-while getopts ":i:o:s:?" OPT ; do
+while getopts ":g:?" OPT ; do
 	case "$OPT" in
 
-		# smalltalk version
-		s)	
+		g) 
+      cd $GIT_BASE
+      git clone $OPT	
     ;;
 		# show help
 		\?)	display_help

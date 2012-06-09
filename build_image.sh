@@ -16,9 +16,6 @@ case "$ST" in
     wget https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
     unzip PharoCore-1.3-13328.zip
     cd PharoCore-1.3
-    mv *.sources $SOURCES_PATH
-    mv *.changes ..
-    mv *.image ..
   ;;
   # Squeak4.3
   # unknown
@@ -26,6 +23,11 @@ case "$ST" in
     exit 1
   ;;
   esac
+
+# move the image components into the correct location
+mv *.sources $SOURCES_PATH
+mv *.changes ..
+mv *.image ..
 
 # success
 exit 0
