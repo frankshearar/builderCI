@@ -17,7 +17,7 @@ function display_help() {
 while getopts ":g:?" OPT ; do
 	case "$OPT" in
 
-		g) echo $OPT
+		g) echo "$OPT"
       cd $GIT_PATH
       git clone $OPT	
       if [ $? -ne 0 ]; then exit 1; fi
