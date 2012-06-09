@@ -5,7 +5,7 @@ metacelloPath := '/home/vagrant/metacello-work/repository'.
 
 Gofer new
     disablePackageCache;
-    repository: (MCFileTreeRepository new directory: 
+    repository: (MCDirectoryRepository new directory: 
         (FileDirectory on: filetreePackagePath));
     package: 'MonticelloFileTree-Core.pharo13';
     load.
