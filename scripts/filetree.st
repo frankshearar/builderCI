@@ -1,9 +1,8 @@
 "Bootstrap FileTree"
 Gofer new
     url: 'http://ss3.gemstone.com/ss/FileTree';
-    package: 'ConfigurationOfFileTree';
+    package: 'MonticelloFileTree-Core.pharo13';
     load.
-((Smalltalk at: #ConfigurationOfFileTree) project version: '1.0') load.
 
 Gofer new
     disablePackageCache;
