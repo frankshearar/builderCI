@@ -1,14 +1,12 @@
-| filetreePackagePath filetreePath metacelloPath |
-filetreePackagePath := '/home/vagrant/builds/dalehenrich/builderCI/packages'.
+| filetreePath metacelloPath |
 filetreePath := '/home/vagrant/filetree/repository'.
 metacelloPath := '/home/vagrant/metacello-work/repository'.
 
 Gofer new
-    disablePackageCache;
-    repository: (MCDirectoryRepository new directory: 
-        (FileDirectory on: filetreePackagePath));
-    package: 'MonticelloFileTree-Core.pharo13';
+    url: 'http://ss3.gemstone.com/ss/FileTree';
+    package: 'ConfigurationOfFileTree';
     load.
+((Smalltalk at: #ConfigurationOfFileTree) project version: '1.0') load.
 
 Gofer new
     disablePackageCache;
