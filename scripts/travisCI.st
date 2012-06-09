@@ -11,10 +11,3 @@ Gofer new
     package: 'MonticelloFileTree-Tests';
     load.
 
-"Load Metacello Tests"
-Metacello new
-    baseline: 'Metacello';
-    repository: 'filetree://' , metacelloPath;
-    silently;
-    load: 'Tests'.
-
