@@ -1,7 +1,4 @@
 "Bootstrap FileTree"
-| filetreePath |
-filetreePath := '/home/vagrant/filetree/repository'.
-
 Gofer new
     url: 'http://ss3.gemstone.com/ss/FileTree';
     package: 'ConfigurationOfFileTree';
@@ -11,7 +8,7 @@ Gofer new
 Gofer new
     disablePackageCache;
     repository: (MCFileTreeRepository new directory: 
-        (FileDirectory on: filetreePath));
+        (FileDirectory default directoryNamed: 'git_cache/filetree/repository'));
     package: 'MonticelloFileTree-Core';
     load.
 

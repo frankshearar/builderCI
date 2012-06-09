@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # build.sh -- Builds Pharo images using a series of Smalltalk
 #   scripts. Best to be used together with Jenkins.
@@ -38,7 +38,7 @@ esac
 
 # build configuration
 SCRIPTS=("$SCRIPTS_PATH/before.st" "$SCRIPTS_PATH/filetree.st"
-"$SCRIPTS_PATH/metacello.st" "$TESTS_BASE/travisCI.st")
+"$SCRIPTS_PATH/metacello.st" "$TESTS_PATH/travisCI.st")
 
 # help function
 function display_help() {

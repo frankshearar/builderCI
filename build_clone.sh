@@ -18,7 +18,7 @@ while getopts ":g:?" OPT ; do
 	case "$OPT" in
 
 		g) 
-      cd $GIT_BASE
+      cd $GIT_PATH
       git clone $OPT	
     ;;
 		# show help

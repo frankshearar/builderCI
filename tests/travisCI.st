@@ -1,13 +1,11 @@
 "Load and run tests to be performed by TravisCI"
-| filetreeTestPath metacelloPath |
-filetreeTestPath := '/home/vagrant/filetree/tests/repository'.
-metacelloPath := '/home/vagrant/metacello-work/repository'.
+| metacelloPath |
 
 "Load FileTree Tests"
 Gofer new
     disablePackageCache;
     repository: (MCFileTreeRepository new directory: 
-                    (FileDirectory on: filetreeTestPath));
+        (FileDirectory default directoryNamed: 'git_cache/filetree/tests/repository'));
     package: 'MonticelloFileTree-Tests';
     load.
 
@@ -15,6 +13,7 @@ Gofer new
 true ifTrue: [ ^self ].
 
 "Load Metacello Tests"
+metacelloPath := (FileDirectory default directoryNamed: 'git_cache/metacello-work/repository') fullName.
 Metacello new
     baseline: 'Metacello';
     repository: 'filetree://' , metacelloPath;
