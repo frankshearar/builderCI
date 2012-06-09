@@ -177,12 +177,5 @@ rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
 	rm -f *.sources
 )
 
-# archive changes and image
-(
-	cd "$OUTPUT_PATH"
-	zip -qj "$OUTPUT_ZIP" "$OUTPUT_IMAGE" "$OUTPUT_CHANGES"
-	[ -d "files" ] && zip -qr "$OUTPUT_ZIP" "files"
-)
-
 # success
 exit 0

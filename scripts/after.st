@@ -1,3 +1,3 @@
-"Quit"
+"Save and Quit"
 WorldState addDeferredUIMessage: [
-	SmalltalkImage current snapshot: false andQuit: true ].
+	SmalltalkImage current snapshot: true andQuit: true ].
