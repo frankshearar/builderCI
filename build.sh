@@ -8,15 +8,7 @@
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
-# directory configuration
-BASE_PATH="$(cd "$(dirname "$0")" && pwd)"
-BUILD_PATH="${WORKSPACE:=$BASE_PATH/builds}"
-
-IMAGES_PATH="$BASE_PATH/images"
-SCRIPTS_PATH="$BASE_PATH/scripts"
-SOURCES_PATH="$BASE_PATH/sources"
-VM_PATH="$BASE_PATH/oneclick/Contents"
-BUILD_CACHE="$BASE_PATH/cache"
+# Environment variables now defined in .travis.yml
 
 # vm configuration
 case "$(uname -s)" in

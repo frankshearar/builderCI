@@ -11,6 +11,9 @@ Gofer new
     package: 'MonticelloFileTree-Tests';
     load.
 
+"Early exit"
+true ifTrue: [ ^self ].
+
 "Load Metacello Tests"
 Metacello new
     baseline: 'Metacello';
