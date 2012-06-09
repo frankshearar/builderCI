@@ -14,7 +14,7 @@ install:
    - export VM_PATH="$BASE_PATH/oneclick/Contents"
    - export BUILD_CACHE="$BASE_PATH/cache"
    - export GIT_PATH="$IMAGES_PATH/git_cache"
-   - export TEST_PATH="$BASE_PATH/tests"
+   - export TESTS_PATH="$BASE_PATH/tests"
    - ./build_clone.sh -g "-b pharo1.3 git://github.com/dalehenrich/filetree.git"
    - ./build_clone.sh -g "git://github.com/dalehenrich/metacello-work.git"
    - ./build_image.sh
