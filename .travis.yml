@@ -8,7 +8,7 @@ install:
    - wget https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
    - unzip PharoCore-1.3-13328.zip
    - cd PharoCore-1.3
-   - mv *.sources ~/builder/sources
+   - mv *.sources ~/builds/dalehenrich/builderCI/sources
    - mv *.changes ..
    - mv *.image ..
    - cd ~/builds/dalehenrich/builderCI
