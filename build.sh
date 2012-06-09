@@ -45,7 +45,8 @@ case "$(uname -s)" in
 esac
 
 # build configuration
-SCRIPTS=("$SCRIPTS_PATH/before.st")
+SCRIPTS=("$SCRIPTS_PATH/before.st" "$SCRIPTS_PATH/filetree.st"
+"$SCRIPTS_PATH/metacello.st")
 
 # help function
 function display_help() {
