@@ -18,5 +18,3 @@ script:
    - cd ~/builds/dalehenrich/builderCI/travisCI/
    - if ( test -e PharoDebug.log ); then cat PharoDebug.log; fi
 
-
- 
