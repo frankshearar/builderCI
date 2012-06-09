@@ -132,7 +132,9 @@ find "$SOURCES_PATH" -name "*.sources" -exec ln -f "{}" "$OUTPUT_PATH/" \;
 
 # hook up the git_cache
 
-ln -sf "$GIT_PATH" "$OUT_PATH/"
+echo  "$GIT_PATH $OUTPUT_PATH/"
+
+ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
 
 # prepare script file
 SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
