@@ -1,22 +1,16 @@
 "Load and run tests to be performed by TravisCI"
-| metacelloPath |
+| gitPath |
+gitPath := (FileDirectory default directoryNamed: 'git_cache').
 
-"Load FileTree Tests"
-Gofer new
-    disablePackageCache;
-    repository: (MCFileTreeRepository new directory: 
-        (FileDirectory default directoryNamed: 'git_cache/filetree/tests/repository'));
-    package: 'MonticelloFileTree-Tests';
-    load.
-
-"Early exit"
-true ifTrue: [ ^self ].
-
-"Load Metacello Tests"
-metacelloPath := (FileDirectory default directoryNamed: 'git_cache/metacello-work/repository') fullName.
+"prime the pump with FileTree install using Metacello scripting API"
 Metacello new
-    baseline: 'Metacello';
-    repository: 'filetree://' , metacelloPath;
-    silently;
-    load: 'Tests'.
+	baseline: 'FileTree';
+  repository: 'filetree://', gitPath, 'filetree/repository';
+  load.
+
+"load the file tree tests"
+Metacello new
+	baseline: 'FileTreeTests';
+  repository: 'filetree://', gitPath, 'filetree/tests/repository';
+	load.
 
