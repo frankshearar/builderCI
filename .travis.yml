@@ -21,7 +21,7 @@ install:
 
 script:
    - ./build.sh -i PharoCore-1.3 -o travisCI
-   - cd ~/builds/dalehenrich/builderCI/builds/travisCI/
+   - cd "${BUILD_PATH}/travisCI/"
    - if ( test -e PharoDebug.log ); then cat PharoDebug.log; fi
-   - if ( test -e PharoDebug.log ); then lksdf; fi
+   - if ( test -e PharoDebug.log ); then die; fi
 
