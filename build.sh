@@ -8,15 +8,7 @@
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
-# directory configuration
-BASE_PATH="$(cd "$(dirname "$0")" && pwd)"
-BUILD_PATH="${WORKSPACE:=$BASE_PATH/builds}"
-
-IMAGES_PATH="$BASE_PATH/images"
-SCRIPTS_PATH="$BASE_PATH/scripts"
-SOURCES_PATH="$BASE_PATH/sources"
-VM_PATH="$BASE_PATH/oneclick/Contents"
-BUILD_CACHE="$BASE_PATH/cache"
+# Environment variables now defined in .travis.yml
 
 # vm configuration
 case "$(uname -s)" in
@@ -46,7 +38,7 @@ esac
 
 # build configuration
 SCRIPTS=("$SCRIPTS_PATH/before.st" "$SCRIPTS_PATH/filetree.st"
-"$SCRIPTS_PATH/metacello.st")
+"$SCRIPTS_PATH/metacello.st" "$TESTS_PATH/travisCI.st")
 
 # help function
 function display_help() {
@@ -137,6 +129,12 @@ ln -sf "$BUILD_CACHE/${JOB_NAME:=$OUTPUT_NAME}" "$OUTPUT_CACHE"
 cp "$INPUT_IMAGE" "$OUTPUT_IMAGE"
 cp "$INPUT_CHANGES" "$OUTPUT_CHANGES"
 find "$SOURCES_PATH" -name "*.sources" -exec ln -f "{}" "$OUTPUT_PATH/" \;
+
+# hook up the git_cache
+
+echo  "$GIT_PATH $OUTPUT_PATH/"
+
+ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
 
 # prepare script file
 SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")

@@ -1,19 +1,15 @@
-"Bootstrap Metacello"
-| metacelloPath |
-metacelloPath := '/home/vagrant/metacello-work/repository'.
-
-"OSProcess required for now"
+"Bootstrap OSProcess"
 Gofer new
   squeaksource: 'MetacelloRepository';
   package: 'ConfigurationOfOSProcess';
   load.
 ((Smalltalk at: #'ConfigurationOfOSProcess') project version: #stable) load.
 
-"Metacello"
+"Bootstrap Metacello"
 Gofer new
     disablePackageCache;
     repository: (MCFileTreeRepository new directory: 
-                    (FileDirectory on: metacelloPath));
+        (FileDirectory default directoryNamed: 'git_cache/metacello-work/repository'));
     package: 'Metacello-Base';
     package: 'Metacello-Core';
     package: 'Metacello-FileTree';
