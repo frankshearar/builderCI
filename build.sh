@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # build.sh -- Builds Pharo images using a series of Smalltalk
 #   scripts. Best to be used together with Jenkins.
@@ -48,6 +48,8 @@ function display_help() {
 	echo " -o output product name"
 	echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
 }
+
+echo "PROCESSING OPTIONS $(basename $0)"
 
 # parse options
 while getopts ":i:mo:f:s:?" OPT ; do
@@ -131,6 +133,8 @@ if [ -z "$OUTPUT_IMAGE" ] ; then
 	exit 1
 fi
 
+echo "BUILDING $(basename $0) IMAGE FILE"
+
 # prepare output path
 if [ -d "$OUTPUT_PATH" ] ; then
 	rm -rf "$OUTPUT_PATH"
@@ -146,8 +150,6 @@ find "$SOURCES_PATH" -name "*.sources" -exec ln -f "{}" "$OUTPUT_PATH/" \;
 
 # hook up the git_cache
 
-echo  "$GIT_PATH $OUTPUT_PATH/"
-
 ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
 
 # prepare script file
@@ -157,6 +159,8 @@ for FILE in "${SCRIPTS[@]}" ; do
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
 	echo "!" >> "$OUTPUT_SCRIPT"
 done
+
+echo "RUNNING $(basename $0) TESTS"
 
 # build image in the background
 exec "$PHARO_VM" $PHARO_PARAM "$OUTPUT_IMAGE" "$OUTPUT_SCRIPT" &
