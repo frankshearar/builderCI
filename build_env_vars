@@ -1,5 +1,6 @@
 # Environment variables defined `source` me
 
+export BUILDER_CI_HOME="$(pwd)"
 export BASE_PATH="$BUILDER_CI_HOME"
 export BUILD_PATH="${WORKSPACE:=$BASE_PATH/builds}"
 export IMAGES_PATH="$BASE_PATH/images"

@@ -13,7 +13,6 @@ function display_help() {
 }
 
 # default BUILDER_CI_HOME locations
-export BUILDER_CI_HOME="$(pwd)"
 export TESTS_PATH="$BUILDER_CI_HOME/tests"
 
 # parse options
