@@ -2,7 +2,7 @@
 | gitPath projectName suite result stream |
 
 "prime the pump with FileTree install using Metacello scripting API"
-gitPath := FileDirectory default directoryNamed: 'git_cache'.	
+gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.	
 Metacello new
     baseline: 'FileTree';
     repository: 'filetree://' , gitPath , 'filetree/repository';
