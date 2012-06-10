@@ -43,7 +43,7 @@ Smalltalk
             result defects
                 do: [ :each | 
                     fileStream tab
-                        nextPutAll: each class name asString , ' debug: ' , each testSelector printString , '.';
+                        nextPutAll: each class name asString , ' debug: ' , each selector printString , '.';
                         cr ].
             fileStream
                 nextPutAll: '***********************************************';
