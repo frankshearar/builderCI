@@ -49,7 +49,7 @@ function display_help() {
 }
 
 # parse options
-while getopts ":i:m:o:s:?" OPT ; do
+while getopts ":i:mo:s:?" OPT ; do
 	case "$OPT" in
 
 		# input
