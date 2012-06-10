@@ -41,16 +41,26 @@ SCRIPTS=("$SCRIPTS_PATH/before.st")
 
 # help function
 function display_help() {
-	echo "$(basename $0) -i input -o output {-s script} "
+	echo "$(basename $0) -i input -o output {-m} {-s script} {-f full-path-to-script}"
+  echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
 	echo " -i input product name, image from images-directory, or successful jenkins build"
-	echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st"
+	echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
 	echo " -o output product name"
-	echo " -s one or more scripts from the scripts-directory to build the image"
+	echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
 }
 
 # parse options
-while getopts ":i:mo:s:?" OPT ; do
+while getopts ":i:mo:f:s:?" OPT ; do
 	case "$OPT" in
+
+		# full path to script
+	  f)	if [ -f "$OPTARG" ] ; then
+                SCRIPTS=("${SCRIPTS[@]}" "$OPTARG")
+			else
+				echo "$(basename $0): invalid script ($OPTARG)"
+				exit 1
+			fi
+		;;
 
 		# input
 		i)	if [ -f "$BUILD_PATH/$OPTARG/$OPTARG.image" ] ; then
@@ -77,6 +87,10 @@ while getopts ":i:mo:s:?" OPT ; do
 			fi
 		;;
 
+    # include standard Metacello test harness
+    m) SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/filetree.st" "$SCRIPTS_PATH/metacello.st" "$SCRIPTS_PATH/travisCIHarness.st" )
+    ;; 
+
 		# output
 		o)	OUTPUT_NAME="$OPTARG"
 			OUTPUT_PATH="$BUILD_PATH/$OUTPUT_NAME"
@@ -90,17 +104,13 @@ while getopts ":i:mo:s:?" OPT ; do
 		;;
 
 		# script
-		s)	if [ -f "$SCRIPTS_PATH/$OPTARG.st" ] ; then
-                SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/$OPTARG.st")
+		s)	if [ -f "$SCRIPTS_PATH/$OPTARG" ] ; then
+                SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/$OPTARG")
 			else
 				echo "$(basename $0): invalid script ($OPTARG)"
 				exit 1
 			fi
 		;;
-
-    # include standard Metacello test harness
-    m) SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/filetree.st" "$SCRIPTS_PATH/metacello.st" "$SCRIPTS_PATH/travisCIHarness.st" )
-    ;; 
 
 		# show help
 		\?)	display_help
