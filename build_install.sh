@@ -9,7 +9,7 @@
 # help function
 function display_help() {
 	echo "$(basename $0) -c "
-	echo " -c if present, clone the buildCI repository: git://github.com/dalehenrich/buildCI.git"
+	echo " -c grab tests from ../tests"
 }
 
 # default BUILDER_CI_HOME locations
@@ -20,13 +20,7 @@ export TESTS_PATH="$BUILDER_CI_HOME/tests"
 while getopts ":c:?" OPT ; do
 	case "$OPT" in
 
-		g) 
-      git clone git://github.com/dalehenrich/buildCI.git
-      if [ $? -ne 0 ]; then
-       echo "error cloning buildCI" 
-       exit 1; 
-      fi
-      BUILDER_CI_HOME="$GIT_PATH/buildCI"
+		c) export TESTS_PATH="$BUILDER_CI_HOME/../tests"
     ;;
 		# show help
 		\?)	display_help
