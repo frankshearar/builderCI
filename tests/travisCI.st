@@ -15,7 +15,6 @@ Metacello new
   load.
 
 "Run the tests"
-| projectName suite result stream |
 projectName := 'FileTreeTests'.
 suite := TestCase suiteClass named: projectName, ' Suite'.
 (((MetacelloProjectRegistration
