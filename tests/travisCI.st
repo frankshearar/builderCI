@@ -4,15 +4,15 @@ gitPath := (FileDirectory default directoryNamed: 'git_cache').
 
 "prime the pump with FileTree install using Metacello scripting API"
 Metacello new
-	baseline: 'FileTree';
+  baseline: 'FileTree';
   repository: 'filetree://', gitPath, 'filetree/repository';
   load.
 
 "load the file tree tests"
 Metacello new
-	baseline: 'FileTreeTests';
+  baseline: 'FileTreeTests';
   repository: 'filetree://', gitPath, 'filetree/tests/repository';
-	load.
+  load.
 
 "Run the tests"
 | projectName suite result stream |
