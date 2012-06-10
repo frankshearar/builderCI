@@ -35,12 +35,12 @@ FileDirectory default
             cr;
             nextPutAll: result printString;
             cr.
-        results defects notEmpty 
+        result defects notEmpty 
             ifTrue: [ fileStream nextPutAll: '***********************************************'; cr].
         result defects
             do: [ :each | 
                 fileStream tab
                     nextPutAll: each class name asString, ' debug: ' , each testSelector printString , '.';
                     cr ]. 
-        results defects notEmpty 
+        result defects notEmpty 
             ifTrue: [ fileStream nextPutAll: '***********************************************'; cr]. ]
