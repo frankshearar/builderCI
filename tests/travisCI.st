@@ -5,13 +5,13 @@
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.	
 Metacello new
     baseline: 'FileTree';
-    repository: 'filetree://' , gitPath , 'filetree/repository';
+    repository: 'filetree://' , gitPath , '/filetree/repository';
     load.	
 
 "load the file tree tests"
 Metacello new
     baseline: 'FileTreeTests';
-    repository: 'filetree://' , gitPath , 'filetree/tests/repository';
+    repository: 'filetree://' , gitPath , '/filetree/tests/repository';
     load.	
 
 "Run the tests"
