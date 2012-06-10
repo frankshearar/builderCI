@@ -38,7 +38,7 @@ esac
 
 # build configuration
 SCRIPTS=("$SCRIPTS_PATH/before.st" "$SCRIPTS_PATH/filetree.st"
-"$SCRIPTS_PATH/metacello.st" "$TESTS_PATH/travisCI.st")
+"$SCRIPTS_PATH/metacello.st")
 
 # help function
 function display_help() {

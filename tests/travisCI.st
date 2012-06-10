@@ -15,32 +15,9 @@ Metacello new
     load.	
 
 "Run the tests"
-projectName := 'FileTreeTests'.
-suite := TestCase suiteClass named: projectName , ' Suite'.
-((MetacelloProjectRegistration registrationForProjectNamed: 'FileTreeTests' ifAbsent: [  ]) baselineProjectSpec
-    version currentlyLoadedClassesInVersion select: [ :cl | cl inheritsFrom: TestCase ])
-    do: [ :cl | 
-        cl isAbstract
-            ifFalse: [ suite addTest: cl buildSuiteFromSelectors ] ].
-result := suite run.
-resultsFileName := result defects isEmpty 
-    ifTrue: ['TravisCISuccess.txt'] 
-    ifFalse: ['TravisCIFailure.txt'].
-FileDirectory default
-    forceNewFileNamed: resultsFileName 
-    do: [ :fileStream | 
-        fileStream lineEndConvention: #'lf'.
-        fileStream nextPutAll: '***********************************************'; cr.
-        fileStream
-            tab;
-            nextPutAll: 'Results for ' , suite name;
-            cr;
-            nextPutAll: result printString;
-            cr.
-        fileStream nextPutAll: '***********************************************'; cr.
-        result defects
-            do: [ :each | 
-                fileStream tab
-                    nextPutAll: each class name asString, ' debug: ' , each testSelector printString , '.';
-                    cr ]. 
-        fileStream nextPutAll: '***********************************************'; cr ]
+TravisCIHarness
+  value: #( 'FileTreeTests' )
+  value: 'TravisCISuccess.txt' 
+  value: 'TravisCIFailure.txt'.
+
+
