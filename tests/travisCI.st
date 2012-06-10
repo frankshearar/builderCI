@@ -30,17 +30,17 @@ FileDirectory default
     forceNewFileNamed: resultsFileName 
     do: [ :fileStream | 
         fileStream lineEndConvention: #'lf'.
+        fileStream nextPutAll: '***********************************************'; cr.
         fileStream
+            tab;
             nextPutAll: 'Results for ' , suite name;
             cr;
             nextPutAll: result printString;
             cr.
-        result defects notEmpty 
-            ifTrue: [ fileStream nextPutAll: '***********************************************'; cr].
+        fileStream nextPutAll: '***********************************************'; cr.
         result defects
             do: [ :each | 
                 fileStream tab
                     nextPutAll: each class name asString, ' debug: ' , each testSelector printString , '.';
                     cr ]. 
-        result defects notEmpty 
-            ifTrue: [ fileStream nextPutAll: '***********************************************'; cr]. ]
+        fileStream nextPutAll: '***********************************************'; cr ]
