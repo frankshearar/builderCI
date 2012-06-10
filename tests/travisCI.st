@@ -1,5 +1,5 @@
 "Load and run tests to be performed by TravisCI"
-| gitPath projectName suite result stream |
+| gitPath projectName suite result resultsFileName |
 
 "prime the pump with FileTree install using Metacello scripting API"
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.	
@@ -23,19 +23,24 @@ suite := TestCase suiteClass named: projectName , ' Suite'.
         cl isAbstract
             ifFalse: [ suite addTest: cl buildSuiteFromSelectors ] ].
 result := suite run.
-stream := WriteStream on: String new.
-stream
-    nextPutAll: 'Results for ' , suite name;
-    cr.
-result printOn: stream.
-stream cr.
-result defects
-    do: [ :each | 
-        stream tab
-            nextPutAll: each class , ' debug: ' , each testSelector printString , '.';
-            cr ].
+resultsFileName := result defects isEmpty 
+    ifTrue: ['TravisCISuccess.txt'] 
+    ifFalse: ['TravisCIFailure.txt'].
 FileDirectory default
-    forceNewFileNamed: 'TravisCIResults.txt'
+    forceNewFileNamed: resultsFileName 
     do: [ :fileStream | 
         fileStream lineEndConvention: #'lf'.
-        fileStream nextPutAll: stream contents ]
+        fileStream
+            nextPutAll: 'Results for ' , suite name;
+            cr;
+            nextPutAll: result printString;
+            cr.
+        results defects notEmpty 
+            ifTrue: [ fileStream nextPutAll: '***********************************************'; cr].
+        result defects
+            do: [ :each | 
+                fileStream tab
+                    nextPutAll: each class name asString, ' debug: ' , each testSelector printString , '.';
+                    cr ]. 
+        results defects notEmpty 
+            ifTrue: [ fileStream nextPutAll: '***********************************************'; cr]. ]
