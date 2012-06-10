@@ -49,7 +49,7 @@ function display_help() {
 	echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
 }
 
-echo "PROCESSING OPTIONS $(basename $0)"
+echo "PROCESSING OPTIONS"
 
 # parse options
 while getopts ":i:mo:f:s:?" OPT ; do
@@ -133,7 +133,7 @@ if [ -z "$OUTPUT_IMAGE" ] ; then
 	exit 1
 fi
 
-echo "BUILDING $(basename $0) IMAGE FILE"
+echo "BUILDING IMAGE FILE"
 
 # prepare output path
 if [ -d "$OUTPUT_PATH" ] ; then
@@ -160,7 +160,7 @@ for FILE in "${SCRIPTS[@]}" ; do
 	echo "!" >> "$OUTPUT_SCRIPT"
 done
 
-echo "RUNNING $(basename $0) TESTS"
+echo "RUNNING TESTS..."
 
 # build image in the background
 exec "$PHARO_VM" $PHARO_PARAM "$OUTPUT_IMAGE" "$OUTPUT_SCRIPT" &
