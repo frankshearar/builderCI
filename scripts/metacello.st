@@ -1,6 +1,10 @@
 "Ensure minimal Metacello loaded ... need to adjust Configuration to
 make this easier:)"
 
+Gofer new
+  squeaksource: 'MetacelloRepository';
+  package: 'ConfigurationOfMetacello';
+  load.
 ConfigurationOfMetacello bootstrapMetacelloFrom: 'http://seaside.gemstone.com/ss/metacello'.
 
 "Bootstrap OSProcess"
