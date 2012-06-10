@@ -1,5 +1,5 @@
 "Load and run tests to be performed by TravisCI"
-| gitPath projectName suite result resultsFileName |
+| gitPath |
 
 "prime the pump with FileTree install using Metacello scripting API"
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.	
