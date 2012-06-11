@@ -3,5 +3,5 @@
 !FileStream methodsFor: 'access' stamp: 'dkh 6/11/2012 13:33'!
 show: anObject
 
-self nextPutAll: anObject asString! !
+self nextPutAll: anObject asString; flush! !
 
