@@ -153,13 +153,13 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 10:28'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32"
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.54' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619')
+    #('Metacello-Base-dkh.60' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619' 'ConfigurationOfMetacello-dkh.682')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
@@ -192,11 +192,11 @@ bootstrapPackage: aString from: aPath
 			version load.
 			version workingCopy repositoryGroup addRepository: repository]! !
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 09:47'!
 ensureCoreMetacello
     "Bootstrap Metacello and load the minimum support"
 
-    self ensureMetacello: #('Metacello-Core')! !
+    self ensureMetacello: #('bootstrap')! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
 ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
@@ -219,7 +219,7 @@ ensureMetacello
 
     self ensureMetacello: #('default')! !
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 10:10'!
 ensureMetacello: loadList
     "Bootstrap Metacello, retry using alternate repository, if primary repository is not accessible"
 
@@ -233,7 +233,7 @@ ensureMetacello: loadList
                     [ 
                     "bootstrap Metacello"
                     self bootstrapMetacelloFrom: repositoryUrl.	"load latest version of Metacello"
-                    version := self project latestVersion.
+                    version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.
                     retry
                         ifTrue: [ 
                             "on retry, use #repositoryOverrides:"
@@ -294,9 +294,9 @@ scriptEngine
     ^ scriptEngine! !
 
 
-!Metacello methodsFor: 'accessing' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'accessing' stamp: 'dkh 6/11/2012 10:21'!
 ensureList
-    ensureList ifNil: [ ensureList := OrderedCollection with: #'MetacelloScriptEngine' -> 'default' ].
+    ensureList ifNil: [ ensureList := OrderedCollection with: #'MetacelloScriptEngine' -> 'bootstrap' ].
     ^ ensureList! !
 
 !Metacello methodsFor: 'accessing' stamp: 'dkh 3/8/2012 16:42:28'!
