@@ -17,7 +17,16 @@ case "$ST" in
     unzip PharoCore-1.3-13328.zip
     cd PharoCore-1.3
   ;;
-  # Squeak4.3
+  # SqueakCore4.3
+  Squeak4.3)
+    cd $IMAGES_PATH
+    wget http://ftp.squeak.org/4.3/SqueakCore4.3.zip
+    unzip SqueakCore4.3.zip
+    cd SqueakCore4.3
+    wget http://ftp.squeak.org/4.1/SqueakV41.sources.gz
+    gunzip SqueakV41.sources.gz
+  ;;
+
   # unknown
   \?) echo "Unknown Smalltalk version ${ST}"
     exit 1
