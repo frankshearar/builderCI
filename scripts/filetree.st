@@ -2,7 +2,7 @@
 make this easier:)"
 
 Gofer new
-  squeaksource: 'MetacelloRepository';
+  gemsource: 'metacello';
   package: 'ConfigurationOfMetacello';
   load.
 

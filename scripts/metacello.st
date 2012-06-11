@@ -1,9 +1,9 @@
-"Bootstrap OSProcess"
+"Bootstrap OSProcess - insulate from SqueakSource flakiness for now"
 Gofer new
-  squeaksource: 'MetacelloRepository';
-  package: 'ConfigurationOfOSProcess';
+  repository: (MCDirectoryRepository new directory: 
+        (FileDirectory default directoryNamed:'mcz'));
+  package: 'OSProcess';
   load.
-((Smalltalk at: #'ConfigurationOfOSProcess') project version: #stable) load.
 
 "Bootstrap Metacello"
 Gofer new
