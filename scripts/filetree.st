@@ -1,23 +1,18 @@
 "Ensure minimal Metacello loaded ... need to adjust Configuration to
 make this easier:)"
 
-Gofer new
-  gemsource: 'metacello';
-  package: 'ConfigurationOfMetacello';
-  load.
-
-(Smalltalk at: #ConfigurationOfMetacello) 
+(Smalltalk at: #ConfigurationOf) 
     bootstrapMetacelloFrom: 'http://seaside.gemstone.com/ss/metacello'.
 
 "Bootstrap FileTree"
-Gofer new
+(Smalltalk at: #Gofer) new
     url: 'http://ss3.gemstone.com/ss/FileTree';
     package: 'ConfigurationOfFileTree';
     load.
 
 ((Smalltalk at: #ConfigurationOfFileTree) project version: '1.0') load.
 
-Gofer new
+(Smalltalk at: #Gofer) new
     disablePackageCache;
     repository: (MCFileTreeRepository new directory: 
         (FileDirectory default directoryNamed: 'git_cache/filetree/repository'));

@@ -155,10 +155,11 @@ cp "$INPUT_IMAGE" "$OUTPUT_IMAGE"
 cp "$INPUT_CHANGES" "$OUTPUT_CHANGES"
 find "$SOURCES_PATH" -name "*.sources" -exec ln -f "{}" "$OUTPUT_PATH/" \;
 
-# hook up the git_cache and mcz repo
+# hook up the git_cache, Metacello bootstrap and mcz repo
 
 ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/mcz" "$OUTPUT_PATH/"
+ln -sf "$BUILDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
 
 # prepare script file
 SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
