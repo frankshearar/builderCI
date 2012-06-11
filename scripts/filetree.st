@@ -12,7 +12,7 @@ Gofer new
 "Bootstrap FileTree"
 Gofer new
     url: 'http://ss3.gemstone.com/ss/FileTree';
-    package: 'ConfigurationOfFileTree'
+    package: 'ConfigurationOfFileTree';
     load.
 
 ((Smalltalk at: #ConfigurationOfFileTree) project version: '1.0') load.
