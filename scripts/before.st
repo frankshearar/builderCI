@@ -12,10 +12,11 @@ FileDirectory default
 
 "explicitly load OSProcess to avoid SqueakSource flakiness:
      https://github.com/dalehenrich/builderCI/issues/6"
-(Smalltalk at: #ConfigurationOf) ensureMetacello: #('bootstrap'). "loads Gofer"
+(Smalltalk at: #ConfigurationOf) 
+  ensureGoferVersion: 'Gofer-Core-lr.115' 
+  repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'.
 (Smalltalk at: #Gofer) new
   repository: (MCDirectoryRepository new directory: 
         (FileDirectory default directoryNamed:'mcz'));
   package: 'OSProcess';
   load.
-(Smalltalk at: #ConfigurationOf) ensureMetacello: #('batch'). "have to finish the job"
