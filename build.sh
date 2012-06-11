@@ -101,7 +101,14 @@ while getopts ":i:mo:f:s:?" OPT ; do
 			OUTPUT_IMAGE="$OUTPUT_PATH/$OUTPUT_NAME.image"
 			OUTPUT_CHANGES="$OUTPUT_PATH/$OUTPUT_NAME.changes"
 			OUTPUT_CACHE="$OUTPUT_PATH/package-cache"
-			OUTPUT_DEBUG="$OUTPUT_PATH/PharoDebug.log"
+      case "$ST" in
+        Squeak4.3) 
+          OUTPUT_DEBUG="$OUTPUT_PATH/SqueakDebug.log"
+          ;; 
+        PharoCore-1.3) 
+          OUTPUT_DEBUG="$OUTPUT_PATH/PharoDebug.log" 
+          ;;
+      esac
 			OUTPUT_DUMP="$OUTPUT_PATH/crash.dmp"
 		;;
 
