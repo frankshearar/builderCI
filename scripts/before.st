@@ -2,7 +2,7 @@
 
 "Tie Transcript to stdout"
 FileDirectory default 
-  fileNamed: 'StandardFileStream-show.st'
+  fileNamed: 'FileStream-show.st'
   do: [:fileStream | fileStream fileIn ].
 (Smalltalk associationAt: #Transcript) value: FileStream stdout.
 Transcript cr; show: 'travis---->before.st'.
