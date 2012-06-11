@@ -2,7 +2,7 @@ Object subclass: #ConfigurationOf
 	instanceVariableNames: 'project'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Metacello-Base'!
+	category: 'Metacello-XBase'!
 !ConfigurationOf commentStamp: 'dkh 5/30/2012 16:31' prior: 0!
 **ConfigurationOf** is the common superclass for all Metacello configurations.
 
@@ -259,7 +259,7 @@ Object subclass: #Metacello
 	instanceVariableNames: 'scriptEngine ensureList statements'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Metacello-Base'!
+	category: 'Metacello-XBase'!
 !Metacello commentStamp: 'dkh 5/30/2012 16:46' prior: 0!
 **Metacello** is The entry point for the *Metacello Scripting API*.
 
@@ -430,7 +430,7 @@ ConfigurationOf subclass: #BaselineOf
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Metacello-Base'!
+	category: 'Metacello-XBase'!
 !BaselineOf commentStamp: 'dkh 5/30/2012 16:30' prior: 0!
 **BaselineOf** is the common superclass for all Metacello baselines.
 
