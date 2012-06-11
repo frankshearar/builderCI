@@ -1,4 +1,3 @@
 "Initialize Image Building"
-Smalltalk 
-    at: #Deprecation 
-    ifPresent: [:cl | cl raiseWarning: false ].
+(Deprecation respondsTo: #raiseWarning:)
+  ifTrue: [ Deprecation raiseWarning: false ].
