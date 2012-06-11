@@ -4,6 +4,7 @@
 FileDirectory default 
   fileNamed: 'FileStream-show.st'
   do: [:fileStream | fileStream fileIn ].
+FileStream stdout file lineEndConvention: #'lf'.
 (Smalltalk associationAt: #Transcript) value: FileStream stdout.
 Transcript cr; show: 'travis---->before.st'.
 
