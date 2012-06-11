@@ -3,7 +3,7 @@
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
 Metacello new
-  baseline: 'Monticello';
+  baseline: 'Metacello';
   repository: 'filetree://', gitPath, '/metacello-work/repository';
-  load: 'bootstrap'.
+  load: 'batch'.
 

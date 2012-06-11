@@ -1,4 +1,4 @@
-"Bootstrap FileTree"
+"Load current version of FileTree"
 | gitPath |
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 

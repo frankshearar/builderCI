@@ -153,13 +153,13 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 10:28'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 11:28'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32"
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.60' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619' 'ConfigurationOfMetacello-dkh.682')
+    #('Metacello-Base-dkh.63' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619' 'ConfigurationOfMetacello-dkh.685')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
@@ -192,12 +192,6 @@ bootstrapPackage: aString from: aPath
 			version load.
 			version workingCopy repositoryGroup addRepository: repository]! !
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 09:47'!
-ensureCoreMetacello
-    "Bootstrap Metacello and load the minimum support"
-
-    self ensureMetacello: #('bootstrap')! !
-
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
 ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
     "load the p=file goferVersion if Gofer isn't loaded or an earlier version of Gofer is currently loaded"
@@ -213,11 +207,11 @@ ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
     (pName copyAfterLast: $.) asNumber <= goferVersionNumber
         ifTrue: [ self bootstrapPackage: goferVersion from: repositoryUrl ]! !
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 11:05'!
 ensureMetacello
-    "Bootstrap Metacello and load the 'default' group"
+    "Bootstrap Metacello and load the 'botstrap' group"
 
-    self ensureMetacello: #('default')! !
+    self ensureMetacello: #('batch')! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 10:10'!
 ensureMetacello: loadList
@@ -294,9 +288,9 @@ scriptEngine
     ^ scriptEngine! !
 
 
-!Metacello methodsFor: 'accessing' stamp: 'dkh 6/11/2012 10:21'!
+!Metacello methodsFor: 'accessing' stamp: 'dkh 6/11/2012 11:05'!
 ensureList
-    ensureList ifNil: [ ensureList := OrderedCollection with: #'MetacelloScriptEngine' -> 'bootstrap' ].
+    ensureList ifNil: [ ensureList := OrderedCollection with: #'MetacelloScriptEngine' -> 'batch' ].
     ^ ensureList! !
 
 !Metacello methodsFor: 'accessing' stamp: 'dkh 3/8/2012 16:42:28'!
