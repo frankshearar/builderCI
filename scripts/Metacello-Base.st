@@ -153,13 +153,13 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 11:28'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 13:10'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32"
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.63' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619' 'ConfigurationOfMetacello-dkh.685')
+    #('Metacello-Base-dkh.64' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619' 'ConfigurationOfMetacello-dkh.686')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
@@ -404,17 +404,11 @@ classic
 scriptEngineClass
     ^ self scriptEngineClass: {(#'MetacelloScriptEngine' -> 'default')}! !
 
-!Metacello class methodsFor: 'private' stamp: 'dkh 5/30/2012 10:24'!
+!Metacello class methodsFor: 'private' stamp: 'dkh 6/11/2012 12:31'!
 scriptEngineClass: loadList
     | list |
     list := OrderedCollection new.
-    loadList
-        do: [ :assoc | 
-            Smalltalk
-                at: assoc key
-                ifAbsent: [ :cl | 
-                    | allPresent |
-                    list add: assoc value ] ].
+    loadList do: [ :assoc | Smalltalk at: assoc key ifAbsent: [ list add: assoc value ] ].
     list notEmpty
         ifTrue: [ ConfigurationOf ensureMetacello: list ].
     ^ Smalltalk at: #'MetacelloScriptEngine'! !
