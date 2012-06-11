@@ -18,4 +18,4 @@ FileDirectory default
         (FileDirectory default directoryNamed:'mcz'));
   package: 'OSProcess';
   load.
-
+(Smalltalk at: #ConfigurationOf) ensureMetacello: #('batch'). "have to finish the job"
