@@ -5,3 +5,4 @@ using [Lukas' builder](https://github.com/renggli/builder), with [travis-ci](htt
 to team up [Metacello](https://github.com/dalehenrich/metacello-work) and **builder** to make the 
 setup and maintenance of CI test scripts for [Pharo](http://www.pharo-project.org/home) 
 and [Squeak](http://www.squeak.org/) as painless as possible ...
+
