@@ -2,7 +2,7 @@ Object subclass: #ConfigurationOf
 	instanceVariableNames: 'project'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Metacello-XBase'!
+	category: 'Metacello-Base'!
 !ConfigurationOf commentStamp: 'dkh 5/30/2012 16:31' prior: 0!
 **ConfigurationOf** is the common superclass for all Metacello configurations.
 
@@ -155,14 +155,14 @@ unloadMetacello
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
 bootstrapMetacelloFrom: repositoryUrl
-    "Corresponds to version 1.0-beta.29"
+    "Corresponds to version 1.0-beta.32"
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-DaleHenrichs.19' 'Metacello-Core-dkh.465' 'Metacello-MC-dkh.522')
+    #('Metacello-Base-dkh.54' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
-        at: #SystemVersion
+        at: #'SystemVersion'
         ifPresent: [ :cl | 
             | versionString |
             versionString := cl current version.
@@ -259,7 +259,7 @@ Object subclass: #Metacello
 	instanceVariableNames: 'scriptEngine ensureList statements'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Metacello-XBase'!
+	category: 'Metacello-Base'!
 !Metacello commentStamp: 'dkh 5/30/2012 16:46' prior: 0!
 **Metacello** is The entry point for the *Metacello Scripting API*.
 
@@ -430,7 +430,7 @@ ConfigurationOf subclass: #BaselineOf
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Metacello-XBase'!
+	category: 'Metacello-Base'!
 !BaselineOf commentStamp: 'dkh 5/30/2012 16:30' prior: 0!
 **BaselineOf** is the common superclass for all Metacello baselines.
 
