@@ -1,5 +1,6 @@
 "Load current version of Metacello"
 | gitPath |
+Transcript cr; show: 'travis---->metacello.st'.
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
 Metacello new

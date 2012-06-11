@@ -1,8 +1,13 @@
-"Initialize Image Building"
-| gitPath |
-gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
+"Initialize Image for batch testing with Metacello"
 
-(Deprecation respondsTo: #raiseWarning:)
+"Tie Transcript to stdout"
+FileDirectory default 
+  fileNamed: 'StandardFileStream-show.st'
+  do: [:fileStream | fileStream fileIn ].
+(Smalltalk associationAt: #Transcript) value: FileStream stdout.
+Transcript cr; show: 'travis---->before.st'.
+
+Deprecation respondsTo: #raiseWarning:)
   ifTrue: [ Deprecation raiseWarning: false ].
 
 "Bootstrap Metacello-Base to simulate conditions when it's included in base"
