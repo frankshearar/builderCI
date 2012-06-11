@@ -7,7 +7,7 @@ FileDirectory default
 (Smalltalk associationAt: #Transcript) value: FileStream stdout.
 Transcript cr; show: 'travis---->before.st'.
 
-Deprecation respondsTo: #raiseWarning:)
+(Deprecation respondsTo: #raiseWarning:)
   ifTrue: [ Deprecation raiseWarning: false ].
 
 "Bootstrap Metacello-Base to simulate conditions when it's included in base"
