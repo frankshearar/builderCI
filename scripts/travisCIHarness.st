@@ -46,7 +46,24 @@ Smalltalk
             fileStream
                 nextPutAll: '***********************************************';
                 cr.
-            result defects
+            result failures notEmpty 
+                ifTrue: [
+                  fileStream
+                    nextPutAll: '*** FAILURES ***';
+                    nextPutAll: '****************';
+                    cr. ].
+            result failures
+                do: [ :each | 
+                    fileStream tab
+                        nextPutAll: each class name asString , ' debug: ' , each selector printString , '.';
+                        cr ].
+            result errors notEmpty 
+                ifTrue: [
+                  fileStream
+                    nextPutAll: '*** ERRORS ***';
+                    nextPutAll: '****************';
+                    cr. ].
+            result errors
                 do: [ :each | 
                     fileStream tab
                         nextPutAll: each class name asString , ' debug: ' , each selector printString , '.';
