@@ -9,7 +9,7 @@ gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
 "Use Metacello to load your project and tests"
 Metacello new
-	configuration: 'MyProject';
+  configuration: 'MyProject';
   repository: 'filetree://', gitPath, '/MyProject/repository';
   load: 'Tests'.
 
