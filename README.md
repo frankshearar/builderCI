@@ -11,8 +11,9 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
 2. Create your own .travis.yml file by copying [the template travis.yml][1] into the 
    home directory of your git project. 
 3. Decide which platforms you want tested (Squeak4.3 and/or Pharo1.3) and edit the .travis.yml 
-   file to create your test matrix. If you 
-   are using [Metacello][3] with your project you shouldn't have to make any other edits.
+   file to create your build matrix. If you 
+   are using [Metacello][3] with your project you shouldn't have to make any other edits. Metacello
+   and FileTree are pre-installed in the image.
 3. Create a [tests/travisCI.st][2] that contains the code to load your project, it's tests and launch 
    the test harness.
 4. Enjoy.
