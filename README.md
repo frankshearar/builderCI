@@ -18,6 +18,30 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
    the test harness.
 4. Enjoy.
 
+## Dealing with Failure
+
+Here's a [the output for build that failed][4] because of unit test failures. Scroll to
+the bottom of the console list and you'll see the following:
+
+```
+***********************************************
+	Results for builderCI Test Suite
+3 run, 1 passes, 0 expected failures, 1 failures, 1 errors, 0 unexpected passes
+***********************************************
+*** FAILURES *******************
+	SampleTest debug: #testFailure.
+*** ERRORS *******************
+	SampleTest debug: #testError.
+***********************************************
+```
+
+Tests that *fail* or produce *error* are listed. You should be able to
+copy the the expressions and evaluate them in a workspace:
+
+```Smalltalk
+SampleTest debug: #testError.
+```
+
 ## Projects using TravisCi and builderCI
 
 * [Metacello](https://github.com/dalehenrich/metacello-work)
@@ -31,3 +55,4 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
 [1]: https://github.com/dalehenrich/builderCI/blob/master/templates/travis.yml
 [2]: https://github.com/dalehenrich/builderCI/blob/master/templates/travisCI.st
 [3]: https://github.com/dalehenrich/metacello-work/blob/master/README.md
+[4]: http://travis-ci.org/#!/dalehenrich/sample/jobs/1647159
