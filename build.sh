@@ -90,7 +90,7 @@ while getopts ":i:mo:f:s:?" OPT ; do
 		;;
 
     # include standard Metacello test harness
-    m) SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/filetree.st" "$SCRIPTS_PATH/metacello.st" "$SCRIPTS_PATH/travisCIHarness.st" )
+    m) SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/travisCIHarness.st" )
     ;; 
 
 		# output
