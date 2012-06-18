@@ -53,14 +53,14 @@ To create a new Metacello configuration:
 4. Create a Monticello package for your **ConfigurationOf** class and save it in the repository where your packages are stored. !
 
 
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 3/8/2012 16:42:28'!
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 customProjectAttributes
     "Edit to return a collection of any custom attributes e.g. for conditional loading: Array with: #'Condition1' with: #'Condition2.
 	For more information see: http://code.google.com/p/metacello/wiki/CustomProjectAttrributes "
 
     ^ #()! !
 
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/5/2012 11:16'!
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 project
     ^ project
         ifNil: [ 
@@ -71,18 +71,18 @@ project
             project loadType: #linear.	"change to #atomic if desired"
             project ]! !
 
-!ConfigurationOf methodsFor: 'accessing' stamp: 'DaleHenrichs 11/2/2010 14:27'!
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 project: aProject
 
 	project ifNil: [ self class ensureMetacello ].
 	project := aProject! !
 
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/5/2012 11:15'!
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 projectClass
     ^ MetacelloMCProject! !
 
 
-!ConfigurationOf methodsFor: 'defaults' stamp: 'DaleHenrichs 11/8/2010 10:42'!
+!ConfigurationOf methodsFor: 'defaults' stamp: 'dkh 5/31/2012 17:57:13'!
 bleedingEdge 
 	"override if different behavior desired.
 	 Use:
@@ -93,7 +93,7 @@ bleedingEdge
 	
 	^self defaultBleedingEdgeVersion! !
 
-!ConfigurationOf methodsFor: 'defaults' stamp: 'DaleHenrichs 1/7/2011 16:24'!
+!ConfigurationOf methodsFor: 'defaults' stamp: 'dkh 5/31/2012 17:57:13'!
 defaultBleedingEdgeVersion
 	| bleedingEdgeVersion |
 	bleedingEdgeVersion := (self project map values select: [ :version | version blessing == #baseline ])
@@ -102,7 +102,7 @@ defaultBleedingEdgeVersion
 	^ bleedingEdgeVersion versionString! !
 
 
-!ConfigurationOf methodsFor: 'private' stamp: 'DaleHenrichs 11/4/2010 14:22'!
+!ConfigurationOf methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
 versionDoesNotExistError: versionStringOrSymbol
 
 	((Smalltalk at: #MetacelloSymbolicVersionDoesNotExistError) project: self project versionString: versionStringOrSymbol) signal! !
@@ -112,12 +112,12 @@ versionDoesNotExistError: versionStringOrSymbol
 ConfigurationOf class
 	instanceVariableNames: ''!
 
-!ConfigurationOf class methodsFor: 'accessing' stamp: 'DaleHenrichs 11/2/2010 14:03'!
+!ConfigurationOf class methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 project
 
 	^self new project! !
 
-!ConfigurationOf class methodsFor: 'accessing' stamp: 'DaleHenrichs 12/6/2010 11:13'!
+!ConfigurationOf class methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 validate
 	"Check the configuration for Errors, Critical Warnings, and Warnings (see class comment for MetacelloMCVersionValidator for more information). 
 	Errors identify specification issues that will result in unexpected behaviour when you load the configuration. 
@@ -131,14 +131,8 @@ validate
 	^ ((Smalltalk at: #MetacelloToolBox) validateConfiguration: self debug: #() recurse: false) explore! !
 
 
-!ConfigurationOf class methodsFor: 'testing' stamp: 'DaleHenrichs 11/2/2010 14:03'!
-isMetacelloConfig
-	"Answer true and the Metacello tools will operate on you"
-	
-	^true! !
 
-
-!ConfigurationOf class methodsFor: 'unloading Metacello' stamp: 'DaleHenrichs 11/29/2010 15:00'!
+!ConfigurationOf class methodsFor: 'unloading Metacello' stamp: 'dkh 5/31/2012 17:57:13'!
 unloadMetacello
 	"Unload the classes that implement Metacello. Metacello is not needed once a project has been loaded, so it can safely be unloaded."
 
@@ -153,13 +147,13 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 13:10'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/16/2012 21:22'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32"
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.64' 'Metacello-Core-dkh.578' 'Metacello-MC-dkh.619' 'ConfigurationOfMetacello-dkh.686')
+    #('Metacello-Base-dkh.67' 'Metacello-Core-dkh.587' 'Metacello-MC-dkh.624' 'ConfigurationOfMetacello-dkh.694')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
@@ -176,7 +170,7 @@ bootstrapMetacelloFrom: repositoryUrl
                         ifTrue: [ 'Metacello-Platform.pharo-DaleHenrichs.25' ] ] ].
     self bootstrapPackage: platformPkg from: repositoryUrl! !
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
 bootstrapPackage: aString from: aPath 
 	| repository version |
 	repository := (MCCacheRepository default includesVersionNamed: aString)
@@ -271,18 +265,18 @@ Metacello new
 !
 
 
-!Metacello methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
 addStatement: selector args: args
     self statements add: selector -> args! !
 
-!Metacello methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
 execute
     | script |
     script := self statements.
     self statements: nil.
     ^ self scriptEngine execute: script! !
 
-!Metacello methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
 scriptEngine
     scriptEngine ifNil: [ scriptEngine := (self class scriptEngineClass: self ensureList) new ].
     ^ scriptEngine! !
@@ -293,53 +287,59 @@ ensureList
     ensureList ifNil: [ ensureList := OrderedCollection with: #'MetacelloScriptEngine' -> 'batch' ].
     ^ ensureList! !
 
-!Metacello methodsFor: 'accessing' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 ensureList: anObject
 	ensureList := anObject! !
 
-!Metacello methodsFor: 'accessing' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 statements
     statements ifNil: [ statements := OrderedCollection new ].
     ^ statements! !
 
-!Metacello methodsFor: 'accessing' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 statements: anObject
 	statements := anObject! !
 
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
 fetch
     self addStatement: #'fetch' args: #().
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
 fetch: required
     self addStatement: #'fetch:' args: {required}.
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 5/8/2012 13:47:21'!
+!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
 get
     "resolve project name in given repository and return an instance of MetacelloProject resolved from a ConfigurationOf or BaselineOf"
 
     self addStatement: #'get' args: #().
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
 load
     self addStatement: #'load' args: #().
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
 load: required
     self addStatement: #'load:' args: {required}.
     ^ self execute! !
 
 
+!Metacello methodsFor: 'options api' stamp: 'dkh 6/13/2012 16:05'!
+ignoreImage
+    "ignore image state"
+
+    self addStatement: #'ignoreImage:' args: {true}! !
+
 !Metacello methodsFor: 'options api' stamp: 'dkh 6/7/2012 15:34'!
 onConflict: aBlock
     self addStatement: #'onConflict:' args: {aBlock}! !
 
-!Metacello methodsFor: 'options api' stamp: 'dkh 6/8/2012 10:40'!
+!Metacello methodsFor: 'options api' stamp: 'dkh 6/8/2012 14:03:46'!
 onDowngrade: aBlock
     self addStatement: #'onDowngrade:' args: {aBlock}! !
 
@@ -347,34 +347,34 @@ onDowngrade: aBlock
 onUpgrade: aBlock
     self addStatement: #'onUpgrade:' args: {aBlock}! !
 
-!Metacello methodsFor: 'options api' stamp: 'dkh 5/12/2012 11:23'!
+!Metacello methodsFor: 'options api' stamp: 'dkh 5/31/2012 17:57:13'!
 silently
     "no progress bars"
 
     self addStatement: #'silently:' args: {true}! !
 
 
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 11:36'!
+!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
 baseline: projectName
     self addStatement: #'baseline:' args: {projectName}! !
 
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 15:55'!
+!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
 className: className
     self addStatement: #'className:' args: {className}! !
 
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 11:36'!
+!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
 configuration: projectName
     self addStatement: #'configuration:' args: {projectName}! !
 
-!Metacello methodsFor: 'api' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
 project: projectName
     self addStatement: #'project:' args: {projectName}! !
 
-!Metacello methodsFor: 'api' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
 repository: repositoryDescription
     self addStatement: #'repository:' args: {repositoryDescription}! !
 
-!Metacello methodsFor: 'api' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
 version: versionString
     self addStatement: #'version:' args: {versionString}! !
 
@@ -383,7 +383,7 @@ version: versionString
 Metacello class
 	instanceVariableNames: ''!
 
-!Metacello class methodsFor: 'instance creation' stamp: 'dkh 6/8/2012 13:45'!
+!Metacello class methodsFor: 'instance creation' stamp: 'dkh 6/13/2012 16:09'!
 classic
     "set the options such that the load performed will be identical to the classic ConfigurationOf load:
 	(ConfigurationOfExample project version: '1.0') load
@@ -391,16 +391,16 @@ classic
 	#classic forces Metacello to look at image state to determine which version of a project is loaded instead of using
 		the registry to tell us explicitly which version of a project is loaded .. image state is not PRECISE"
 
-    "due to the restricted utility of the `ignoreImage` option, it is not part of the standard Metacello scripting API"
+    "useCurrentVersion is a 'private' option for enforcing classic rules, so it's not part of scripting api"
 
     ^ self new
         onUpgrade: [ :ex | ex allow ];
         onConflict: [ :ex | ex allow ];
-        addStatement: #'ignoreImage:' args: {false};
+        addStatement: #'useCurrentVersion:' args: {true};
         yourself! !
 
 
-!Metacello class methodsFor: 'private' stamp: 'dkh 3/8/2012 16:42:28'!
+!Metacello class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
 scriptEngineClass
     ^ self scriptEngineClass: {(#'MetacelloScriptEngine' -> 'default')}! !
 
@@ -454,7 +454,7 @@ To create a new Metacello baseline
 3. Create a Monticello package for your **BaselineOf** class and save it in the repository where your packages are stored.!
 
 
-!BaselineOf methodsFor: 'accessing' stamp: 'dkh 5/8/2012 13:47:21'!
+!BaselineOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 projectClass
     ^ MetacelloMCBaselineProject! !
 
