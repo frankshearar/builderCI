@@ -8,4 +8,11 @@ Metacello new
   configuration: 'Sample';
   version: '0.9';
   repository: 'github://dalehenrich/sample:configuration';
-  load.
+  load: 'Tests'.
+
+"Run the tests"
+TravisCIHarness
+  value: #( 'ConfigurationOfSample' )
+  value: 'TravisCISuccess.txt' 
+  value: 'TravisCIFailure.txt'.
+
