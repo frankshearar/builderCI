@@ -5,6 +5,15 @@
   location"
 
 | gitPath |
+false 
+  ifTrue: [ "enable to tie Transcript to stdout for debugging script"
+    FileDirectory default 
+      fileNamed: 'FileStream-show.st'
+      do: [:fileStream | fileStream fileIn ].
+    (Smalltalk associationAt: #Transcript) value: FileStream stdout.
+    Transcript cr; show: 'Loading MyProject....'.].
+
+
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
 "Use Metacello to load your project and tests"
