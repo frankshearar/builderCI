@@ -1,5 +1,11 @@
 "Load and run tests to be performed by TravisCI"
 Transcript cr; show: 'travis---->travisCI.st'.
 
-"No specific tests to run for builderCI at the moment"
+"Use the Sample project to verify that Metacello and FileTree are 
+ booting correctly"
 
+Metacello new
+  configuration: 'Sample';
+  version: '0.9';
+  repository: 'github://dalehenrich/sample:configuration';
+  load.
