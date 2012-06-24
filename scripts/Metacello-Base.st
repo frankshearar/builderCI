@@ -152,7 +152,7 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/24/2012 11:53'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/24/2012 12:58'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32.2"
 
@@ -160,7 +160,7 @@ bootstrapMetacelloFrom: repositoryUrl
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.73' 'Metacello-Core-dkh.599' 'Metacello-MC-dkh.627' 'ConfigurationOfMetacello-dkh.698' 'ConfigurationOfMetacelloPreview-dkh.4')
+    #('Metacello-Base-dkh.74' 'Metacello-Core-dkh.599' 'Metacello-MC-dkh.627' 'ConfigurationOfMetacello-dkh.699' 'ConfigurationOfMetacelloPreview-dkh.6')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
