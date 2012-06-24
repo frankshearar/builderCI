@@ -15,7 +15,7 @@
                 ifTrue: [ 
                     FileDirectory default fileNamed: 'FileStream-show.st' do: [ :fileStream | fileStream fileIn ].
                     (Smalltalk associationAt: #'Transcript') value: FileStream stdout ].
-            suite := TestCase suiteClass named: 'builderCI Test Suite'.
+            suite := TestCase suiteClass named: configurationClassNameList printString, ' Test Suite'.
             configurationClassNameList
                 do: [ :className | 
                     ((MetacelloProjectRegistration
