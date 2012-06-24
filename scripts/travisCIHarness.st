@@ -21,7 +21,7 @@
                     ((MetacelloProjectRegistration
                         registrationForClassNamed: className
                         ifAbsent: [ self error: className printString , ' not registered (loaded)' ])
-                            currentlyLoadedClassesInVersion select: [ :cl | cl inheritsFrom: TestCase ])
+                            currentlyLoadedClassesInProject select: [ :cl | cl inheritsFrom: TestCase ])
                                 do: [ :cl | 
                                     cl isAbstract
                                         ifFalse: [ suite addTest: cl buildSuiteFromSelectors ] ] ].
