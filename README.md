@@ -56,3 +56,4 @@ SampleTest debug: #testError.
 [2]: https://github.com/dalehenrich/builderCI/blob/master/templates/travisCI.st
 [3]: https://github.com/dalehenrich/metacello-work/blob/master/README.md
 [4]: http://travis-ci.org/#!/dalehenrich/sample/jobs/1647159
+
