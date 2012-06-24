@@ -152,7 +152,7 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/23/2012 21:44'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/24/2012 11:53'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32.2"
 
@@ -160,7 +160,7 @@ bootstrapMetacelloFrom: repositoryUrl
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.72' 'Metacello-Core-dkh.599' 'Metacello-MC-dkh.627' 'ConfigurationOfMetacello-dkh.697')
+    #('Metacello-Base-dkh.73' 'Metacello-Core-dkh.599' 'Metacello-MC-dkh.627' 'ConfigurationOfMetacello-dkh.698' 'ConfigurationOfMetacelloPreview-dkh.4')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
@@ -214,7 +214,7 @@ ensureMetacello
 
     self ensureMetacello: #('batch')! !
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 10:10'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/24/2012 11:55'!
 ensureMetacello: loadList
     "Bootstrap Metacello, retry using alternate repository, if primary repository is not accessible"
 
@@ -227,8 +227,16 @@ ensureMetacello: loadList
                 do: [ :repositoryUrl | 
                     [ 
                     "bootstrap Metacello"
-                    self bootstrapMetacelloFrom: repositoryUrl.	"load latest version of Metacello"
-                    version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.
+                    self bootstrapMetacelloFrom: repositoryUrl.
+                    version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.	"load latest version of Metacello from mcz"
+                    retry
+                        ifTrue: [ 
+                            "on retry, use #repositoryOverrides:"
+                            version
+                                repositoryOverrides:
+                                    (Array with: (MCHttpRepository location: repositoryUrl user: '' password: '')) ].
+                    version load: loadList.
+                    version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project version: '1.0.0-beta.32.2'.	"load latest version of Metacello from github"
                     retry
                         ifTrue: [ 
                             "on retry, use #repositoryOverrides:"
