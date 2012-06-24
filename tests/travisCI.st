@@ -6,7 +6,7 @@ Transcript cr; show: 'travis---->travisCI.st'.
 
 Metacello new
   configuration: 'Sample';
-  version: '0.9';
+  version: '0.9.0';
   repository: 'github://dalehenrich/sample:configuration';
   load: 'Tests'.
 
