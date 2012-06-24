@@ -60,15 +60,16 @@ customProjectAttributes
 
     ^ #()! !
 
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 14:31'!
 project
     ^ project
         ifNil: [ 
             "Bootstrap Metacello if it is not already loaded"
             self class ensureMetacello.
             project := self projectClass new projectAttributes: self customProjectAttributes.	"Create the Metacello project"
+            project versionNumberClass: self versionNumberClass.
             project class versionConstructorClass on: self project: project.	"Construct the project"
-            project loadType: #linear.	"change to #atomic if desired"
+            project loadType: #'linear'.	"change to #atomic if desired"
             project ]! !
 
 !ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
@@ -80,6 +81,10 @@ project: aProject
 !ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 projectClass
     ^ MetacelloMCProject! !
+
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 12:09'!
+versionNumberClass
+    ^ MetacelloSemanticVersionNumber! !
 
 
 !ConfigurationOf methodsFor: 'defaults' stamp: 'dkh 5/31/2012 17:57:13'!
@@ -147,13 +152,15 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/16/2012 21:22'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/23/2012 21:44'!
 bootstrapMetacelloFrom: repositoryUrl
-    "Corresponds to version 1.0-beta.32"
+    "Corresponds to version 1.0-beta.32.2"
+
+    "KEEP MetacelloConfigTemplate class>>ensureMetacelloBaseConfiguration in synch!!"
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.67' 'Metacello-Core-dkh.587' 'Metacello-MC-dkh.624' 'ConfigurationOfMetacello-dkh.694')
+    #('Metacello-Base-dkh.72' 'Metacello-Core-dkh.599' 'Metacello-MC-dkh.627' 'ConfigurationOfMetacello-dkh.697')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
@@ -164,10 +171,10 @@ bootstrapMetacelloFrom: repositoryUrl
                 ifTrue: [ 
                     (versionString beginsWith: 'Squeak3')
                         ifTrue: [ 'Metacello-Platform.squeak-dkh.5' ]
-                        ifFalse: [ 'Metacello-Platform.squeak-dkh.10' ] ]
+                        ifFalse: [ 'Metacello-Platform.squeak-dkh.13' ] ]
                 ifFalse: [ 
                     (versionString beginsWith: 'Pharo')
-                        ifTrue: [ 'Metacello-Platform.pharo-DaleHenrichs.25' ] ] ].
+                        ifTrue: [ 'Metacello-Platform.pharo-DaleHenrichs.27' ] ] ].
     self bootstrapPackage: platformPkg from: repositoryUrl! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
@@ -328,6 +335,11 @@ load: required
     self addStatement: #'load:' args: {required}.
     ^ self execute! !
 
+!Metacello methodsFor: 'actions api' stamp: 'dkh 6/18/2012 16:17'!
+register
+    self addStatement: #'register' args: #().
+    ^ self execute! !
+
 
 !Metacello methodsFor: 'options api' stamp: 'dkh 6/13/2012 16:05'!
 ignoreImage
@@ -457,4 +469,8 @@ To create a new Metacello baseline
 !BaselineOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 projectClass
     ^ MetacelloMCBaselineProject! !
+
+!BaselineOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 12:09'!
+versionNumberClass
+    ^ MetacelloVersionNumber! !
 
