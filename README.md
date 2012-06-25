@@ -57,3 +57,4 @@ SampleTest debug: #testError.
 [3]: https://github.com/dalehenrich/metacello-work/blob/master/README.md
 [4]: http://travis-ci.org/#!/dalehenrich/sample/jobs/1647159
 
+
