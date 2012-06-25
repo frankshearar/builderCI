@@ -152,7 +152,7 @@ unloadMetacello
 	gofer unload.! !
 
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/23/2012 21:44'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/24/2012 17:14'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32.2"
 
@@ -160,7 +160,7 @@ bootstrapMetacelloFrom: repositoryUrl
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.72' 'Metacello-Core-dkh.599' 'Metacello-MC-dkh.627' 'ConfigurationOfMetacello-dkh.697')
+    #('Metacello-Base-dkh.75' 'Metacello-Core-dkh.599' 'Metacello-MC-dkh.627' 'ConfigurationOfMetacello-dkh.700')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
@@ -214,27 +214,34 @@ ensureMetacello
 
     self ensureMetacello: #('batch')! !
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 10:10'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/24/2012 17:13'!
 ensureMetacello: loadList
     "Bootstrap Metacello, retry using alternate repository, if primary repository is not accessible"
 
     Smalltalk
         at: #'MetacelloProject'
         ifAbsent: [ 
-            | retry version error |
+            | retry version error gofer |
             retry := false.
             (Array with: 'http://seaside.gemstone.com/ss/metacello' with: 'http://www.squeaksource.com/metacello')
                 do: [ :repositoryUrl | 
                     [ 
                     "bootstrap Metacello"
-                    self bootstrapMetacelloFrom: repositoryUrl.	"load latest version of Metacello"
-                    version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.
+                    self bootstrapMetacelloFrom: repositoryUrl.
+                    version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.	"bootstrap with 1.0-beta.32"
                     retry
                         ifTrue: [ 
                             "on retry, use #repositoryOverrides:"
                             version
                                 repositoryOverrides:
                                     (Array with: (MCHttpRepository location: repositoryUrl user: '' password: '')) ].
+                    version load: loadList.
+                    gofer := (Smalltalk at: #'Gofer') new.
+                    gofer
+                        perform: #'gemsource:' with: 'metacello';
+                        perform: #'package:' with: 'ConfigurationOfMetacelloPreview';
+                        perform: #'load'.
+                    version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project version: '1.0.0-beta.32.2'.	"load latest from GitHub"
                     version load: loadList.
                     ^ self ]
                         on: Error

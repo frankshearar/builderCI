@@ -19,12 +19,12 @@
             configurationClassNameList
                 do: [ :className | 
                     ((MetacelloProjectRegistration
-                        projectSpecForClassNamed: className
-                        ifAbsent: [ self error: className printString , ' not registered (loaded)' ]) version
-                        currentlyLoadedClassesInVersion select: [ :cl | cl inheritsFrom: TestCase ])
-                        do: [ :cl | 
-                            cl isAbstract
-                                ifFalse: [ suite addTest: cl buildSuiteFromSelectors ] ] ].
+                        registrationForClassNamed: className
+                        ifAbsent: [ self error: className printString , ' not registered (loaded)' ])
+                            currentlyLoadedClassesInProject select: [ :cl | cl inheritsFrom: TestCase ])
+                                do: [ :cl | 
+                                    cl isAbstract
+                                        ifFalse: [ suite addTest: cl buildSuiteFromSelectors ] ] ].
             result := suite run.
             resultsFileName := result defects isEmpty
                 ifTrue: [ successFilename ]
