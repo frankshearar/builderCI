@@ -18,7 +18,7 @@ case "$ST" in
     cd PharoCore-1.3
   ;;
   # Pharo-1.4
-  PharoCore-1.4)
+  Pharo-1.4)
     cd $IMAGES_PATH
     wget https://gforge.inria.fr/frs/download.php/30620/Pharo-1.4-14438.zip
     unzip Pharo-1.4-14438.zip
