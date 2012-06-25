@@ -11,18 +11,12 @@ Transcript cr; show: 'travis---->before.st'.
 (Deprecation respondsTo: #raiseWarning:)
   ifTrue: [ Deprecation raiseWarning: false ].
 
-"Bootstrap Metacello-Base to simulate conditions when it's included in base"
+"Bootstrap Metacello-Base to simulate conditions when it's included in base images"
 FileDirectory default 
   fileNamed: 'Metacello-Base.st'
   do: [:fileStream | fileStream fileIn ].
 
-"explicitly load OSProcess to avoid SqueakSource flakiness:
-     https://github.com/dalehenrich/builderCI/issues/6"
+"ensure that Gofer is available on Squeak"
 (Smalltalk at: #ConfigurationOf) 
   ensureGoferVersion: 'Gofer-Core-lr.115' 
   repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'.
-(Smalltalk at: #Gofer) new
-  repository: (MCDirectoryRepository new directory: 
-        (FileDirectory default directoryNamed:'mcz'));
-  package: 'OSProcess';
-  load.
