@@ -1,7 +1,7 @@
 #!/bin/bash -x
 #
 # build_image.sh -- Downloads and installs the desired Smalltalk
-#   installation: PharoCore-1-3 or Squeak4.3
+#   installation: PharoCore-1-3, Pharo-1.4 or Squeak4.3
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
@@ -16,6 +16,13 @@ case "$ST" in
     wget https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
     unzip PharoCore-1.3-13328.zip
     cd PharoCore-1.3
+  ;;
+  # Pharo-1.4
+  PharoCore-1.4)
+    cd $IMAGES_PATH
+    wget https://gforge.inria.fr/frs/download.php/30620/Pharo-1.4-14438.zip
+    unzip Pharo-1.4-14438.zip
+    cd Pharo-1.4-14438
   ;;
   # Squeak4.3
   Squeak4.3)

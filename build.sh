@@ -108,6 +108,9 @@ while getopts ":i:mo:f:s:?" OPT ; do
         PharoCore-1.3) 
           OUTPUT_DEBUG="$OUTPUT_PATH/PharoDebug.log" 
           ;;
+        Pharo-1.4) 
+          OUTPUT_DEBUG="$OUTPUT_PATH/PharoDebug.log" 
+          ;;
       esac
 			OUTPUT_DUMP="$OUTPUT_PATH/crash.dmp"
 		;;
