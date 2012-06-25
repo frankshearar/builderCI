@@ -671,7 +671,7 @@ versionDoesNotExistError: versionStringOrSymbol
 ConfigurationOf class
 	instanceVariableNames: ''!
 
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/25/2012 10:22'!
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/25/2012 15:14'!
 bootstrapMetacelloFrom: repositoryUrl
     "Corresponds to version 1.0-beta.32.2"
 
@@ -679,7 +679,7 @@ bootstrapMetacelloFrom: repositoryUrl
 
     | platformPkg |
     self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.76' 'Metacello-Core-dkh.604' 'Metacello-MC-dkh.629')
+    #('Metacello-Base-dkh.78' 'Metacello-Core-dkh.604' 'Metacello-MC-dkh.629')
         do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
     platformPkg := Smalltalk
         at: #'SystemVersion'
