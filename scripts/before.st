@@ -9,6 +9,7 @@ FileDirectory default
   do: [:fileStream | fileStream fileIn ].
 Smalltalk at: #OLDTranscript put: Transcript.
 (Smalltalk associationAt: #Transcript) value: (FileDirectory default newFileNamed: 'TravisTranscript.txt').
+Transcript file lineEndConvention: #'lf'.
 Transcript cr; show: 'travis---->before.st'.
 
 "Bootstrap Metacello-Base to simulate conditions when it's included in base images"
