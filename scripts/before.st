@@ -1,5 +1,8 @@
 "Initialize Image for batch testing with Metacello"
 
+(Deprecation respondsTo: #raiseWarning:)
+  ifTrue: [ Deprecation raiseWarning: false ].
+
 "Unconditionally route Transcript output to TravisTranscript.txt ... projects can choose whether or not to display"
 FileDirectory default 
   fileNamed: 'FileStream-show.st'
@@ -7,9 +10,6 @@ FileDirectory default
 Smalltalk at: #OLDTranscript put: Transcript.
 (Smalltalk associationAt: #Transcript) value: (FileDirectory default fileNamed: 'TravisTransript.txt').
 Transcript cr; show: 'travis---->before.st'.
-
-(Deprecation respondsTo: #raiseWarning:)
-  ifTrue: [ Deprecation raiseWarning: false ].
 
 "Bootstrap Metacello-Base to simulate conditions when it's included in base images"
 FileDirectory default 
