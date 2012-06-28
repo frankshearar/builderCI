@@ -10,11 +10,8 @@
     Smalltalk
         at: #'TravisCIHarness'
         put: [ :configurationClassNameList :successFilename :failFilename | 
+            [
             | suite result resultsFileName |
-            (Smalltalk at: #'TravisCITranscriptLogging' ifAbsent: [ false ])
-                ifTrue: [ 
-                    FileDirectory default fileNamed: 'FileStream-show.st' do: [ :fileStream | fileStream fileIn ].
-                    (Smalltalk associationAt: #'Transcript') value: FileStream stdout ].
             suite := TestCase suiteClass named: configurationClassNameList printString, ' Test Suite'.
             configurationClassNameList
                 do: [ :className | 
@@ -69,4 +66,7 @@
                                 cr ].
                     fileStream
                         nextPutAll: '***********************************************';
-                        cr ] ]
+                        cr ]] ensure: [ | stream |
+                            stream := Transcript. 
+                            (Smalltalk associationAt: #Transcript) value: (Smalltalk at: #OLDTranscript).
+                            stream close ]]
