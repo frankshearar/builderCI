@@ -42,6 +42,22 @@ copy the the expressions and evaluate them in a workspace:
 SampleTest debug: #testError.
 ```
 
+## Debugging Travis CI scripts
+
+At the beginning of the run, everthing written to the **Transcript** is routed to to the *TravisTranscript.txt* file. You can list the contents of the file by including the following line in your `.travis.yml` file:
+
+```yml
+   - cat TravisTranscript.txt
+```
+
+or conditionally dump the *TravisTranscript.txt* file upon an error:
+
+```yml
+   - if ( test -e PharoDebug.log ); then cat TravisTranscript.txt; fi
+   - if ( test -e PharoDebug.log ); then cat PharoDebug.log; fi
+   - if ( test -e PharoDebug.log ); then die; fi
+```
+
 ## Projects using TravisCi and builderCI
 
 * [Metacello](https://github.com/dalehenrich/metacello-work)
