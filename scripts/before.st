@@ -5,7 +5,7 @@ FileDirectory default
   fileNamed: 'FileStream-show.st'
   do: [:fileStream | fileStream fileIn ].
 Smalltalk at: #OLDTranscript put: Transcript.
-(Smalltalk associationAt: #Transcript) value: (FileStream fileNamed: 'TravisTransript.txt').
+(Smalltalk associationAt: #Transcript) value: (FileDirectory default fileNamed: 'TravisTransript.txt').
 Transcript cr; show: 'travis---->before.st'.
 
 (Deprecation respondsTo: #raiseWarning:)
