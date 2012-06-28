@@ -70,4 +70,7 @@
                                 cr ].
                     fileStream
                         nextPutAll: '***********************************************';
-                        cr ]] ensure: [ (Smalltalk associationAt: #Transcript) value close ]]
+                        cr ]] ensure: [ | stream |
+                            stream := Transcript. 
+                            (Smalltalk associationAt: #Transcript) value: (Smalltalk at: #OLDTranscript).
+                            stream close ]]
