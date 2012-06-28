@@ -1,11 +1,10 @@
 "Initialize Image for batch testing with Metacello"
 
-false 
-  ifTrue: [ "Tie Transcript to stdout"
-    FileDirectory default 
-      fileNamed: 'FileStream-show.st'
-      do: [:fileStream | fileStream fileIn ].
-    (Smalltalk associationAt: #Transcript) value: FileStream stdout ].
+"Unconditionally route Transcript output to TravisTranscript.txt ... projects can choose whether or not to display"
+FileDirectory default 
+  fileNamed: 'FileStream-show.st'
+  do: [:fileStream | fileStream fileIn ].
+(Smalltalk associationAt: #Transcript) value: (FileStream fileNamed: 'TravisTransript.txt').
 Transcript cr; show: 'travis---->before.st'.
 
 (Deprecation respondsTo: #raiseWarning:)

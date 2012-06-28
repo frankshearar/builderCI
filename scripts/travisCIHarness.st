@@ -10,6 +10,7 @@
     Smalltalk
         at: #'TravisCIHarness'
         put: [ :configurationClassNameList :successFilename :failFilename | 
+            [
             | suite result resultsFileName |
             (Smalltalk at: #'TravisCITranscriptLogging' ifAbsent: [ false ])
                 ifTrue: [ 
@@ -69,4 +70,4 @@
                                 cr ].
                     fileStream
                         nextPutAll: '***********************************************';
-                        cr ] ]
+                        cr ]] ensure: [ (Smalltalk associationAt: #Transcript) close ]]
