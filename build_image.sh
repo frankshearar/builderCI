@@ -8,6 +8,9 @@
 
 # Environment variables defined in .travis.yml
 
+IMAGE_BASE_NAME=$ST
+IMAGE_TARGET_NAME=$ST
+
 case "$ST" in
 
   # PharoCore-1.3
@@ -24,15 +27,16 @@ case "$ST" in
     unzip Pharo-1.4-14438.zip
     cd Pharo-1.4-14438
   ;;
-  # Squeak4.3
-  Squeak4.3)
+  # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
+  Squeak-4.3|Squeak4.3)
     cd $IMAGES_PATH
     wget http://ftp.squeak.org/4.3/Squeak4.3.zip
     unzip Squeak4.3.zip
     cd Squeak4.3
     wget http://ftp.squeak.org/4.1/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
-  ;;
+    IMAGE_BASE_NAME=Squeak4.3
+    ;;
 
   # unknown
   \?) echo "Unknown Smalltalk version ${ST}"
@@ -42,8 +46,8 @@ case "$ST" in
 
 # move the image components into the correct location
 mv *.sources $SOURCES_PATH
-mv *.changes ..
-mv *.image ..
+mv ${IMAGE_BASE_NAME}.changes ../${IMAGE_TARGET_NAME}.changes
+mv ${IMAGE_BASE_NAME}.image ../${IMAGE_TARGET_NAME}.image
 
 # success
 exit 0

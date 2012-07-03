@@ -1,6 +1,6 @@
 language: erlang
 
-# build matrix: "PharoCore-1.3" or "Squeak4.3" ... parallel tests for
+# build matrix: "PharoCore-1.3" or "Squeak-4.3" ... parallel tests for
 #   all listed environments
 env:
    - ST=PharoCore-1.3
@@ -29,5 +29,4 @@ script:
 #   - if ( test -e TravisCIFailure.txt ); then cat TravisTranscript.txt; fi
    - if ( test -e TravisCIFailure.txt ); then cat TravisCIFailure.txt; fi
    - if ( test -e TravisCIFailure.txt ); then die; fi
-# Uncomment if you want to see Transcript
 #   - cat TravisTranscript.txt
