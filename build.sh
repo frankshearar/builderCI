@@ -102,7 +102,7 @@ while getopts ":i:mo:f:s:?" OPT ; do
 			OUTPUT_CHANGES="$OUTPUT_PATH/$OUTPUT_NAME.changes"
 			OUTPUT_CACHE="$OUTPUT_PATH/package-cache"
       case "$ST" in
-        Squeak4.3) 
+        Squeak-4.3|Squeak4.3) 
           OUTPUT_DEBUG="$OUTPUT_PATH/SqueakDebug.log"
           ;; 
         PharoCore-1.3) 
