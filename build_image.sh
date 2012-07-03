@@ -16,8 +16,8 @@ case "$ST" in
     wget https://gforge.inria.fr/frs/download.php/30567/PharoCore-1.3-13328.zip
     unzip PharoCore-1.3-13328.zip
     cd PharoCore-1.3
-    IMAGE_BASE_NAME = PharoCore-1.3
-    IMAGE_TARGET_NAME = $IMAGE_BASE_NAME
+    IMAGE_BASE_NAME=PharoCore-1.3
+    IMAGE_TARGET_NAME=$IMAGE_BASE_NAME
   ;;
   # Pharo-1.4
   Pharo-1.4)
@@ -25,8 +25,8 @@ case "$ST" in
     wget https://gforge.inria.fr/frs/download.php/30620/Pharo-1.4-14438.zip
     unzip Pharo-1.4-14438.zip
     cd Pharo-1.4-14438
-    IMAGE_BASE_NAME = Pharo-1.4
-    IMAGE_TARGET_NAME = $IMAGE_BASE_NAME
+    IMAGE_BASE_NAME=Pharo-1.4
+    IMAGE_TARGET_NAME=$IMAGE_BASE_NAME
   ;;
   # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
@@ -36,8 +36,8 @@ case "$ST" in
     cd Squeak4.3
     wget http://ftp.squeak.org/4.1/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
-    IMAGE_BASE_NAME = Squeak4.3
-    IMAGE_TARGET_NAME = Squeak-4.3
+    IMAGE_BASE_NAME=Squeak4.3
+    IMAGE_TARGET_NAME=Squeak-4.3
   ;;
 
   # unknown
