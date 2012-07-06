@@ -27,6 +27,13 @@ case "$ST" in
     unzip Pharo-1.4-14438.zip
     cd Pharo-1.4-14438
   ;;
+  # Pharo-2.0
+  Pharo-2.0)
+    cd $IMAGES_PATH
+    wget https://ci.lille.inria.fr/pharo/view/Pharo%202.0/job/Pharo-2.0/lastSuccessfulBuild/artifact/Pharo-2.0.zip
+    unzip Pharo-2.0.zip
+    cd Pharo-2.0
+  ;;
   # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
     cd $IMAGES_PATH
