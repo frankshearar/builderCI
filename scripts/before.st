@@ -8,7 +8,7 @@ FileDirectory default
   fileNamed: 'FileStream-show.st'
   do: [:fileStream | fileStream fileIn ].
 Smalltalk at: #OLDTranscript put: Transcript.
-(Smalltalk associationAt: #Transcript) value: (FileDirectory default newFileNamed: 'TravisTranscript.txt').
+(Smalltalk globals associationAt: #Transcript) value: (FileDirectory default newFileNamed: 'TravisTranscript.txt').
 Transcript file lineEndConvention: #'lf'.
 Transcript cr; show: 'travis---->before.st'.
 
