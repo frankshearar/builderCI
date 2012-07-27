@@ -1,5 +1,275 @@
+Object subclass: #ConfigurationOf
+	instanceVariableNames: 'project'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Metacello-Base'!
+!ConfigurationOf commentStamp: 'dkh 5/30/2012 16:31' prior: 0!
+**ConfigurationOf** is the common superclass for all Metacello configurations.
+
+A short description of why you would want to use a **ConfigurationOf**.
+
+To create a new Metacello configuration:
+
+1. Create a subclass of the class ConfigurationOf appending the name of
+   your project (don't forget to change the **category:** to match the
+   name of the configuration class):
+
+    ```Smalltalk
+    ConfigurationOf subclass: #ConfigurationOfExample
+      instanceVariableNames: ''
+      classVariableNames: ''
+      poolDictionaries: ''
+      category: 'ConfigurationOfExample'
+    ```
+
+2. Create a **baselineXXXX:** method where you specify the structure of your project:
+
+    ```Smalltalk
+    baseline0100: spec
+      <baseline: '1.0-baseline'>
+
+      spec for: #common do: [
+        spec repository: 'http://ss3.gemstone.com/ss/Example'.
+        spec
+          package: 'Example-Core';
+          package: 'Example-Tests' with: [
+            spec requires: 'Example-Core' ]].
+    ```
+
+3. Create a **versionXXXX:** method where you specify the specific
+   versions of the packages to be loaded for this version:
+
+    ```Smalltalk
+    version01000: spec
+      <version: '1.0' imports: #('1.0-baseline')>
+
+      spec for: #common do: [
+        spec blessing: #release.
+        spec
+          package: 'Example-Core' with: 'Example-Core';
+          package: 'Example-Tests' with: 'Example-Tests' ].
+    ```
+
+4. Create a Monticello package for your **ConfigurationOf** class and save it in the repository where your packages are stored. !
+
+
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
+customProjectAttributes
+    "Edit to return a collection of any custom attributes e.g. for conditional loading: Array with: #'Condition1' with: #'Condition2.
+	For more information see: http://code.google.com/p/metacello/wiki/CustomProjectAttrributes "
+
+    ^ #()! !
+
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 14:31'!
+project
+    ^ project
+        ifNil: [ 
+            "Bootstrap Metacello if it is not already loaded"
+            self class ensureMetacello.
+            project := self projectClass new projectAttributes: self customProjectAttributes.	"Create the Metacello project"
+            project versionNumberClass: self versionNumberClass.
+            project class versionConstructorClass on: self project: project.	"Construct the project"
+            project loadType: #'linear'.	"change to #atomic if desired"
+            project ]! !
+
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
+project: aProject
+
+	project ifNil: [ self class ensureMetacello ].
+	project := aProject! !
+
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
+projectClass
+    ^ MetacelloMCProject! !
+
+!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 12:09'!
+versionNumberClass
+    ^ MetacelloSemanticVersionNumber! !
+
+
+!ConfigurationOf methodsFor: 'defaults' stamp: 'dkh 5/31/2012 17:57:13'!
+bleedingEdge 
+	"override if different behavior desired.
+	 Use:
+		self versionDoesNotExistError: #bleedingEdge
+	 if #bleedingEdge version is disallowed."
+
+	<defaultSymbolicVersion: #bleedingEdge>
+	
+	^self defaultBleedingEdgeVersion! !
+
+!ConfigurationOf methodsFor: 'defaults' stamp: 'dkh 5/31/2012 17:57:13'!
+defaultBleedingEdgeVersion
+	| bleedingEdgeVersion |
+	bleedingEdgeVersion := (self project map values select: [ :version | version blessing == #baseline ])
+		detectMax: [ :version | version ].
+	bleedingEdgeVersion ifNil: [ ^#'notDefined' ].
+	^ bleedingEdgeVersion versionString! !
+
+
+!ConfigurationOf methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
+versionDoesNotExistError: versionStringOrSymbol
+
+	((Smalltalk at: #MetacelloSymbolicVersionDoesNotExistError) project: self project versionString: versionStringOrSymbol) signal! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+ConfigurationOf class
+	instanceVariableNames: ''!
+
+!ConfigurationOf class methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
+project
+
+	^self new project! !
+
+!ConfigurationOf class methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
+validate
+	"Check the configuration for Errors, Critical Warnings, and Warnings (see class comment for MetacelloMCVersionValidator for more information). 
+	Errors identify specification issues that will result in unexpected behaviour when you load the configuration. 
+	Critical Warnings identify specification issues that may result in unexpected behavior when you load the configuration.
+	Warnings identify specification issues that are technically correct, but are worth take a look at."
+
+	"self validate"
+
+	<apiDocumentation>
+	self ensureMetacello.
+	^ ((Smalltalk at: #MetacelloToolBox) validateConfiguration: self debug: #() recurse: false) explore! !
+
+
+
+!ConfigurationOf class methodsFor: 'unloading Metacello' stamp: 'dkh 5/31/2012 17:57:13'!
+unloadMetacello
+	"Unload the classes that implement Metacello. Metacello is not needed once a project has been loaded, so it can safely be unloaded."
+
+	"self unloadMetacello"
+
+	<apiDocumentation>
+	| gofer |
+	gofer := (Smalltalk at: #Gofer) new.
+	MCWorkingCopy allManagers do: [:wc |
+		((wc packageName beginsWith: 'Metacello') or: [ wc packageName beginsWith: 'OB-Metacello' ])
+			ifTrue: [ gofer package: wc packageName ]].
+	gofer unload.! !
+
+
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 7/27/2012 01:36'!
+bootstrapMetacelloFrom: repositoryUrl
+    "Corresponds to version 1.0-beta.32.2"
+
+    "KEEP MetacelloConfigTemplate class>>ensureMetacelloBaseConfiguration in synch!!"
+
+    | platformPkg |
+    self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
+    #('Metacello-Base-dkh.96' 'Metacello-Core-dkh.664' 'Metacello-MC-dkh.656')
+        do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
+    platformPkg := Smalltalk
+        at: #'SystemVersion'
+        ifPresent: [ :cl | 
+            | versionString |
+            versionString := cl current version.
+            (versionString beginsWith: 'Squeak')
+                ifTrue: [ 
+                    (versionString beginsWith: 'Squeak3')
+                        ifTrue: [ 'Metacello-Platform.squeak-dkh.5' ]
+                        ifFalse: [ 'Metacello-Platform.squeak-dkh.13' ] ]
+                ifFalse: [ 
+                    (versionString beginsWith: 'Pharo')
+                        ifTrue: [ 'Metacello-Platform.pharo-dkh.27' ] ] ].
+    self bootstrapPackage: platformPkg from: repositoryUrl! !
+
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
+bootstrapPackage: aString from: aPath 
+	| repository version |
+	repository := (MCCacheRepository default includesVersionNamed: aString)
+		ifTrue: [MCCacheRepository default]
+		ifFalse: [MCHttpRepository
+				location: aPath
+				user: ''
+				password: ''].
+	repository
+		versionReaderForFileNamed: aString , '.mcz'
+		do: [:reader | 
+			version := reader version.
+			version load.
+			version workingCopy repositoryGroup addRepository: repository]! !
+
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
+ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
+    "load the p=file goferVersion if Gofer isn't loaded or an earlier version of Gofer is currently loaded"
+
+    | goferVersionNumber wc pName |
+    (Smalltalk at: #'Gofer' ifAbsent: [  ]) == nil
+        ifTrue: [ ^ self bootstrapPackage: goferVersion from: repositoryUrl ].
+    goferVersionNumber := (goferVersion copyAfterLast: $.) asNumber.
+    wc := [ ((Smalltalk at: #'GoferPackageReference') name: 'Gofer') workingCopy ]
+        on: Error
+        do: [ :ex | ex return: ((Smalltalk at: #'GoferPackageReference') name: 'Gofer-Core') workingCopy ].
+    pName := wc ancestry ancestors first name.
+    (pName copyAfterLast: $.) asNumber <= goferVersionNumber
+        ifTrue: [ self bootstrapPackage: goferVersion from: repositoryUrl ]! !
+
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 11:05'!
+ensureMetacello
+    "Bootstrap Metacello and load the 'botstrap' group"
+
+    self ensureMetacello: #('batch')! !
+
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/25/2012 10:32'!
+ensureMetacello: loadList
+    "Bootstrap Metacello, retry using alternate repository, if primary repository is not accessible"
+
+    Smalltalk
+        at: #'MetacelloProject'
+        ifAbsent: [ 
+            | retry version error gofer |
+            retry := false.
+            (Array with: 'http://seaside.gemstone.com/ss/metacello' with: 'http://www.squeaksource.com/metacello')
+                do: [ :repositoryUrl | 
+                    [ 
+                    "bootstrap Metacello"
+                    self bootstrapMetacelloFrom: repositoryUrl.
+                    Smalltalk
+                        at: #'ConfigurationOfMetacello'
+                        ifAbsent: [ 
+                            gofer := (Smalltalk at: #'Gofer') new.
+                            gofer
+                                perform: #'url:' with: repositoryUrl;
+                                perform: #'package:' with: 'ConfigurationOfMetacello';
+                                perform: #'load' ].
+                    version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.	"bootstrap with 1.0-beta.32"
+                    retry
+                        ifTrue: [ 
+                            "on retry, use #repositoryOverrides:"
+                            version
+                                repositoryOverrides:
+                                    (Array with: (MCHttpRepository location: repositoryUrl user: '' password: '')) ].
+                    version load: loadList.
+                    gofer := (Smalltalk at: #'Gofer') new.
+                    Smalltalk
+                        at: #'ConfigurationOfMetacelloPreview'
+                        ifAbsent: [ 
+                            gofer
+                                perform: #'url:' with: repositoryUrl;
+                                perform: #'package:' with: 'ConfigurationOfMetacelloPreview';
+                                perform: #'load' ].
+                    version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project version: '1.0.0-beta.32.2'.	"load latest from GitHub"
+                    version load: loadList.
+                    ^ self ]
+                        on: Error
+                        do: [ :ex | 
+                            error := ex.
+                            Transcript
+                                cr;
+                                show: 'failed ensureMetacello: ';
+                                show: ex description printString;
+                                show: '...retrying'.	"try again"
+                            retry := true.
+                            ex return: nil ] ].	"shouldn't get here unless the load failed ... throw an error"
+            self error: 'retry with alternate repository failed: ' , error description printString ]! !
+
+
 Object subclass: #Metacello
-	instanceVariableNames: 'scriptEngine ensureList statements'
+	instanceVariableNames: 'executorSpec statements'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Metacello-Base'!
@@ -402,52 +672,26 @@ Metacello list.
 addStatement: selector args: args
     self statements add: selector -> args! !
 
-!Metacello methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
+!Metacello methodsFor: 'private' stamp: 'dkh 7/12/2012 14:29'!
 execute
     | script |
     script := self statements.
     self statements: nil.
-    ^ self scriptEngine execute: script! !
-
-!Metacello methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
-scriptEngine
-    scriptEngine ifNil: [ scriptEngine := (self class scriptEngineClass: self ensureList) new ].
-    ^ scriptEngine! !
+    ^ self scriptExecutor execute: script! !
 
 
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
-baseline: projectName
-    self addStatement: #'baseline:' args: {projectName}! !
+!Metacello methodsFor: 'accessing' stamp: 'dkh 7/13/2012 09:12'!
+executorSpec
+    executorSpec ifNil: [ executorSpec := #'MetacelloScriptApiExecutor' -> 'batch' ].
+    ^ executorSpec! !
 
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
-className: className
-    self addStatement: #'className:' args: {className}! !
+!Metacello methodsFor: 'accessing' stamp: 'dkh 7/13/2012 09:13'!
+executorSpec: anAssoc
+    executorSpec := anAssoc! !
 
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
-configuration: projectName
-    self addStatement: #'configuration:' args: {projectName}! !
-
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
-project: projectName
-    self addStatement: #'project:' args: {projectName}! !
-
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
-repository: repositoryDescription
-    self addStatement: #'repository:' args: {repositoryDescription}! !
-
-!Metacello methodsFor: 'api' stamp: 'dkh 5/31/2012 17:57:13'!
-version: versionString
-    self addStatement: #'version:' args: {versionString}! !
-
-
-!Metacello methodsFor: 'accessing' stamp: 'dkh 6/11/2012 11:05'!
-ensureList
-    ensureList ifNil: [ ensureList := OrderedCollection with: #'MetacelloScriptEngine' -> 'batch' ].
-    ^ ensureList! !
-
-!Metacello methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
-ensureList: anObject
-	ensureList := anObject! !
+!Metacello methodsFor: 'accessing' stamp: 'dkh 7/13/2012 09:16'!
+scriptExecutor
+    ^ (self class scriptExecutorClass: self executorSpec) new! !
 
 !Metacello methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
 statements
@@ -459,58 +703,162 @@ statements: anObject
 	statements := anObject! !
 
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
+!Metacello methodsFor: 'api projectSpec' stamp: 'dkh 7/12/2012 13:45'!
+baseline: projectName
+    self addStatement: #'baselineArg:' args: {projectName}! !
+
+!Metacello methodsFor: 'api projectSpec' stamp: 'dkh 7/12/2012 13:45'!
+className: className
+    self addStatement: #'classNameArg:' args: {className}! !
+
+!Metacello methodsFor: 'api projectSpec' stamp: 'dkh 7/12/2012 13:46'!
+configuration: projectName
+    self addStatement: #'configurationArg:' args: {projectName}! !
+
+!Metacello methodsFor: 'api projectSpec' stamp: 'dkh 7/12/2012 13:46'!
+project: projectName
+    self addStatement: #'projectArg:' args: {projectName}! !
+
+!Metacello methodsFor: 'api projectSpec' stamp: 'dkh 7/12/2012 13:46'!
+repository: repositoryDescription
+    self addStatement: #'repositoryArg:' args: {repositoryDescription}! !
+
+!Metacello methodsFor: 'api projectSpec' stamp: 'dkh 7/12/2012 13:46'!
+version: versionString
+    self addStatement: #'versionArg:' args: {versionString}! !
+
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:46'!
+blueplane: projectName
+    self repository: 'http://squeaksource.blueplane.jp/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
+croquet: projectName
+    self repository: 'http://hedgehog.software.umn.edu:8888/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
+gemsource: projectName
+    self repository: 'http://seaside.gemstone.com/ss/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
+impara: projectName
+    self repository: 'http://source.impara.de/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
+renggli: projectName
+    self repository: 'http://source.lukas-renggli.ch/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:49'!
+saltypickle: projectName
+    self repository: 'http://squeak.saltypickle.com/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:49'!
+squeakfoundation: projectName
+    self repository: 'http://source.squeakfoundation.org/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:50'!
+squeaksource3: projectName
+    self repository: 'http://ss3.gemstone.com/ss/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:50'!
+squeaksource: projectName
+    self repository: 'http://www.squeaksource.com/' , projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:46'!
+ss3: projectName
+    self squeaksource3: projectName! !
+
+!Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:50'!
+wiresong: projectName
+    self repository: 'http://source.wiresong.ca/' , projectName! !
+
+
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/23/2012 15:55'!
 fetch
-    self addStatement: #'fetch' args: #().
+    self addStatement: #'fetch:' args: #(#()).
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/23/2012 15:49'!
 fetch: required
     self addStatement: #'fetch:' args: {required}.
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
+!Metacello methodsFor: 'api actions' stamp: 'dkh 5/31/2012 17:57:13'!
 get
     "resolve project name in given repository and return an instance of MetacelloProject resolved from a ConfigurationOf or BaselineOf"
 
     self addStatement: #'get' args: #().
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
-load
-    self addStatement: #'load' args: #().
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/13/2012 16:35'!
+list
+    "list projects in registry"
+
+    self addStatement: #'list' args: #().
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 5/31/2012 17:57:13'!
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/23/2012 15:56'!
+load
+    self addStatement: #'load:' args: #(#()).
+    ^ self execute! !
+
+!Metacello methodsFor: 'api actions' stamp: 'dkh 5/31/2012 17:57:13'!
 load: required
     self addStatement: #'load:' args: {required}.
     ^ self execute! !
 
-!Metacello methodsFor: 'actions api' stamp: 'dkh 6/18/2012 16:17'!
-register
-    self addStatement: #'register' args: #().
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/17/2012 10:53'!
+lock
+    "lock projects in registry"
+
+    self addStatement: #'lock' args: #().
+    ^ self execute! !
+
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/23/2012 15:56'!
+record
+    self addStatement: #'record:' args: #(#()).
+    ^ self execute! !
+
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/19/2012 07:40'!
+record: required
+    self addStatement: #'record:' args: {required}.
+    ^ self execute! !
+
+!Metacello methodsFor: 'api actions' stamp: 'dkh 7/17/2012 12:31'!
+unlock
+    "unlock projects in registry"
+
+    self addStatement: #'unlock' args: #().
     ^ self execute! !
 
 
-!Metacello methodsFor: 'options api' stamp: 'dkh 6/13/2012 16:05'!
+!Metacello methodsFor: 'api options' stamp: 'dkh 7/23/2012 16:17'!
+cacheRepository: aRepositoryDescription
+    self addStatement: #'cacheRepository:' args: {aRepositoryDescription}! !
+
+!Metacello methodsFor: 'api options' stamp: 'dkh 6/13/2012 16:05'!
 ignoreImage
     "ignore image state"
 
     self addStatement: #'ignoreImage:' args: {true}! !
 
-!Metacello methodsFor: 'options api' stamp: 'dkh 6/7/2012 15:34'!
+!Metacello methodsFor: 'api options' stamp: 'dkh 6/7/2012 15:34'!
 onConflict: aBlock
     self addStatement: #'onConflict:' args: {aBlock}! !
 
-!Metacello methodsFor: 'options api' stamp: 'dkh 6/8/2012 14:03:46'!
+!Metacello methodsFor: 'api options' stamp: 'dkh 6/8/2012 14:03:46'!
 onDowngrade: aBlock
     self addStatement: #'onDowngrade:' args: {aBlock}! !
 
-!Metacello methodsFor: 'options api' stamp: 'dkh 6/7/2012 15:33'!
+!Metacello methodsFor: 'api options' stamp: 'dkh 6/7/2012 15:33'!
 onUpgrade: aBlock
     self addStatement: #'onUpgrade:' args: {aBlock}! !
 
-!Metacello methodsFor: 'options api' stamp: 'dkh 5/31/2012 17:57:13'!
+!Metacello methodsFor: 'api options' stamp: 'dkh 7/23/2012 19:27'!
+repositoryOverrides: aRepositoryDescriptionCollection
+    self addStatement: #'repositoryOverrides:' args: {aRepositoryDescriptionCollection}! !
+
+!Metacello methodsFor: 'api options' stamp: 'dkh 5/31/2012 17:57:13'!
 silently
     "no progress bars"
 
@@ -537,288 +885,27 @@ classic
         addStatement: #'useCurrentVersion:' args: {true};
         yourself! !
 
+!Metacello class methodsFor: 'instance creation' stamp: 'dkh 7/16/2012 10:12'!
+image
+    ^ self new
+        executorSpec: #'MetacelloScriptImageExecutor' -> 'batch';
+        yourself! !
 
-!Metacello class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
-scriptEngineClass
-    ^ self scriptEngineClass: {(#'MetacelloScriptEngine' -> 'default')}! !
-
-!Metacello class methodsFor: 'private' stamp: 'dkh 6/11/2012 12:31'!
-scriptEngineClass: loadList
-    | list |
-    list := OrderedCollection new.
-    loadList do: [ :assoc | Smalltalk at: assoc key ifAbsent: [ list add: assoc value ] ].
-    list notEmpty
-        ifTrue: [ ConfigurationOf ensureMetacello: list ].
-    ^ Smalltalk at: #'MetacelloScriptEngine'! !
-
-
-Object subclass: #ConfigurationOf
-	instanceVariableNames: 'project'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Metacello-Base'!
-!ConfigurationOf commentStamp: 'dkh 5/30/2012 16:31' prior: 0!
-**ConfigurationOf** is the common superclass for all Metacello configurations.
-
-A short description of why you would want to use a **ConfigurationOf**.
-
-To create a new Metacello configuration:
-
-1. Create a subclass of the class ConfigurationOf appending the name of
-   your project (don't forget to change the **category:** to match the
-   name of the configuration class):
-
-    ```Smalltalk
-    ConfigurationOf subclass: #ConfigurationOfExample
-      instanceVariableNames: ''
-      classVariableNames: ''
-      poolDictionaries: ''
-      category: 'ConfigurationOfExample'
-    ```
-
-2. Create a **baselineXXXX:** method where you specify the structure of your project:
-
-    ```Smalltalk
-    baseline0100: spec
-      <baseline: '1.0-baseline'>
-
-      spec for: #common do: [
-        spec repository: 'http://ss3.gemstone.com/ss/Example'.
-        spec
-          package: 'Example-Core';
-          package: 'Example-Tests' with: [
-            spec requires: 'Example-Core' ]].
-    ```
-
-3. Create a **versionXXXX:** method where you specify the specific
-   versions of the packages to be loaded for this version:
-
-    ```Smalltalk
-    version01000: spec
-      <version: '1.0' imports: #('1.0-baseline')>
-
-      spec for: #common do: [
-        spec blessing: #release.
-        spec
-          package: 'Example-Core' with: 'Example-Core';
-          package: 'Example-Tests' with: 'Example-Tests' ].
-    ```
-
-4. Create a Monticello package for your **ConfigurationOf** class and save it in the repository where your packages are stored. !
+!Metacello class methodsFor: 'instance creation' stamp: 'dkh 7/13/2012 09:13'!
+registry
+    ^ self new
+        executorSpec: #'MetacelloScriptRegistryExecutor' -> 'batch';
+        yourself! !
 
 
-!ConfigurationOf methodsFor: 'defaults' stamp: 'dkh 5/31/2012 17:57:13'!
-bleedingEdge 
-	"override if different behavior desired.
-	 Use:
-		self versionDoesNotExistError: #bleedingEdge
-	 if #bleedingEdge version is disallowed."
+!Metacello class methodsFor: 'private' stamp: 'dkh 7/13/2012 09:08'!
+scriptExecutorClass
+    ^ self scriptExecutorClass: {(#'MetacelloScriptApiExecutor' -> 'batch')}! !
 
-	<defaultSymbolicVersion: #bleedingEdge>
-	
-	^self defaultBleedingEdgeVersion! !
-
-!ConfigurationOf methodsFor: 'defaults' stamp: 'dkh 5/31/2012 17:57:13'!
-defaultBleedingEdgeVersion
-	| bleedingEdgeVersion |
-	bleedingEdgeVersion := (self project map values select: [ :version | version blessing == #baseline ])
-		detectMax: [ :version | version ].
-	bleedingEdgeVersion ifNil: [ ^#'notDefined' ].
-	^ bleedingEdgeVersion versionString! !
-
-
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
-customProjectAttributes
-    "Edit to return a collection of any custom attributes e.g. for conditional loading: Array with: #'Condition1' with: #'Condition2.
-	For more information see: http://code.google.com/p/metacello/wiki/CustomProjectAttrributes "
-
-    ^ #()! !
-
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 14:31'!
-project
-    ^ project
-        ifNil: [ 
-            "Bootstrap Metacello if it is not already loaded"
-            self class ensureMetacello.
-            project := self projectClass new projectAttributes: self customProjectAttributes.	"Create the Metacello project"
-            project versionNumberClass: self versionNumberClass.
-            project class versionConstructorClass on: self project: project.	"Construct the project"
-            project loadType: #'linear'.	"change to #atomic if desired"
-            project ]! !
-
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
-project: aProject
-
-	project ifNil: [ self class ensureMetacello ].
-	project := aProject! !
-
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
-projectClass
-    ^ MetacelloMCProject! !
-
-!ConfigurationOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 12:09'!
-versionNumberClass
-    ^ MetacelloSemanticVersionNumber! !
-
-
-!ConfigurationOf methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
-versionDoesNotExistError: versionStringOrSymbol
-
-	((Smalltalk at: #MetacelloSymbolicVersionDoesNotExistError) project: self project versionString: versionStringOrSymbol) signal! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-ConfigurationOf class
-	instanceVariableNames: ''!
-
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/25/2012 15:14'!
-bootstrapMetacelloFrom: repositoryUrl
-    "Corresponds to version 1.0-beta.32.2"
-
-    "KEEP MetacelloConfigTemplate class>>ensureMetacelloBaseConfiguration in synch!!"
-
-    | platformPkg |
-    self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-    #('Metacello-Base-dkh.78' 'Metacello-Core-dkh.604' 'Metacello-MC-dkh.629')
-        do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
-    platformPkg := Smalltalk
-        at: #'SystemVersion'
-        ifPresent: [ :cl | 
-            | versionString |
-            versionString := cl current version.
-            (versionString beginsWith: 'Squeak')
-                ifTrue: [ 
-                    (versionString beginsWith: 'Squeak3')
-                        ifTrue: [ 'Metacello-Platform.squeak-dkh.5' ]
-                        ifFalse: [ 'Metacello-Platform.squeak-dkh.13' ] ]
-                ifFalse: [ 
-                    (versionString beginsWith: 'Pharo')
-                        ifTrue: [ 'Metacello-Platform.pharo-dkh.27' ] ] ].
-    self bootstrapPackage: platformPkg from: repositoryUrl! !
-
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
-bootstrapPackage: aString from: aPath 
-	| repository version |
-	repository := (MCCacheRepository default includesVersionNamed: aString)
-		ifTrue: [MCCacheRepository default]
-		ifFalse: [MCHttpRepository
-				location: aPath
-				user: ''
-				password: ''].
-	repository
-		versionReaderForFileNamed: aString , '.mcz'
-		do: [:reader | 
-			version := reader version.
-			version load.
-			version workingCopy repositoryGroup addRepository: repository]! !
-
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
-ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
-    "load the p=file goferVersion if Gofer isn't loaded or an earlier version of Gofer is currently loaded"
-
-    | goferVersionNumber wc pName |
-    (Smalltalk at: #'Gofer' ifAbsent: [  ]) == nil
-        ifTrue: [ ^ self bootstrapPackage: goferVersion from: repositoryUrl ].
-    goferVersionNumber := (goferVersion copyAfterLast: $.) asNumber.
-    wc := [ ((Smalltalk at: #'GoferPackageReference') name: 'Gofer') workingCopy ]
-        on: Error
-        do: [ :ex | ex return: ((Smalltalk at: #'GoferPackageReference') name: 'Gofer-Core') workingCopy ].
-    pName := wc ancestry ancestors first name.
-    (pName copyAfterLast: $.) asNumber <= goferVersionNumber
-        ifTrue: [ self bootstrapPackage: goferVersion from: repositoryUrl ]! !
-
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 11:05'!
-ensureMetacello
-    "Bootstrap Metacello and load the 'botstrap' group"
-
-    self ensureMetacello: #('batch')! !
-
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/25/2012 10:32'!
-ensureMetacello: loadList
-    "Bootstrap Metacello, retry using alternate repository, if primary repository is not accessible"
-
-    Smalltalk
-        at: #'MetacelloProject'
-        ifAbsent: [ 
-            | retry version error gofer |
-            retry := false.
-            (Array with: 'http://seaside.gemstone.com/ss/metacello' with: 'http://www.squeaksource.com/metacello')
-                do: [ :repositoryUrl | 
-                    [ 
-                    "bootstrap Metacello"
-                    self bootstrapMetacelloFrom: repositoryUrl.
-                    Smalltalk
-                        at: #'ConfigurationOfMetacello'
-                        ifAbsent: [ 
-                            gofer := (Smalltalk at: #'Gofer') new.
-                            gofer
-                                perform: #'url:' with: repositoryUrl;
-                                perform: #'package:' with: 'ConfigurationOfMetacello';
-                                perform: #'load' ].
-                    version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.	"bootstrap with 1.0-beta.32"
-                    retry
-                        ifTrue: [ 
-                            "on retry, use #repositoryOverrides:"
-                            version
-                                repositoryOverrides:
-                                    (Array with: (MCHttpRepository location: repositoryUrl user: '' password: '')) ].
-                    version load: loadList.
-                    gofer := (Smalltalk at: #'Gofer') new.
-                    Smalltalk
-                        at: #'ConfigurationOfMetacelloPreview'
-                        ifAbsent: [ 
-                            gofer
-                                perform: #'url:' with: repositoryUrl;
-                                perform: #'package:' with: 'ConfigurationOfMetacelloPreview';
-                                perform: #'load' ].
-                    version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project version: '1.0.0-beta.32.2'.	"load latest from GitHub"
-                    version load: loadList.
-                    ^ self ]
-                        on: Error
-                        do: [ :ex | 
-                            error := ex.
-                            Transcript
-                                cr;
-                                show: 'failed ensureMetacello: ';
-                                show: ex description printString;
-                                show: '...retrying'.	"try again"
-                            retry := true.
-                            ex return: nil ] ].	"shouldn't get here unless the load failed ... throw an error"
-            self error: 'retry with alternate repository failed: ' , error description printString ]! !
-
-
-!ConfigurationOf class methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
-project
-
-	^self new project! !
-
-!ConfigurationOf class methodsFor: 'accessing' stamp: 'dkh 5/31/2012 17:57:13'!
-validate
-	"Check the configuration for Errors, Critical Warnings, and Warnings (see class comment for MetacelloMCVersionValidator for more information). 
-	Errors identify specification issues that will result in unexpected behaviour when you load the configuration. 
-	Critical Warnings identify specification issues that may result in unexpected behavior when you load the configuration.
-	Warnings identify specification issues that are technically correct, but are worth take a look at."
-
-	"self validate"
-
-	<apiDocumentation>
-	self ensureMetacello.
-	^ ((Smalltalk at: #MetacelloToolBox) validateConfiguration: self debug: #() recurse: false) explore! !
-
-
-!ConfigurationOf class methodsFor: 'unloading Metacello' stamp: 'dkh 5/31/2012 17:57:13'!
-unloadMetacello
-	"Unload the classes that implement Metacello. Metacello is not needed once a project has been loaded, so it can safely be unloaded."
-
-	"self unloadMetacello"
-
-	<apiDocumentation>
-	| gofer |
-	gofer := (Smalltalk at: #Gofer) new.
-	MCWorkingCopy allManagers do: [:wc |
-		((wc packageName beginsWith: 'Metacello') or: [ wc packageName beginsWith: 'OB-Metacello' ])
-			ifTrue: [ gofer package: wc packageName ]].
-	gofer unload.! !
+!Metacello class methodsFor: 'private' stamp: 'dkh 7/13/2012 09:15'!
+scriptExecutorClass: anExecutorSpec
+    Smalltalk at: anExecutorSpec key ifAbsent: [ ConfigurationOf ensureMetacello: anExecutorSpec value ].
+    ^ Smalltalk at: anExecutorSpec key! !
 
 
 ConfigurationOf subclass: #BaselineOf
