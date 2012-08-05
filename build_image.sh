@@ -25,7 +25,7 @@ case "$ST" in
     cd $IMAGES_PATH
     wget https://gforge.inria.fr/frs/download.php/31259/Pharo-1.4-14557.zip
     unzip Pharo-1.4-14557
-    cd Pharo-1.4-14557
+    cd Pharo-1.4
   ;;
   # Pharo-2.0
   Pharo-2.0)
