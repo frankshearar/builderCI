@@ -1,4 +1,4 @@
-"Since the debug logs truncate all of the interesting information and sometimes you have to debug test errors in Travis (can't reproduce in local image), here' sthe code that dumps a full and complete stack to the Transcript on an error"
+"Since the debug logs truncate all of the interesting information and sometimes you have to debug test errors in Travis (can't reproduce in local image), here's the code that dumps a full and complete stack to the Transcript on an error"
 [ "code throwing error"]
         on: Error
         do: [ :ex | 
