@@ -1,7 +1,7 @@
 #!/bin/bash -x
 #
 # build_image.sh -- Downloads and installs the desired Smalltalk
-#   installation: PharoCore-1-3, Pharo-1.4 or Squeak4.3
+#   installation: PharoCore-1-3, Pharo-1.4, Squeak-4.3, Squeak-4.4
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
@@ -23,9 +23,9 @@ case "$ST" in
   # Pharo-1.4
   Pharo-1.4)
     cd $IMAGES_PATH
-    wget https://gforge.inria.fr/frs/download.php/30620/Pharo-1.4-14438.zip
-    unzip Pharo-1.4-14438.zip
-    cd Pharo-1.4-14438
+    wget https://gforge.inria.fr/frs/download.php/31259/Pharo-1.4-14557.zip
+    unzip Pharo-1.4-14557
+    cd Pharo-1.4
   ;;
   # Pharo-2.0
   Pharo-2.0)
@@ -43,6 +43,16 @@ case "$ST" in
     wget http://ftp.squeak.org/4.1/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.3
+    ;;
+  # Squeak-4.4
+  Squeak-4.4)
+    cd $IMAGES_PATH
+    wget http://www.squeakci.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/*zip*/target.zip
+    unzip target.zip
+    cd target
+    wget http://ftp.squeak.org/4.1/SqueakV41.sources.gz
+    gunzip SqueakV41.sources.gz
+    IMAGE_BASE_NAME=TrunkImage
     ;;
 
   # unknown
