@@ -13,10 +13,28 @@ Transcript file lineEndConvention: #'lf'.
 Transcript cr; show: 'travis---->before.st'.
 
 "Bootstrap Metacello-Base to simulate conditions when it's included in base images"
-FileDirectory default 
-  fileNamed: 'Metacello-Base.st'
-  do: [:fileStream | fileStream fileIn ].
-
+(Smalltalk
+  at: #'MetacelloProject'
+  ifAbsent: []) 
+    ifNil: [
+      "Metacello not pre-installed install Metacello-Base"
+      FileDirectory default 
+        fileNamed: 'Metacello-Base.st'
+        do: [:fileStream | fileStream fileIn ]]
+    ifNotNil: [
+      "Metacello already installed, install Preview".
+      (Smalltalk at: #Gofer) new
+        gemsource: 'metacello';
+        package: 'ConfigurationOfMetacello';
+        load.
+      ((Smalltalk at: #ConfigurationOfMetacello) project 
+        version: '1.0-beta.32') load.
+      (Smalltalk at: #Metacello) new
+        configuration: 'MetacelloPreview';
+        version: #stable;
+        repository: 'github://dalehenrich/metacello-work:configuration';
+        load ].
+    
 "ensure that Gofer is available on Squeak"
 (Smalltalk at: #ConfigurationOf) 
   ensureGoferVersion: 'Gofer-Core-lr.115' 
