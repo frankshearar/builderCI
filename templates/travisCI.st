@@ -4,17 +4,16 @@
   using the correct configuration name and repository 
   location"
 
-| gitPath |
-false 
-  ifTrue: [ "enable to tie Transcript to stdout for debugging script"
-    FileDirectory default 
-      fileNamed: 'FileStream-show.st'
-      do: [:fileStream | fileStream fileIn ].
-    (Smalltalk associationAt: #Transcript) value: FileStream stdout.
-    Transcript cr; show: 'Loading MyProject....'.].
+| gitCacheName gitPath |
+gitCacheName := 'git_cache'.
+gitPath := (Smalltalk at: #FileDirectory ifAbsent: [])
+  ifNil: [ 
+    "Pharo-2.x"
+    ((Smalltalk at: #FileSystem) workingDirectory / gitCacheName) pathString]
+  ifNotNil: [:fileDirectoryClass |
+    "Pharo-1.x"
+    (fileDirectoryClass default directoryNamed: gitCacheName) fullName ].
 
-
-gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
 "Use Metacello to load your project and tests"
 Metacello new
