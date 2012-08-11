@@ -21,7 +21,7 @@ transcriptFileName := 'TravisTranscript.txt'.
       fileDirectoryClass default
         forceNewFileNamed: resultsFileName
         do: streamBlock ].
-    transcriptStream := fileDirectoryClass newFileNamed: transcriptFileName ].
+    transcriptStream := fileDirectoryClass default newFileNamed: transcriptFileName ].
 
 fileInBlock value: 'FileStream-show.st'.
 
