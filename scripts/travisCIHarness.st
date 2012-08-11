@@ -26,9 +26,9 @@
             resultsFileName := result defects isEmpty
                 ifTrue: [ successFilename ]
                 ifFalse: [ failFilename ].
-            FileDirectory default
-                forceNewFileNamed: resultsFileName
-                do: [ :fileStream | 
+            (Smalltalk at: #TravisResultFileBlock) 
+              value: resultsFileName
+              value: [ :fileStream | 
                     fileStream lineEndConvention: #'lf'.
                     fileStream
                         nextPutAll: '***********************************************';
