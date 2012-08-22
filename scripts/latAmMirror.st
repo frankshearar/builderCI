@@ -1,11 +1,11 @@
 "Use Latin American Mirror"
 Gofer new 
-  url: 'http://dsal.cl/squeaksource/ObjectsAsMethodsWrap'; 
+  url: 'http://www.squeaksource.com/squeaksource/ObjectsAsMethodsWrap';
   package: 'ObjectAsMethodWrapper'; 
   load.
 
 Gofer new 
-  url: 'http://dsal.cl/squeaksource/MonticelloRedirect'; 
+  url: 'http://www.squeaksource.com/squeaksource/MonticelloRedirect';
   package: 'MontiRedirect'; 
   load.
 
