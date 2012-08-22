@@ -9,7 +9,9 @@ Gofer new
   package: 'MontiRedirect'; 
   load.
 
-(Smalltalk at: #MRManager)
-  redirectFrom: 'http://www.squeaksource.com/' 
-  to: 'http://dsal.cl/squeaksource/'.
+"If the LatAm mirror is available, use that. Otherwise, try use SqueakSource."
+(NetNameResolver addressForName: 'dsal.cl')
+    ifNotNil: [(Smalltalk at: #MRManager)
+      redirectFrom: 'http://www.squeaksource.com/'
+    to: 'http://dsal.cl/squeaksource/'].
 
