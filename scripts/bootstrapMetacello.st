@@ -1,4 +1,6 @@
 | fileInBlock |
+Transcript cr; show: 'travis---->bootstrapMetacello.st'.
+
 (Smalltalk at: #FileDirectory ifAbsent: [])
   ifNil: [ 
     fileInBlock := [:fileName | ((Smalltalk at: #FileSystem) workingDirectory / fileName)
