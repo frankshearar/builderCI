@@ -53,7 +53,7 @@ function display_help() {
 echo "PROCESSING OPTIONS"
 
 # parse options
-BOOTSTRAP_METACELLO="1"
+BOOTSTRAP_METACELLO=1
 while getopts ":i:mo:f:s:?" OPT ; do
 	case "$OPT" in
 
@@ -123,7 +123,7 @@ while getopts ":i:mo:f:s:?" OPT ; do
 			fi
 		;;
 
-    X) BOOTSTRAP_METACELLO="0"
+    X) BOOTSTRAP_METACELLO=0
     ;;
 
 		# show help
