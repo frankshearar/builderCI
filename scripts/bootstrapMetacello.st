@@ -30,3 +30,8 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
         version: #stable;
         repository: 'github://dalehenrich/metacello-work:configuration';
         load ].
+
+"ensure that Gofer is available on Squeak"
+(Smalltalk at: #ConfigurationOf) 
+  ensureGoferVersion: 'Gofer-Core-lr.115' 
+  repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'.

@@ -31,7 +31,4 @@ Smalltalk at: #OLDTranscript put: Transcript.
 Transcript file lineEndConvention: #'lf'.
 Transcript cr; show: 'travis---->before.st'.
 
-"ensure that Gofer is available on Squeak"
-(Smalltalk at: #ConfigurationOf) 
-  ensureGoferVersion: 'Gofer-Core-lr.115' 
-  repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'.
+
