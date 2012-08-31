@@ -16,7 +16,16 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
   ifAbsent: []) 
     ifNil: [
       "Metacello not pre-installed install Metacello-Base"
-      fileInBlock value: 'Metacello-Base.st' ]
+Transcript cr; show: 'travis---->before filein'.
+      fileInBlock value: 'Metacello-Base.st'.
+Transcript cr; show: 'travis---->after filein'.
+
+      "ensure that Gofer is available on Squeak"
+      (Smalltalk at: #ConfigurationOf) 
+        ensureGoferVersion: 'Gofer-Core-lr.115' 
+        repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'.
+Transcript cr; show: 'travis---->after Gofer load'.
+ ]
     ifNotNil: [
       "Metacello already installed, install Preview".
       (Smalltalk at: #Gofer) new
@@ -31,7 +40,4 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
         repository: 'github://dalehenrich/metacello-work:configuration';
         load ].
 
-"ensure that Gofer is available on Squeak"
-(Smalltalk at: #ConfigurationOf) 
-  ensureGoferVersion: 'Gofer-Core-lr.115' 
-  repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'.
+
