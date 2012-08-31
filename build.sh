@@ -168,11 +168,10 @@ ln -sf "$BUILDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/FileStream-show.st" "$OUTPUT_PATH/"
 
 # prepare script file
-SCRIPTS=("${BEFORE_SCRIPTS[@]}")
 if [ -n $"BOOTSTRAP_METACELLO" ] ; then
-  SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/bootstrapMetacello.st")
+  BEFORE_SCRIPTS=("${BEFORE_SCRIPTS[@]}" "$SCRIPTS_PATH/bootstrapMetacello.st")
 fi
-SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
+SCRIPTS=("${BEFORE_SCRIPTS[@]}" "${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
 
 for FILE in "${SCRIPTS[@]}" ; do
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
