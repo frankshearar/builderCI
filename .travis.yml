@@ -28,7 +28,7 @@ script:
    - if ( test -e TravisCIFailure.txt ); then cat TravisCIFailure.txt; fi
    - if ( test -e TravisCIFailure.txt ); then die; fi
    - cd $BUILDER_CI_HOME
-   - ./build.sh -i $ST -s latAmMirror.st -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBoostrap.st" -o travisCI
+   - ./build.sh -i $ST -s latAmMirror.st -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
    - cd "${BUILD_PATH}/travisCI/"
    - ls -altr *
    - if ( test -e PharoDebug.log ); then cat TravisTranscript.txt; fi
