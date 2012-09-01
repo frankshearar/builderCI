@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # build.sh -- Builds Pharo images using a series of Smalltalk
 #   scripts. Best to be used together with Jenkins.
