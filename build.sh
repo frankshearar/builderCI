@@ -193,10 +193,10 @@ if [ $! ] ; then
 			kill -s SIGKILL $! 2> /dev/null
 			if [ -f "$OUTPUT_DUMP" ] ; then
 				echo "$(basename $0): VM aborted ($PHARO_VM)"
-				cat "$OUTPUT_DUMP" | tr '\r' '\n' | sed 's/^/  /'
+			#	cat "$OUTPUT_DUMP" | tr '\r' '\n' | sed 's/^/  /'
 			elif [ -f "$OUTPUT_DEBUG" ] ; then
 				echo "$(basename $0): Execution aborted ($PHARO_VM)"
-				cat "$OUTPUT_DEBUG" | tr '\r' '\n' | sed 's/^/  /'
+			#	cat "$OUTPUT_DEBUG" | tr '\r' '\n' | sed 's/^/  /'
 			fi
 			exit 0
 		fi
