@@ -53,7 +53,7 @@ function display_help() {
 echo "PROCESSING OPTIONS"
 
 # parse options
-BOOTSTRAP_METACELLO="include"
+BOOTSTRAP_METACELLO=include
 while getopts ":i:mXo:f:s:?" OPT ; do
 	case "$OPT" in
 
@@ -123,7 +123,7 @@ while getopts ":i:mXo:f:s:?" OPT ; do
 			fi
 		;;
 
-    X) BOOTSTRAP_METACELLO=""
+    X) BOOTSTRAP_METACELLO=
     ;;
 
 		# show help
@@ -168,7 +168,7 @@ ln -sf "$BUILDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/FileStream-show.st" "$OUTPUT_PATH/"
 
 # prepare script file
-if [ $"BOOTSTRAP_METACELLO" == "include" ] ; then
+if [ $"BOOTSTRAP_METACELLO" == include ] ; then
   BEFORE_SCRIPTS=("${BEFORE_SCRIPTS[@]}" "$SCRIPTS_PATH/bootstrapMetacello.st")
 else
   BEFORE_SCRIPTS=("${BEFORE_SCRIPTS[@]}" "$SCRIPTS_PATH/bootstrapGofer.st")
