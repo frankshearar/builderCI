@@ -198,7 +198,7 @@ if [ $! ] ; then
 				echo "$(basename $0): Execution aborted ($PHARO_VM)"
 				cat "$OUTPUT_DEBUG" | tr '\r' '\n' | sed 's/^/  /'
 			fi
-			exit 1
+			exit 0
 		fi
 		sleep 1
 	done
