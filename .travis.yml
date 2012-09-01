@@ -12,7 +12,6 @@ env:
 
 install:
    - source build_env_vars
-   - ./build_clone.sh -g "git://github.com/dalehenrich/metacello-work.git"
    - ./build_image.sh
 
 script:
@@ -28,5 +27,16 @@ script:
    - if ( test -e TravisCISuccess.txt ); then cat TravisCISuccess.txt; fi
    - if ( test -e TravisCIFailure.txt ); then cat TravisCIFailure.txt; fi
    - if ( test -e TravisCIFailure.txt ); then die; fi
+   - cat TravisTranscript.txt
+   - cd $BUILDER_CI_HOME
+   - ./build.sh -i $ST -s latAmMirror.st -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
+   - cd "${BUILD_PATH}/travisCI/"
+   - ls -altr *
+   - if ( test -e PharoDebug.log ); then cat TravisTranscript.txt; fi
+   - if ( test -e PharoDebug.log ); then cat PharoDebug.log; fi
+   - if ( test -e PharoDebug.log ); then die; fi
+   - if ( test -e SqueakDebug.log ); then cat TravisTranscript.txt; fi
+   - if ( test -e SqueakDebug.log ); then cat SqueakDebug.log; fi
+   - if ( test -e SqueakDebug.log ); then die; fi
    - cat TravisTranscript.txt
 
