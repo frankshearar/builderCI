@@ -7,6 +7,9 @@
 #
 
 # Environment variables defined in .travis.yml
+#
+# Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+#
 
 IMAGE_BASE_NAME=$ST
 IMAGE_TARGET_NAME=$ST

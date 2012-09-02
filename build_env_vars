@@ -1,4 +1,7 @@
 # Environment variables defined `source` me
+#
+# Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+#
 
 export BUILDER_CI_HOME="$(pwd)"
 export BASE_PATH="$BUILDER_CI_HOME"

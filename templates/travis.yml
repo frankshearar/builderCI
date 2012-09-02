@@ -23,8 +23,7 @@ install:
 script:
    - ./build.sh -i $ST -s latAmMirror.st -m -f "$PROJECT_HOME/tests/travisCI.st" -o travisCI
    - cd "${BUILD_PATH}/travisCI/"
-   - $BUILDER_CI_HOME/buildImageErrorCheck.sh
-#   - if ( test -e TravisCIFailure.txt ); then cat TravisTranscript.txt; fi
-   - $BUILDER_CI_HOME/buildTravisStatusCheck.sh
-   - if ( test -e TravisCIFailure.txt ); then die; fi
+   - $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
+   - $BUILDER_CI_HOME/buildTravisStatusCheck.sh # dump Transcript on failed tests and exit
+# reach here on successful build
 #   - cat TravisTranscript.txt

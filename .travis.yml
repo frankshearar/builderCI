@@ -1,4 +1,7 @@
 # NOTE - use the file in templates/travis.yml as the starting point for your project's .travis.yml file
+#
+# Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+#
 
 language: erlang
 
