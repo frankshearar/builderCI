@@ -4,12 +4,12 @@
 #
 if ( test -e PharoDebug.log ); then 
   cat TravisTranscript.txt
-  cat PharoDebug.log
+  cat PharoDebug.log | tr '\r' '\n' | sed 's/^/  /'
   exit 1
 fi
 if ( test -e SqueakDebug.log ); then 
   cat TravisTranscript.txt
-  cat SqueakDebug.log
+  cat SqueakDebug.log | tr '\r' '\n' | sed 's/^/  /'
   exit 1
 fi
 exit 0
