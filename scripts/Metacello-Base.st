@@ -186,7 +186,7 @@ bootstrapPackage: aString from: aPath
 				location: aPath
 				user: ''
 				password: ''].
-	self retry: [
+	MetacelloBuilderTravisCI retry: [
     repository
 		  versionReaderForFileNamed: aString , '.mcz'
 		  do: [:reader | 
@@ -227,7 +227,7 @@ ensureMetacello: loadList
                 do: [ :repositoryUrl | 
                     "bootstrap Metacello"
                     self bootstrapMetacelloFrom: repositoryUrl.
-                    self retry: [
+                    MetacelloBuilderTravisCI retry: [
                       Smalltalk
                         at: #'ConfigurationOfMetacello'
                         ifAbsent: [ 
@@ -238,7 +238,7 @@ ensureMetacello: loadList
                                 perform: #'load' ] ].
                     version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.	"bootstrap with 1.0-beta.32"
                     version load: loadList.
-                    self retry: [
+                    MetacelloBuilderTravisCI retry: [
                       gofer := (Smalltalk at: #'Gofer') new.
                       Smalltalk
                         at: #'ConfigurationOfMetacelloPreview'
@@ -941,35 +941,4 @@ projectClass
 !BaselineOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 12:09'!
 versionNumberClass
     ^ MetacelloVersionNumber! !
-
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
-retry: aBlock
-    self retry: aBlock retryCount: 3! !
-
-!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
-retry: aBlock retryCount: retryCount
-    | count |
-    count := 1.
-    [ true ]
-        whileTrue: [ 
-            [ 
-            aBlock value.
-            ^ self ]
-                on: Error
-                do: [ :ex | 
-                    count < retryCount
-                        ifTrue: [ 
-                            Transcript
-                                cr;
-                                show: 'RETRYING AFTER:';
-                                cr;
-                                show: ex description printString ]
-                        ifFalse: [ 
-                            Transcript
-                                cr;
-                                show: 'FAILED RETRYING:';
-                                cr;
-                                show: ex description printString.
-                            ex pass ] ].
-            count := count + 1 ]! !
 
