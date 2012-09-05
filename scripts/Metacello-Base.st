@@ -249,9 +249,9 @@ ensureMetacello: loadList
                                 perform: #'load' ] ].
                     version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project version: '1.0.0-beta.32.2'.	"load latest from GitHub"
                     version load: loadList.
-                    ^ self ] ].	
+                    ^ self ].	
             "shouldn't get here unless the load failed ... throw an error"
-            self error: 'retry with alternate repository failed: ' , error description printString ]! !
+            self error: 'retry with alternate repository failed: ']! !
 
 
 Object subclass: #Metacello
