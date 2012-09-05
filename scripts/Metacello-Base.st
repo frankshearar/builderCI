@@ -186,12 +186,13 @@ bootstrapPackage: aString from: aPath
 				location: aPath
 				user: ''
 				password: ''].
-	repository
-		versionReaderForFileNamed: aString , '.mcz'
-		do: [:reader | 
-			version := reader version.
-			version load.
-			version workingCopy repositoryGroup addRepository: repository]! !
+	self retry: [
+    repository
+		  versionReaderForFileNamed: aString , '.mcz'
+		  do: [:reader | 
+			  version := reader version.
+			  version load.
+			  version workingCopy repositoryGroup addRepository: repository ]]! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
 ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
@@ -221,50 +222,35 @@ ensureMetacello: loadList
     Smalltalk
         at: #'MetacelloProject'
         ifAbsent: [ 
-            | retry version error gofer |
-            retry := false.
+            | version error gofer |
             (Array with: 'http://seaside.gemstone.com/ss/metacello' with: 'http://www.squeaksource.com/metacello')
                 do: [ :repositoryUrl | 
-                    [ 
                     "bootstrap Metacello"
                     self bootstrapMetacelloFrom: repositoryUrl.
-                    Smalltalk
+                    self retry: [
+                      Smalltalk
                         at: #'ConfigurationOfMetacello'
                         ifAbsent: [ 
-                            gofer := (Smalltalk at: #'Gofer') new.
-                            gofer
+                              gofer := (Smalltalk at: #'Gofer') new.
+                              gofer
                                 perform: #'url:' with: repositoryUrl;
                                 perform: #'package:' with: 'ConfigurationOfMetacello';
-                                perform: #'load' ].
+                                perform: #'load' ] ].
                     version := (Smalltalk at: #'ConfigurationOfMetacello') project version: '1.0-beta.32'.	"bootstrap with 1.0-beta.32"
-                    retry
-                        ifTrue: [ 
-                            "on retry, use #repositoryOverrides:"
-                            version
-                                repositoryOverrides:
-                                    (Array with: (MCHttpRepository location: repositoryUrl user: '' password: '')) ].
                     version load: loadList.
-                    gofer := (Smalltalk at: #'Gofer') new.
-                    Smalltalk
+                    self retry: [
+                      gofer := (Smalltalk at: #'Gofer') new.
+                      Smalltalk
                         at: #'ConfigurationOfMetacelloPreview'
                         ifAbsent: [ 
                             gofer
                                 perform: #'url:' with: repositoryUrl;
                                 perform: #'package:' with: 'ConfigurationOfMetacelloPreview';
-                                perform: #'load' ].
+                                perform: #'load' ] ].
                     version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project version: '1.0.0-beta.32.2'.	"load latest from GitHub"
                     version load: loadList.
-                    ^ self ]
-                        on: Error
-                        do: [ :ex | 
-                            error := ex.
-                            Transcript
-                                cr;
-                                show: 'failed ensureMetacello: ';
-                                show: ex description printString;
-                                show: '...retrying'.	"try again"
-                            retry := true.
-                            ex return: nil ] ].	"shouldn't get here unless the load failed ... throw an error"
+                    ^ self ] ].	
+            "shouldn't get here unless the load failed ... throw an error"
             self error: 'retry with alternate repository failed: ' , error description printString ]! !
 
 
@@ -955,4 +941,35 @@ projectClass
 !BaselineOf methodsFor: 'accessing' stamp: 'dkh 6/22/2012 12:09'!
 versionNumberClass
     ^ MetacelloVersionNumber! !
+
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
+retry: aBlock
+    self retry: aBlock retryCount: 3! !
+
+!ConfigurationOf class methodsFor: 'private' stamp: 'dkh 5/31/2012 17:57:13'!
+retry: aBlock retryCount: retryCount
+    | count |
+    count := 1.
+    [ true ]
+        whileTrue: [ 
+            [ 
+            aBlock value.
+            ^ self ]
+                on: Error
+                do: [ :ex | 
+                    count < retryCount
+                        ifTrue: [ 
+                            Transcript
+                                cr;
+                                show: 'RETRYING AFTER:';
+                                cr;
+                                show: ex description printString ]
+                        ifFalse: [ 
+                            Transcript
+                                cr;
+                                show: 'FAILED RETRYING:';
+                                cr;
+                                show: ex description printString.
+                            ex pass ] ].
+            count := count + 1 ]! !
 
