@@ -47,7 +47,7 @@ retry: aBlock retryCount: retryCount
                                 show: 'RETRYING AFTER:';
                                 cr;
                                 show: ex description printString.
-                            (Delay forSecods: 10) wait.]
+                            (Delay forSeconds: 10) wait.]
                         ifFalse: [ 
                             Transcript
                                 cr;
