@@ -23,16 +23,16 @@ case "$ST" in
     unzip PharoCore-1.0.zip
     cd PharoCore-1.0
   ;;
-  # PharoCore-1.1.2
-  PharoCore-1.1.2)
+  # PharoCore-1.1
+  PharoCore-1.1)
     cd $IMAGES_PATH
     wget https://gforge.inria.fr/frs/download.php/28341/PharoCore-1.1.2.zip
     unzip PharoCore-1.1.2.zip
     cd PharoCore-1.1.2
     IMAGE_BASE_NAME=PharoCore-1.1.2-11422
   ;;
-  # PharoCore-1.2.2
-  PharoCore-1.2.2)
+  # PharoCore-1.2
+  PharoCore-1.2)
     cd $IMAGES_PATH
     wget https://gforge.inria.fr/frs/download.php/28553/PharoCore-1.2.2-12353.zip
     unzip PharoCore-1.2.2-12353
