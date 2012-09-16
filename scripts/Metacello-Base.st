@@ -247,7 +247,8 @@ ensureMetacello: loadList
                                 perform: #'url:' with: repositoryUrl;
                                 perform: #'package:' with: 'ConfigurationOfMetacelloPreview';
                                 perform: #'load' ] ].
-                    version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project version: '1.0.0-beta.32.2'.	"load latest from GitHub"
+                    version := (Smalltalk at:
+#'ConfigurationOfMetacelloPreview') project version: #'stable'.
                     version load: loadList.
                     ^ self ].	
             "shouldn't get here unless the load failed ... throw an error"
