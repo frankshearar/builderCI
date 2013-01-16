@@ -187,11 +187,13 @@ echo "RUNNING TESTS..."
 exec "$PHARO_VM" $PHARO_PARAM "$OUTPUT_IMAGE" "$OUTPUT_SCRIPT" &
 
 # wait for the process to terminate, or a debug log
-if [ $! ] ; then
-	while kill -0 $! 2> /dev/null ; do
+pid="$!"
+if [ $? == 0 ] ; then
+     if [ $pid ] ; then
+	while kill -0 $pid 2> /dev/null ; do
 		if [ -f "$OUTPUT_DUMP" ] || [ -f "$OUTPUT_DEBUG" ] ; then
 			sleep 5
-			kill -s SIGKILL $! 2> /dev/null
+			kill -s SIGKILL $pid 2> /dev/null
 			if [ -f "$OUTPUT_DUMP" ] ; then
 				echo "$(basename $0): VM aborted ($PHARO_VM)"
 			#	cat "$OUTPUT_DUMP" | tr '\r' '\n' | sed 's/^/  /'
@@ -203,11 +205,14 @@ if [ $! ] ; then
 		fi
 		sleep 1
 	done
-else
+    else
 	echo "$(basename $0): unable to start VM ($PHARO_VM)"
 	exit 1
+    fi
+else
+    echo "$(basename $0): unable to start VM ($PHARO_VM)"
+    exit 1
 fi
-
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
 (
