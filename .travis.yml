@@ -23,10 +23,13 @@ install:
 script:
 #   - ./build.sh -i $ST -s latAmMirror.st -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
    - ./build.sh -i $ST -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
+   - if [ "$?" != "0" ] then exit 1; fi
    - cd "${BUILD_PATH}/travisCI/"
    - ls -altr *
    - $BUILDER_CI_HOME/buildImageErrorCheck.sh
+   - if [ "$?" != "0" ] then exit 1; fi
    - $BUILDER_CI_HOME/buildTravisStatusCheck.sh
+   - if [ "$?" != "0" ] then exit 1; fi
    - cat TravisTranscript.txt
    - cd $BUILDER_CI_HOME
 #   - ./build.sh -i $ST -s latAmMirror.st -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
@@ -34,6 +37,8 @@ script:
    - cd "${BUILD_PATH}/travisCI/"
    - ls -altr *
    - $BUILDER_CI_HOME/buildImageErrorCheck.sh
+   - if [ "$?" != "0" ] then exit 1; fi
    - $BUILDER_CI_HOME/buildTravisStatusCheck.sh
+   - if [ "$?" != "0" ] then exit 1; fi
    - cat TravisTranscript.txt
 
