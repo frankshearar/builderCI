@@ -185,11 +185,10 @@ echo "RUNNING TESTS..."
 
 # build image in the background
 exec "$PHARO_VM" $PHARO_PARAM "$OUTPUT_IMAGE" "$OUTPUT_SCRIPT" &
+pid="$!"
 
 # wait for the process to terminate, or a debug log
-if [ $? == 0 ] ; then
-    pid="$!"
-    if [ $pid ] ; then
+if [ $pid ] ; then
 	while kill -0 $pid 2> /dev/null ; do
 		if [ -f "$OUTPUT_DUMP" ] || [ -f "$OUTPUT_DEBUG" ] ; then
 			sleep 5
@@ -205,13 +204,14 @@ if [ $? == 0 ] ; then
 		fi
 		sleep 1
 	done
-    else
+        exitStatus=`wait $pid`
+        if [ exitStatus ] ; then
+          echo "$(basename $0): error starting VM ($PHARO_VM)"
+          exit 1
+        fi
+else
 	echo "$(basename $0): unable to start VM ($PHARO_VM)"
 	exit 1
-    fi
-else
-    echo "$(basename $0): unable to start VM ($PHARO_VM)"
-    exit 1
 fi
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
