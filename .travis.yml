@@ -23,6 +23,7 @@ install:
 script:
 #   - ./build.sh -i $ST -s latAmMirror.st -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
    - ./build.sh -i $ST -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
+   - echo "exit status: $?"
    - if [ "$?" != "0" ]; then exit 1; fi
    - cd "${BUILD_PATH}/travisCI/"
    - ls -altr *
