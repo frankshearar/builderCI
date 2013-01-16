@@ -208,11 +208,11 @@ if [ $pid ] ; then
         echo "VM exit status: $exitStatus " 
         if [ "$exitStatus" != "0" ] ; then
           echo "$(basename $0): error starting VM ($PHARO_VM)"
-          touch $OUTPUT_DEBUG
+          touch FAILED_VM_EXECUTION
           exit 1
         fi
 else
-	echo "$(basename $0): unable to start VM ($PHARO_VM)"
+	echo "$(basename $0): unable to start VM ($PHARO_VM) ... reminder 64bit vms don't support 32 bit executables"
 	exit 1
 fi
 # remove cache link
