@@ -205,7 +205,8 @@ if [ $pid ] ; then
 		sleep 1
 	done
         exitStatus=`wait $pid`
-        if [ exitStatus ] ; then
+        echo "VM exit status: $exitStatus " 
+        if [ "$exitStatus" != "0" ] ; then
           echo "$(basename $0): error starting VM ($PHARO_VM)"
           exit 1
         fi
