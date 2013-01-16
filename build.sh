@@ -187,9 +187,9 @@ echo "RUNNING TESTS..."
 exec "$PHARO_VM" $PHARO_PARAM "$OUTPUT_IMAGE" "$OUTPUT_SCRIPT" &
 
 # wait for the process to terminate, or a debug log
-pid="$!"
 if [ $? == 0 ] ; then
-     if [ $pid ] ; then
+    pid="$!"
+    if [ $pid ] ; then
 	while kill -0 $pid 2> /dev/null ; do
 		if [ -f "$OUTPUT_DUMP" ] || [ -f "$OUTPUT_DEBUG" ] ; then
 			sleep 5
