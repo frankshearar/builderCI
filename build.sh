@@ -181,6 +181,9 @@ for FILE in "${SCRIPTS[@]}" ; do
 	echo "!" >> "$OUTPUT_SCRIPT"
 done
 
+#feedback about system being used ... 64 bit  vms created headaches
+uname -a
+
 echo "RUNNING TESTS..."
 
 # build image in the background
@@ -207,12 +210,12 @@ if [ $pid ] ; then
         wait $pid || exitStatus+=1
         echo "VM exit status: $exitStatus " 
         if [ "$exitStatus" != "0" ] ; then
-          echo "$(basename $0): error starting VM ($PHARO_VM)"
+          echo "$(basename $0): error starting VM ($PHARO_VM) ... reminder 64bit vms don't support 32 bit executables"
           touch FAILED_VM_EXECUTION
           exit 1
         fi
 else
-	echo "$(basename $0): unable to start VM ($PHARO_VM) ... reminder 64bit vms don't support 32 bit executables"
+	echo "$(basename $0): unable to start VM ($PHARO_VM)"
 	exit 1
 fi
 # remove cache link
