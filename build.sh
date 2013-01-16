@@ -208,6 +208,7 @@ if [ $pid ] ; then
         echo "VM exit status: $exitStatus " 
         if [ "$exitStatus" != "0" ] ; then
           echo "$(basename $0): error starting VM ($PHARO_VM)"
+          touch $OUTPUT_DUMP
           exit 1
         fi
 else
