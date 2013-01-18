@@ -1,11 +1,10 @@
 #!/bin/bash -x
 #
-# Test driver script for buildCI itself
+# Test driver script for builderCI itself
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 ./build.sh -i $ST -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
-exit 1
 cd "${BUILD_PATH}/travisCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh
 $BUILDER_CI_HOME/buildTravisStatusCheck.sh
