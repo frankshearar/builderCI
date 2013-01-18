@@ -6,12 +6,7 @@
 #
 
 #run tests
-./build.sh -i $ST -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
-if [[ $? != 0 ]] ; then exit 1; fi
-cd "${BUILD_PATH}/travisCI/"
-$BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
-if [[ $? != 0 ]] ; then exit 1; fi
-$BUILDER_CI_HOME/buildTravisStatusCheck.sh # dump Transcript on failed tests and exit
+./testTravisCI.sh
 if [[ $? != 0 ]] ; then exit 1; fi
 cat TravisTranscript.txt
 
@@ -25,8 +20,3 @@ if [[ $? != 0 ]] ; then exit 1; fi
 $BUILDER_CI_HOME/buildTravisStatusCheck.sh 
 if [[ $? != 0 ]] ; then exit 1; fi
 cat TravisTranscript.txt
-
-# make sure that the testTravisCI.sh script runs without error ... no tests run
-cd $BUILDER_CI_HOME
-./testTravisCI.sh
-if [[ $? != 0 ]] ; then exit 1; fi
