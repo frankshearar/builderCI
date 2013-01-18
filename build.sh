@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # build.sh -- Builds Pharo images using a series of Smalltalk
 #   scripts. Best to be used together with Jenkins.
@@ -198,12 +198,13 @@ if [ $pid ] ; then
 			kill -s SIGKILL $pid 2> /dev/null
 			if [ -f "$OUTPUT_DUMP" ] ; then
 				echo "$(basename $0): VM aborted ($PHARO_VM)"
-			#	cat "$OUTPUT_DUMP" | tr '\r' '\n' | sed 's/^/  /'
+				cat "$OUTPUT_DUMP" | tr '\r' '\n' | sed 's/^/  /'
+				exit 1
 			elif [ -f "$OUTPUT_DEBUG" ] ; then
 				echo "$(basename $0): Execution aborted ($PHARO_VM)"
 			#	cat "$OUTPUT_DEBUG" | tr '\r' '\n' | sed 's/^/  /'
+				exit 0
 			fi
-			exit 0
 		fi
 		sleep 1
 	done
