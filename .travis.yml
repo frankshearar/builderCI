@@ -17,6 +17,7 @@ env:
    - ST=Squeak-4.4
 
 install:
+   - export PROJECT_HOME="$(pwd)"
    - source build_env_vars
    - ./build_image.sh
 
