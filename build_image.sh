@@ -84,7 +84,16 @@ case "$ST" in
   # Squeak-4.4
   Squeak-4.4)
     cd $IMAGES_PATH
-    wget -q http://www.squeakci.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/*zip*/target.zip
+    wget -q target.zip http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
+    unzip Squeak4.4-12327.zip
+    wget http://ftp.squeak.org/4.4/SqueakV41.sources.gz
+    gunzip SqueakV41.sources.gz
+    IMAGE_BASE_NAME=Squeak4.4-12327
+    ;;
+  # Squeak-4.5
+  Squeak-4.5)
+    cd $IMAGES_PATH
+    wget http://www.squeakci.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/*zip*/target.zip
     unzip target.zip
     cd target
     wget -q http://ftp.squeak.org/4.1/SqueakV41.sources.gz
