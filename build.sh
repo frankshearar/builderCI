@@ -207,13 +207,6 @@ if [ $pid ] ; then
 		fi
 		sleep 1
 	done
-        wait $pid || exitStatus+=1
-        echo "VM exit status: $exitStatus " 
-        if [ "$exitStatus" != "0" ] ; then
-          echo "$(basename $0): error starting VM ($PHARO_VM) ... reminder 64bit vms don't support 32 bit executables"
-          touch FAILED_VM_EXECUTION
-          exit 1
-        fi
 else
 	echo "$(basename $0): unable to start VM ($PHARO_VM)"
 	exit 1

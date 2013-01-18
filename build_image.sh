@@ -15,9 +15,7 @@
 case "$(uname -m)" in
         "x86_64")
                 echo "64bit os"
-                sudo apt-get install -f libgphoto2-2
-                sudo apt-get install -f libsane
-                sudo apt-get install -f ia32-libs-multiarch
+                sudo apt-get install libc6:i386
                 ;;
         *)
                 echo "32 vit os"
