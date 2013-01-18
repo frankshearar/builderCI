@@ -213,7 +213,7 @@ if [ $pid ] ; then
         echo "VM exit status: $exitStatus " 
         if [[ "$exitStatus" != "0" ]] ; then
           echo "$(basename $0): error during VM execution ($PHARO_VM) "
-          exit 1
+          exit $exitStatus
         fi
 else
 	echo "$(basename $0): unable to start VM ($PHARO_VM)"
