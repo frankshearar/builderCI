@@ -11,6 +11,19 @@
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
+#install 32 bit libs if necessary
+case "$(uname -m)" in
+        "x86_64")
+                echo "64bit os"
+                sudo apt-get install -f libgphoto2-2
+                sudo apt-get install -f libsane
+                sudo apt-get install -f ia32-libs-multiarch
+                ;;
+        *)
+                echo "32 vit os"
+                ;;
+esac
+
 IMAGE_BASE_NAME=$ST
 IMAGE_TARGET_NAME=$ST
 
