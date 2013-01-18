@@ -8,8 +8,6 @@
 #run tests
 ./testTravisCI.sh
 if [[ $? != 0 ]] ; then exit 1; fi
-ls -altr *
-cat TravisTranscript.txt
 
 # make sure that system runs okay when you skip the metacello bootstrap step
 cd $BUILDER_CI_HOME
