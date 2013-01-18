@@ -21,7 +21,6 @@ install:
    - ./build_image.sh
 
 script:
-#   - ./build.sh -i $ST -s latAmMirror.st -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
    - ./build.sh -i $ST -m -f "$BUILDER_CI_HOME/tests/travisCI.st" -o travisCI
    - ls -altr *
    - if ( test -e FAILED_VM_EXECUTION ); then exit 1; fi
@@ -31,7 +30,6 @@ script:
    - $BUILDER_CI_HOME/buildTravisStatusCheck.sh
    - cat TravisTranscript.txt
    - cd $BUILDER_CI_HOME
-#   - ./build.sh -i $ST -s latAmMirror.st -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
    - ./build.sh -i $ST -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
    - if ( test -e FAILED_VM_EXECUTION ); then exit 1; fi
    - cd "${BUILD_PATH}/travisCI/"
