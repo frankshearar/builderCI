@@ -15,7 +15,7 @@
 case "$(uname -m)" in
         "x86_64")
                 echo "64bit os"
-                sudo apt-get -qq install libc6:i386
+                sudo apt-get -q install libc6:i386
                 ;;
         *)
                 echo "32 vit os"
