@@ -1,3 +1,9 @@
+#!/bin/bash -x
+#
+# Test driver script for builderCI itself
+#
+# Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+#
 ./build.sh -i $ST -m -f "$PROJECT_HOME/tests/travisCI.st" -o travisCI
 if [[ $? != 0 ]] ; then exit 1; fi
 cd "${BUILD_PATH}/travisCI/"

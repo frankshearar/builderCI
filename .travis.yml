@@ -20,7 +20,5 @@ install:
    - source build_env_vars
    - ./build_image.sh
 
-script: ./testTravisCI.sh
-
 script: ./testBuilderCI.sh
 
