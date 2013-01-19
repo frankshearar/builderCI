@@ -22,4 +22,4 @@ install:
    - ./build_image.sh
 
 # use a different script if you want to customize how travis tests are run
-script: ./testTravis.sh
+script: $BUILDER_CI_HOME/testTravisCI.sh
