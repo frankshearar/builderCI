@@ -88,7 +88,7 @@ case "$ST" in
     unzip Squeak4.4-12327.zip
     wget -q http://ftp.squeak.org/4.4/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
-    IMAGE_BASE_NAME=Squeak-4.4
+    IMAGE_BASE_NAME=Squeak4.4-12327
     ;;
   # Squeak-4.5
   Squeak-4.5)
