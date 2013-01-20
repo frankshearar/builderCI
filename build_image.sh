@@ -84,8 +84,14 @@ case "$ST" in
   # Squeak-4.4
   Squeak-4.4)
     cd $IMAGES_PATH
-    wget -q target.zip http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
+    wget -q http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
+    mkdir -p Squeak4.4
     unzip Squeak4.4-12327.zip
+    # 4.3 stores things in a Squeak4.3 directory. 4.4 doesn't.
+    # So we mimic the behaviour of 4.3.
+    mv Squeak4.4-12327.changes Squeak4.4/Squeak4.4-12327.changes
+    mv Squeak4.4-12327.image Squeak4.4/Squeak4.4-12327.image
+    cd Squeak4.4
     wget -q http://ftp.squeak.org/4.4/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.4-12327
