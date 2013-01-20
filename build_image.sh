@@ -18,7 +18,7 @@ case "$(uname -m)" in
                 sudo apt-get -qq install libc6:i386
                 ;;
         *)
-                echo "32 vit os"
+                echo "32bit os"
                 ;;
 esac
 
