@@ -10,7 +10,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Squeak VM Opt</string>
 	<key>CFBCundleGetInfoString</key>
-  <string>Croquet Cog VM 4.0.2559 http://www.mirandabanda.org</string>
+  <string>Croquet Cog 4.0.2692 http://www.mirandabanda.org</string>
 	<key>CFBundleIconFile</key>
 	<string>Squeak.icns</string>
 	<key>CFBundleIdentifier</key>
