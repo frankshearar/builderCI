@@ -36,8 +36,6 @@ case "$(uname -s)" in
 		;;
 esac
 
-top -b -n 1
-
 # build configuration
 BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
 
