@@ -15,7 +15,12 @@
 case "$(uname -m)" in
         "x86_64")
                 echo "64bit os"
-                sudo apt-get -qq install libc6:i386
+                # 32-bit VM
+                sudo apt-get -qq install libc6:i386   
+                # UUIDPlugin
+                sudo apt-get -qq install libuuid1:i386
+                # SqueakSSL
+                sudo apt-get -qq install libssl0.9.8:i386 libkrb5-3:i386 libk5crypto3:i386 zlib1g:i386 libcomerr2:i386 libkrb5support0:i386 libkeyutils1:i386
                 ;;
         *)
                 echo "32bit os"
