@@ -20,7 +20,7 @@ case "$(uname -s)" in
 		else
 			PHARO_VM="$VM_PATH/Linux/squeak"
 		fi
-		PHARO_PARAM="-nodisplay -nosound"
+		PHARO_PARAM="-nodisplay -nosound -mmap 750m"
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
@@ -36,7 +36,7 @@ case "$(uname -s)" in
 		;;
 esac
 
-echo "$PHARO_VM ...VS...$VM_PATH/Linux/squeak"
+top -b -n 1
 
 # build configuration
 BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
