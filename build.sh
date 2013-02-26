@@ -36,6 +36,8 @@ case "$(uname -s)" in
 		;;
 esac
 
+echo "$PHARO_VM ...VS...$VM_PATH/Linux/squeak"
+
 # build configuration
 BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
 
