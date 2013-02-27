@@ -192,6 +192,7 @@ pid="$!"
 
 # wait for the process to terminate, or a debug log
 if [ $pid ] ; then
+	COUNTER=1
 	while kill -0 $pid 2> /dev/null ; do
 		if [ -f "$OUTPUT_DUMP" ] || [ -f "$OUTPUT_DEBUG" ] ; then
 			sleep 5
@@ -207,6 +208,15 @@ if [ $pid ] ; then
 			fi
 		fi
 		sleep 1
+		COUNTER=$[$COUNTER +1]
+		if (( "$COUNTER" > 1800)); then
+                  	echo "$(basename $0): has take over 30 minutes before finishing ... terminating job"
+			exit 1
+		fi
+		let "tictoc = $COUNTER % 60"
+		if [ "$tictoc" -eq 0 ] ; then
+               		echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
+                fi 
 	done
         wait $pid
         exitStatus=$?
