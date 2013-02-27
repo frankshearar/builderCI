@@ -216,7 +216,7 @@ if [ $pid ] ; then
 		let "tictoc = $COUNTER % 60"
 		if [ "$tictoc" -eq 0 ] ; then
                		echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
-                if 
+                fi 
 	done
         wait $pid
         exitStatus=$?
