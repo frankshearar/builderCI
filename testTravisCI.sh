@@ -12,4 +12,4 @@ if [[ $? != 0 ]] ; then exit 1; fi
 $BUILDER_CI_HOME/buildTravisStatusCheck.sh # dump Transcript on failed tests and exit
 if [[ $? != 0 ]] ; then exit 1; fi
 # reach here on successful build
-# cat TravisTranscript.txt
+cat TravisTranscript.txt
