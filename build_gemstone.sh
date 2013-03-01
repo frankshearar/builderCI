@@ -106,12 +106,6 @@ echo "login" >> ${BUILD_PATH}/travisCI/.topazini
 echo "input $OUTPUT_SCRIPT" >> ${BUILD_PATH}/travisCI/.topazini
 echo "exit 0"
 
-cat ${BUILD_PATH}/travisCI/.topazini
-echo `pwd`
-echo ${BUILD_PATH}/travisCI
-ls .
-ls ${BUILD_PATH}/travisCI
-
 # hook up the git_cache, Metacello bootstrap and mcz repo
 
 ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
@@ -134,9 +128,11 @@ for FILE in "${SCRIPTS[@]}" ; do
 	echo "%" >> "$OUTPUT_SCRIPT"
 done
 
+cd ${BUILD_PATH}/travisCI
+cat .topazini
 echo "RUNNING TESTS..."
 
-#topaz -l -T50000
+topaz -l -T50000
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
