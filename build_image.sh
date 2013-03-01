@@ -16,34 +16,34 @@ case "$ST" in
 	./build_client_image.sh
 	if [[ $? != 0 ]] ; then exit 1; fi
   ;;
-  GemStone2.4.4.1)
+  GemStone-2.4.4.1)
         ./installGemstone.sh 2.4.4.1
 	if [[ $? != 0 ]] ; then exit 1; fi
   ;;
-  GemStone2.4.4.7)
+  GemStone-2.4.4.7)
         ./installGemstone.sh 2.4.4.7
         if [[ $? != 0 ]] ; then exit 1; fi
   ;;
-  GemStone2.4.5)
+  GemStone-2.4.5)
         ./installGemstone.sh 2.4.5
         if [[ $? != 0 ]] ; then exit 1; fi
   ;;
-  GemStone2.4.5)
+  GemStone-2.4.5)
         ./installGemstone.sh 2.4.5.1
         if [[ $? != 0 ]] ; then exit 1; fi
   ;;
-  GemStone3.0.1)
+  GemStone-3.0.1)
         ./installGemstone.sh 3.0.1
         if [[ $? != 0 ]] ; then exit 1; fi
   ;;
-  GemStone3.1.0.2)
+  GemStone-3.1.0.2)
         ./installGemstone.sh 3.1.0.2
         if [[ $? != 0 ]] ; then exit 1; fi
   ;;
 
 
   # unknown
-  \?) echo "Unknown Smalltalk version ${ST}"
+  *) echo "Unknown Smalltalk version ${ST}"
     exit 1
   ;;
 esac
