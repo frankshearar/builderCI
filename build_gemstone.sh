@@ -97,7 +97,8 @@ touch ${BUILD_PATH}/travisCI/TravisTranscript.txt
 
 # set up default .topazini file
 
-echo "set gemstone DataCurator pass swordfish" >> ${BUILD_PATH}/travisCI/.topazini
+echo "set gemstone seaside" >> ${BUILD_PATH}/travisCI/.topazini
+echo "set user DataCurator pass swordfish" >> ${BUILD_PATH}/travisCI/.topazini
 echo "iferr 1 stk" >> ${BUILD_PATH}/travisCI/.topazini
 echo "iferr 2 stack " >> ${BUILD_PATH}/travisCI/.topazini
 echo "iferr 3 exit 1" >> ${BUILD_PATH}/travisCI/.topazini
