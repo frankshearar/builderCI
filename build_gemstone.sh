@@ -95,11 +95,21 @@ mkdir -p "$OUTPUT_PATH"
 # GemStone dumps it's output to stdout ... don't need to use TravisTranscript.txt
 touch ${BUILD_PATH}/travisCI/TravisTranscript.txt
 
+# set up default .topazini file
+
+echo "set gemstone DataCurator pass swordfish" >> ${BUILD_PATH}/travisCI/.topazini
+echo "iferr 1 stk" >> ${BUILD_PATH}/travisCI/.topazini
+echo "iferr 2 stack " >> ${BUILD_PATH}/travisCI/.topazini
+echo "iferr 3 exit 1" >> ${BUILD_PATH}/travisCI/.topazini
+echo "login" >> ${BUILD_PATH}/travisCI/.topazini
+echo "input $OUTPUT_SCRIPT" >> ${BUILD_PATH}/travisCI/.topazini
+echo "exit 0"
+
 # hook up the git_cache, Metacello bootstrap and mcz repo
 
 ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/mcz" "$OUTPUT_PATH/"
-ln -sf "$BUILDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
+ln -sf "$BUI:LDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/FileStream-show.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/MetacelloBuilderTravisCI.st" "$OUTPUT_PATH/"
 
@@ -117,12 +127,9 @@ for FILE in "${SCRIPTS[@]}" ; do
 	echo "%" >> "$OUTPUT_SCRIPT"
 done
 
-cat "$OUTPUT_SCRIPT"
-
-#feedback about system being used ... 64 bit  vms created headaches
-uname -a
-
 echo "RUNNING TESTS..."
+
+topaz -l -T50000
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
