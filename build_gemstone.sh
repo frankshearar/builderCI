@@ -92,6 +92,9 @@ if [ -d "$OUTPUT_PATH" ] ; then
 fi
 mkdir -p "$OUTPUT_PATH"
 
+# GemStone dumps it's output to stdout ... don't need to use TravisTranscript.txt
+touch ${BUILD_PATH}/travisCI/TravisTranscript.txt
+
 # hook up the git_cache, Metacello bootstrap and mcz repo
 
 ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
@@ -109,8 +112,9 @@ fi
 SCRIPTS=("${BEFORE_SCRIPTS[@]}" "${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
 
 for FILE in "${SCRIPTS[@]}" ; do
+	echo "run" >> "$OUTPUT_SCRIPT"
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
-	echo "!" >> "$OUTPUT_SCRIPT"
+	echo "%" >> "$OUTPUT_SCRIPT"
 done
 
 cat "$OUTPUT_SCRIPT"
