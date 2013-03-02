@@ -134,6 +134,7 @@ echo "RUNNING TESTS..."
 
 topaz -l -T50000
 if [[ $? != 0 ]] ; then
+  ls /opt/gemstone/log
   cat /opt/gemstone/log/gemnetobject*.log
   exit 1; 
 fi
