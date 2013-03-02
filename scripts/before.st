@@ -26,9 +26,10 @@ fileInBlock value: 'FileStream-show.st'.
 fileInBlock value: 'MetacelloBuilderTravisCI.st'.
 Smalltalk at: #'TravisResultFileBlock' put: resultFileBlock.
 Smalltalk at: #'OLDTranscript' put: Transcript.
-(Smalltalk globals associationAt: #'Transcript') value: transcriptStream.
 (Transcript respondsTo: #'file')
-  ifTrue: [ Transcript file lineEndConvention: #'lf' ].
+  ifTrue: [ 
+    (Smalltalk globals associationAt: #'Transcript') value: transcriptStream.
+    Transcript file lineEndConvention: #'lf' ].
 Transcript
   cr;
   show: 'travis---->before.st'

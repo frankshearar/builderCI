@@ -132,6 +132,7 @@ source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variab
 gslist -lc
 echo "RUNNING TESTS..."
 
+touch TravisTranscript.txt
 topaz -l -T50000
 if [[ $? != 0 ]] ; then
   ls /opt/gemstone/log
