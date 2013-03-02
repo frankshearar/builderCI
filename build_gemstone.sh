@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # build_gemstone.sh -- Run Gemstone instance
 #
