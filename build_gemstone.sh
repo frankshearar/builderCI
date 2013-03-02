@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # build_gemstone.sh -- Run Gemstone instance
 #
@@ -102,6 +102,7 @@ echo "set user DataCurator pass swordfish" >> ${BUILD_PATH}/travisCI/.topazini
 echo "iferr 1 stk" >> ${BUILD_PATH}/travisCI/.topazini
 echo "iferr 2 stack " >> ${BUILD_PATH}/travisCI/.topazini
 echo "iferr 3 exit 1" >> ${BUILD_PATH}/travisCI/.topazini
+echo "status" >> ${BUILD_PATH}/travisCI/.topazini
 echo "login" >> ${BUILD_PATH}/travisCI/.topazini
 echo "input $OUTPUT_SCRIPT" >> ${BUILD_PATH}/travisCI/.topazini
 echo "exit 0"
@@ -130,9 +131,14 @@ done
 
 cd ${BUILD_PATH}/travisCI
 cat .topazini
+gslist -lc
 echo "RUNNING TESTS..."
 
 topaz -l -T50000
+
+ls /opt/gemstone/log
+cat /opt/gemstone/log/gemnetobject*.log
+cat /opt/gemstone/log/seaside.log
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
