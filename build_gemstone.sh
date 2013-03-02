@@ -134,7 +134,7 @@ cat .topazini
 gslist -lc
 echo "RUNNING TESTS..."
 
-topaz -l -T50000
+taskset -c 0 topaz -l -T50000
 
 ls /opt/gemstone/log
 cat /opt/gemstone/log/gemnetobject*.log
