@@ -122,6 +122,7 @@ SCRIPTS=("${BEFORE_SCRIPTS[@]}" "${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
 
 for FILE in "${SCRIPTS[@]}" ; do
 	echo "run" >> "$OUTPUT_SCRIPT"
+  echo ""builderCI file: $FILE""
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
 	echo "%" >> "$OUTPUT_SCRIPT"
 done
