@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # build_gemstone.sh -- Run Gemstone instance
 #
@@ -131,14 +131,14 @@ done
 
 cd ${BUILD_PATH}/travisCI
 cat .topazini
+source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
 gslist -lc
 echo "RUNNING TESTS..."
 
-taskset -c 0 topaz -l -T50000
+topaz -l -T50000
 
 ls /opt/gemstone/log
 cat /opt/gemstone/log/gemnetobject*.log
-cat /opt/gemstone/log/seaside.log
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
