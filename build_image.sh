@@ -52,6 +52,6 @@ esac
 # only GemStone gets here
 uname -a 
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
-taskset -c 0,1 0x00000003 startGemstone
+taskset -c 0,1 startGemstone
 gslist -lc
 
