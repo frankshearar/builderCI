@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # build_gemstone.sh -- Run Gemstone instance
 #
@@ -122,7 +122,7 @@ SCRIPTS=("${BEFORE_SCRIPTS[@]}" "${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
 
 for FILE in "${SCRIPTS[@]}" ; do
 	echo "run" >> "$OUTPUT_SCRIPT"
-  echo ""builderCI file: $FILE""
+  echo "#builderCI file: $FILE" >> "$OUTPUT_SCRIPT"
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
 	echo "%" >> "$OUTPUT_SCRIPT"
 done
@@ -135,8 +135,9 @@ echo "RUNNING TESTS..."
 
 topaz -l -T50000
 if [[ $? != 0 ]] ; then
-  ls /opt/gemstone/log
-  cat /opt/gemstone/log/gemnetobject*.log
+  ls $HOME
+  ls $BUILDER_CI_HOME
+  # cat /opt/gemstone/log/gemnetobject*.log
   exit 1; 
 fi
 
