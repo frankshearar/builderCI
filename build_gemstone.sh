@@ -92,9 +92,6 @@ if [ -d "$OUTPUT_PATH" ] ; then
 fi
 mkdir -p "$OUTPUT_PATH"
 
-# GemStone dumps it's output to stdout ... don't need to use TravisTranscript.txt
-touch ${BUILD_PATH}/travisCI/TravisTranscript.txt
-
 # set up default .topazini file
 
 echo "set gemstone seaside" >> ${BUILD_PATH}/travisCI/.topazini
@@ -136,9 +133,10 @@ gslist -lc
 echo "RUNNING TESTS..."
 
 topaz -l -T50000
-
-ls /opt/gemstone/log
-cat /opt/gemstone/log/gemnetobject*.log
+if [[ $? != 0 ]] ; then
+  cat /opt/gemstone/log/gemnetobject*.log
+  exit 1; 
+fi
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
