@@ -121,7 +121,7 @@ source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variab
 echo "RUNNING TESTS..."
 
 topaz -l -T50000 <<EOF
-output pushnew travis.log
+output push travis.log only
 set gemstone seaside
 set user DataCurator pass swordfish
 iferr 1 stk
@@ -137,6 +137,8 @@ if [[ $? != 0 ]] ; then
   cat travis.log
   exit 1; 
 fi
+
+rm -rf travis.log
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
