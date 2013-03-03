@@ -80,7 +80,7 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
         value: resultsFileName
         value: [ :fileStream |
             fileStream
-                nextPutAll: '**********************************************************************************************';
+                nextPutAll: '**************************************************************************************';
                 lf.
             fileStream
                 tab;
@@ -89,7 +89,7 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
                 nextPutAll: result printString;
                 lf.
             fileStream
-                nextPutAll: '**********************************************************************************************';
+                nextPutAll: '**************************************************************************************';
                 lf.
             result failures notEmpty
                 ifTrue: [ 
@@ -114,7 +114,7 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
                         nextPutAll: each class name asString , ' debug: ' , each selector printString , '.';
                         lf ].
             fileStream
-                nextPutAll: '**********************************************************************************************';
+                nextPutAll: '**************************************************************************************';
                 lf ] ]
         ensure: [
             (Transcript respondsTo: #close)
