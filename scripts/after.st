@@ -1,3 +1,5 @@
 "Quit"
-WorldState addDeferredUIMessage: [
-	SmalltalkImage current snapshot: false andQuit: true ].
+Smalltalk at: #WorldState ifPresent: [:global |
+  global addDeferredUIMessage: [
+	  Smalltalk at: #SmalltalkImage ifPresent: [:image |
+      image current snapshot: false andQuit: true ]]].
