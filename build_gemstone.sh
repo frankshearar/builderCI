@@ -92,18 +92,6 @@ if [ -d "$OUTPUT_PATH" ] ; then
 fi
 mkdir -p "$OUTPUT_PATH"
 
-# set up default .topazini file
-
-echo "set gemstone seaside" >> ${BUILD_PATH}/travisCI/.topazini
-echo "set user DataCurator pass swordfish" >> ${BUILD_PATH}/travisCI/.topazini
-echo "iferr 1 stk" >> ${BUILD_PATH}/travisCI/.topazini
-echo "iferr 2 stack " >> ${BUILD_PATH}/travisCI/.topazini
-echo "iferr 3 exit 1" >> ${BUILD_PATH}/travisCI/.topazini
-echo "status" >> ${BUILD_PATH}/travisCI/.topazini
-echo "login" >> ${BUILD_PATH}/travisCI/.topazini
-echo "input $OUTPUT_SCRIPT" >> ${BUILD_PATH}/travisCI/.topazini
-echo "exit 0"
-
 # hook up the git_cache, Metacello bootstrap and mcz repo
 
 ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
@@ -134,6 +122,14 @@ echo "RUNNING TESTS..."
 
 topaz -l -T50000 <<EOF
 output pushnew travis.log
+set gemstone seaside
+set user DataCurator pass swordfish
+iferr 1 stk
+iferr 2 stack
+iferr 3 exit 1
+status
+login
+input $OUTPUT_SCRIPT
 exit 0
 EOF
 
