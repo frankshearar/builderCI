@@ -19,7 +19,9 @@ transcriptFileName := 'TravisTranscript.txt'.
     fileDirectoryClass default
       fileNamed: fileName
       do: [ :fileStream | fileStream fileIn ] ].
-    resultFileBlock := [ :resultsFileName :streamBlock | fileDirectoryClass default forceNewFileNamed: resultsFileName do: streamBlock ].
+    resultFileBlock := [ :resultsFileName :streamBlock | 
+      Transcript cr; show: 'resultFileBlock ->', resultsFileName 
+      fileDirectoryClass default forceNewFileNamed: resultsFileName do: streamBlock ].
     transcriptStream := fileDirectoryClass default
       newFileNamed: transcriptFileName.
     Transcript cr; show: 'DEFAULT: ', fileDirectoryClass default pathName ].
