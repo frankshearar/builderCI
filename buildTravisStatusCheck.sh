@@ -2,6 +2,7 @@
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
+ls -altr *
 if ( test -e TravisCISuccess.txt); then 
   cat TravisCISuccess.txt
 fi
