@@ -128,16 +128,17 @@ for FILE in "${SCRIPTS[@]}" ; do
 done
 
 cd ${BUILD_PATH}/travisCI
-cat .topazini
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
-gslist -lc
+# gslist -lc
 echo "RUNNING TESTS..."
 
 topaz -l -T50000 <<EOF
+output pushnew travis.log
 exit 0
 EOF
 
 if [[ $? != 0 ]] ; then
+  cat travis.log
   exit 1; 
 fi
 
