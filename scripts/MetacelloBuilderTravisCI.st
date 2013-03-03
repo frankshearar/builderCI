@@ -80,6 +80,7 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
         value: resultsFileName
         value: [ :fileStream |
             fileStream
+                lf;
                 nextPutAll: '**************************************************************************************';
                 lf.
             fileStream
