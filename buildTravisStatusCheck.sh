@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
+echo `pwd`
 ls -altr *
 if ( test -e TravisCISuccess.txt); then 
   cat TravisCISuccess.txt
