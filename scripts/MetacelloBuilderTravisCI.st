@@ -118,11 +118,13 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
             fileStream
                 nextPutAll: '***********************************************';
                 cr ] ]
-        ensure: [ 
-            | stream |
-            stream := Transcript.
-            (Smalltalk globals associationAt: #'Transcript') value: (Smalltalk at: #'OLDTranscript').
-            stream close ]! !
+        ensure: [
+            (Transcript respondsTo: #close)
+              ifTrue: [
+                | stream |
+                stream := Transcript.
+                (Smalltalk globals associationAt: #'Transcript') value: (Smalltalk at: #'OLDTranscript').
+                stream close ]]! !
 
 
 !MetacelloBuilderTravisCI class methodsFor: 'filein' stamp: 'dkh 9/4/2012 18:33'!
