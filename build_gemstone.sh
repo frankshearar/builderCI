@@ -120,7 +120,7 @@ source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variab
 # gslist -lc
 echo "RUNNING TESTS..."
 
-topaz -l -g -T50000 <<EOF
+topaz -l -q -T50000 <<EOF
 output push travis.log only
 set gemstone seaside
 set user DataCurator pass swordfish
