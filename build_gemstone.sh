@@ -133,7 +133,10 @@ source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variab
 gslist -lc
 echo "RUNNING TESTS..."
 
-topaz -l -T50000
+topaz -l -T50000 <<EOF
+exit 0
+EOF
+
 if [[ $? != 0 ]] ; then
   exit 1; 
 fi
