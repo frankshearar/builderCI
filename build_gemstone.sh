@@ -120,6 +120,8 @@ source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variab
 # gslist -lc
 echo "RUNNING TESTS..."
 
+while true; do echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"; sleep 60; done &
+
 topaz -l -q -T50000 <<EOF
 output push travis.log only
 set gemstone seaside
@@ -132,6 +134,8 @@ login
 input $OUTPUT_SCRIPT
 exit 0
 EOF
+
+kill %1
 
 if [[ $? != 0 ]] ; then
   cat travis.log
