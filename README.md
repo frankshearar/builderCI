@@ -2,7 +2,7 @@
 [Serge got things started](https://github.com/SergeStinckwich/PlayerST) 
 using [Lukas' builder](https://github.com/renggli/builder), with [travis-ci](http://travis-ci.org/), so I'm aiming
 to team up [Metacello](https://github.com/dalehenrich/metacello-work) and **builder** to make the 
-setup and maintenance of CI test scripts for [Pharo](http://www.pharo-project.org/home) 
+setup and maintenance of CI test scripts for [GLASS](http://code.google.com/p/glassdb/), [Pharo](http://www.pharo-project.org/home) 
 and [Squeak](http://www.squeak.org/) as painless as possible ...
 
 ## Using builderCI
@@ -10,8 +10,8 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
 1. Read [Travis CI docs](http://about.travis-ci.org/docs/)
 2. Create your own .travis.yml file by copying [the template travis.yml][1] into the 
    home directory of your git project. 
-3. Decide which platforms you want tested (Squeak-4.3, Squeak-4.4, Pharo-1.3, Pharo-1.4 and/or Pharo-2.0) and edit the .travis.yml 
-   file to create your build matrix. If you 
+3. Decide which platforms you want tested (Squeak-4.5, Pharo-1.4, GemStone-3.1.0.2, etc.) and edit the .travis.yml 
+   file to create your build matrix. See the [builderCI .travis.yml][5] for the current list of supported platforms. If you 
    are using [Metacello][3] with your project you shouldn't have to make any other edits. Metacello
    and FileTree are pre-installed in the image.
 3. Create a [tests/travisCI.st][2] that contains the code to load your project, its tests and launch 
@@ -73,3 +73,4 @@ test failure:
 [2]: https://github.com/dalehenrich/builderCI/blob/master/templates/travisCI.st
 [3]: https://github.com/dalehenrich/metacello-work/blob/master/README.md
 [4]: http://travis-ci.org/#!/dalehenrich/sample/jobs/1647159
+[5]: https://github.com/dalehenrich/builderCI/blob/master/.travis.yml
