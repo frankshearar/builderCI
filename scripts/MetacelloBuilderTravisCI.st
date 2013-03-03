@@ -79,7 +79,7 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
     (Smalltalk at: #'TravisResultFileBlock')
         value: resultsFileName
         value: [ :fileStream | 
-            (fileStream respondsTo: lineEndConvention:)
+            (fileStream respondsTo: #lineEndConvention:)
                 ifTrue: [ fileStream lineEndConvention: #'lf' ].
             fileStream
                 nextPutAll: '***********************************************';
