@@ -20,7 +20,7 @@ transcriptFileName := 'TravisTranscript.txt'.
       fileNamed: fileName
       do: [ :fileStream | fileStream fileIn ] ].
     resultFileBlock := [ :resultsFileName :streamBlock | 
-      Transcript cr; show: 'resultFileBlock ->', resultsFileName 
+      Transcript cr; show: 'resultFileBlock ->', resultsFileName.
       fileDirectoryClass default forceNewFileNamed: resultsFileName do: streamBlock ].
     transcriptStream := fileDirectoryClass default
       newFileNamed: transcriptFileName.
