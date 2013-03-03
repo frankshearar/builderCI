@@ -14,7 +14,7 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
           ensureGoferVersion: 'Gofer-Core-lr.115' 
           repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'. ]]
     ifNotNil: [
-      "Metacello already installed, install Preview".
+      "Metacello already installed, install Preview"
       MetacelloBuilderTravisCI retry: [
         (Smalltalk at: #Gofer) new
           gemsource: 'metacello';
