@@ -1,10 +1,10 @@
-| fileInBlock resultFileBlock transcriptFileName transcriptStream |
+| fileDirectoryClass fileInBlock resultFileBlock transcriptFileName transcriptStream |
 "Initialize Image for batch testing with Metacello"
 Smalltalk at: #Deprecation ifPresent: [:class | 
   (class respondsTo: #'raiseWarning:')
     ifTrue: [ class raiseWarning: false ]].
 transcriptFileName := 'TravisTranscript.txt'.
-(Smalltalk at: #'FileDirectory' ifAbsent: [  ])
+(fileDirectoryClass := Smalltalk at: #'FileDirectory' ifAbsent: [  ])
   ifNil: [ 
     fileInBlock := [ :fileName | 
     (Smalltalk at: #'FileSystem') workingDirectory / fileName
@@ -14,7 +14,7 @@ transcriptFileName := 'TravisTranscript.txt'.
       readStreamDo: streamBlock ].
     transcriptStream := ((Smalltalk at: #'FileSystem') workingDirectory
       / transcriptFileName) readStream ]
-  ifNotNil: [ :fileDirectoryClass | 
+  ifNotNil: [ 
     fileInBlock := [ :fileName | 
     fileDirectoryClass default
       fileNamed: fileName

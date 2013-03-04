@@ -131,6 +131,9 @@ iferr 2 stack
 iferr 3 exit 1
 status
 login
+run
+Transcript cr; show: 'GLASS version: ', ConfigurationOfGLASS project currentVersion versionString.
+%
 input $OUTPUT_SCRIPT
 exit 0
 EOF
