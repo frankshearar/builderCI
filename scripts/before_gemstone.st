@@ -14,7 +14,7 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 	((Smalltalk at: #Gofer) new)
 		gemsource: 'metacello';
 		version: 'Metacello-Platform.gemstone-dkh.23';
-		load).
+		load ].
 versionString := '1.0-beta.8.7.2'.
 ConfigurationOfGLASS project currentVersion < '1.0-beta.8.7.2' asMetacellVersionNumber 
     ifTrue: [ 
