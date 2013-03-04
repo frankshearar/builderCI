@@ -6,7 +6,7 @@
 #
 
 # build configuration
-BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
+BEFORE_SCRIPTS=("$SCRIPTS_PATH/before_gemstone.st" "$SCRIPTS_PATH/before.st")
 
 # help function
 function display_help() {
@@ -110,7 +110,7 @@ SCRIPTS=("${BEFORE_SCRIPTS[@]}" "${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
 
 for FILE in "${SCRIPTS[@]}" ; do
 	echo "run" >> "$OUTPUT_SCRIPT"
-  echo "\"builderCI file: $FILE\"" >> "$OUTPUT_SCRIPT"
+	echo "\"builderCI file: $FILE\"" >> "$OUTPUT_SCRIPT"
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
 	echo "%" >> "$OUTPUT_SCRIPT"
 done
