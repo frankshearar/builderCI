@@ -1,8 +1,8 @@
 | fileInBlock resultFileBlock transcriptFileName transcriptStream |
 "Initialize Image for batch testing with Metacello"
-"Unconditionally route Transcript output to TravisTranscript.txt ... projects can choose whether or not to display"
-(Deprecation respondsTo: #'raiseWarning:')
-  ifTrue: [ Deprecation raiseWarning: false ].
+Smalltalk at: #Deprecation ifPresent: [:class | 
+  (class respondsTo: #'raiseWarning:')
+    ifTrue: [ class raiseWarning: false ]].
 transcriptFileName := 'TravisTranscript.txt'.
 (Smalltalk at: #'FileDirectory' ifAbsent: [  ])
   ifNil: [ 
