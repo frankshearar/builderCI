@@ -1,3 +1,4 @@
+| versionString |
 "upgrade to GemStone 1.0-beta.8.7.2 ... earliest support for FileTree"
 ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' asMetacelloVersionNumber 
     ifTrue: [
