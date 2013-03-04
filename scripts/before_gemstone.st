@@ -17,7 +17,7 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load ].
 versionString := '1.0-beta.8.7.2'.
-ConfigurationOfGLASS project currentVersion < '1.0-beta.8.7.2' asMetacellVersionNumber 
+ConfigurationOfGLASS project currentVersion < versionString asMetacelloVersionNumber 
     ifTrue: [ 
 	Smalltalk 
 	    at: #MetacelloSkipDirtyPackageLoad
