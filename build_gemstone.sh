@@ -135,12 +135,12 @@ input $OUTPUT_SCRIPT
 exit 0
 EOF
 
-kill %1
-
 if [[ $? != 0 ]] ; then
   cat travis.log
   exit 1; 
 fi
+
+kill %1 #kill Issue #38 travis loop
 
 rm -rf travis.log
 
