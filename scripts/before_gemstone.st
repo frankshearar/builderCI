@@ -1,12 +1,13 @@
 | versionString |
 "upgrade to GemStone 1.0-beta.8.7.2 ... earliest support for FileTree"
-Transcript cr; show: 'Metacello: ' , ConfigurationOfMetacello project currentVersion versionNumber asString.
+Transcript cr; show: 'Metacello: ' , ConfigurationOfMetacello project currentVersion versionNumber versionString.
 ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' asMetacelloVersionNumber 
     ifTrue: [
         "load basic Metacello packages for version 1.0-beta.31.1. 
 	 To load GLASS 1.0-beta.8.7.2:
 	  - Metacello must handle symbolic versions
 	  - MetacelloSkipDirtyPackageLoad needs to be defined"
+	Transcript cr; show: 'load basic Metacello packages for version 1.0-beta.31.1'.
 	((Smalltalk at: #Gofer) new)
 		gemsource: 'metacello';
 		version: 'Metacello-Base-DaleHenrichs.19';
@@ -18,7 +19,7 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load ].
 versionString := '1.0-beta.8.7.2'.
-Transcript cr; show: 'GLASS: ', ConfigurationOfGLASS project currentVersion asString.
+Transcript cr; show: 'GLASS: ', ConfigurationOfGLASS project currentVersion versionString.
 ConfigurationOfGLASS project currentVersion < versionString asMetacelloVersionNumber 
     ifTrue: [ 
 	Smalltalk 
