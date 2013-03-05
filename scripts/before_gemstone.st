@@ -4,7 +4,7 @@ glassVersion := ConfigurationOfGLASS project currentVersion.
 versionString := '1.0-beta.8.7.2'.
 Transcript cr; show: 'GLASS: ', glassVersion versionString.
 Transcript cr; show: 'Metacello: ' , ConfigurationOfMetacello project currentVersion versionNumber versionString.
-glassVersion >= versionString asMetacelloVersionNumber 
+glassVersion versionNumber >= versionString asMetacelloVersionNumber 
     ifTrue: [ 
         Transcript cr; show: 'GLASS up-to-date'.
 	^nil].
