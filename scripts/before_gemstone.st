@@ -8,6 +8,7 @@ glassVersion versionNumber >= versionString asMetacelloVersionNumber
     ifTrue: [ 
         Transcript cr; show: 'GLASS up-to-date'.
 	^nil].
+ConfigurationOfGLASS project updateProject.
 ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' asMetacelloVersionNumber 
     ifTrue: [
         "load basic Metacello packages for version 1.0-beta.31.1. 
@@ -25,7 +26,6 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 		gemsource: 'metacello';
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load ].
-ConfigurationOfGLASS project updateProject.
 [
 (ConfigurationOfGLASS project version: versionString) load: #( 'Core' 'Monticello' 'Gofer Project Loader' ).
 (ConfigurationOfGLASS project version: versionString) load ]
