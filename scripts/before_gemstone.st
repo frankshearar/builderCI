@@ -1,6 +1,13 @@
-| versionString |
+| glassVersion versionString |
 "upgrade to GemStone 1.0-beta.8.7.2 ... earliest support for FileTree"
+glassVersion := ConfigurationOfGLASS project currentVersion.
+versionString := '1.0-beta.8.7.2'.
+Transcript cr; show: 'GLASS: ', glassVersion versionString.
 Transcript cr; show: 'Metacello: ' , ConfigurationOfMetacello project currentVersion versionNumber versionString.
+glassVersion >= versionString asMetacelloVersionNumber 
+    ifTrue: [ 
+        Transcript cr; show: 'GLASS up-to-date'.
+	^self ].
 ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' asMetacelloVersionNumber 
     ifTrue: [
         "load basic Metacello packages for version 1.0-beta.31.1. 
@@ -18,16 +25,9 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 		gemsource: 'metacello';
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load ].
-versionString := '1.0-beta.8.7.2'.
-Transcript cr; show: 'GLASS: ', ConfigurationOfGLASS project currentVersion versionString.
-ConfigurationOfGLASS project currentVersion < versionString asMetacelloVersionNumber 
-    ifTrue: [ 
-	Smalltalk 
-	    at: #MetacelloSkipDirtyPackageLoad
-	    ifPresent: [:cl |
-		Transcript cr; show: cl name asString, ' present'.
-		[
-		(ConfigurationOfGLASS project version: versionString) load: #( 'Core' 'Monticello' 'Gofer Project Loader' ).
-		(ConfigurationOfGLASS project version: versionString) load ]
-			on: cl do: [:ex | ex resume: false ]]]
+Transcript cr; show: cl name asString, ' present'.
+[
+(ConfigurationOfGLASS project version: versionString) load: #( 'Core' 'Monticello' 'Gofer Project Loader' ).
+(ConfigurationOfGLASS project version: versionString) load ]
+	on: cl do: [:ex | ex resume: false ]
 
