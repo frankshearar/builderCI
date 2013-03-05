@@ -113,6 +113,7 @@ for FILE in "${SCRIPTS[@]}" ; do
 	echo "\"builderCI file: $FILE\"" >> "$OUTPUT_SCRIPT"
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
 	echo "%" >> "$OUTPUT_SCRIPT"
+	echo "commit" >> "$OUTPUT_SCRIPT"
 done
 
 cd ${BUILD_PATH}/travisCI
