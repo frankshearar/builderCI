@@ -25,7 +25,7 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 		gemsource: 'metacello';
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load ].
-ConfigurationOfGlass project updateProject.
+ConfigurationOfGLASS project updateProject.
 [
 (ConfigurationOfGLASS project version: versionString) load: #( 'Core' 'Monticello' 'Gofer Project Loader' ).
 (ConfigurationOfGLASS project version: versionString) load ]
