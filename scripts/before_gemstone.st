@@ -7,7 +7,7 @@ Transcript cr; show: 'Metacello: ' , ConfigurationOfMetacello project currentVer
 glassVersion >= versionString asMetacelloVersionNumber 
     ifTrue: [ 
         Transcript cr; show: 'GLASS up-to-date'.
-	^self ].
+	^nil].
 ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' asMetacelloVersionNumber 
     ifTrue: [
         "load basic Metacello packages for version 1.0-beta.31.1. 
@@ -25,9 +25,9 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 		gemsource: 'metacello';
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load ].
-Transcript cr; show: cl name asString, ' present'.
 [
 (ConfigurationOfGLASS project version: versionString) load: #( 'Core' 'Monticello' 'Gofer Project Loader' ).
 (ConfigurationOfGLASS project version: versionString) load ]
-	on: cl do: [:ex | ex resume: false ]
+	on: (Smalltalk at: #MetacelloSkipDirtyPackageLoad) 
+	do: [:ex | ex resume: false ]
 
