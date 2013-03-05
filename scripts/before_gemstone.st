@@ -26,8 +26,9 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 		gemsource: 'metacello';
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load.
-	(Smalltalk at: #MBPlatform) initialize ].
+	(Smalltalk at: #MetacelloGemStonePlatform) initialize ].
 [
+Transcript cr; show: (Smalltalk at: #MetacelloPlatform) current printString.
 (ConfigurationOfGLASS project version: versionString) load: #( 'Core' 'Monticello' 'Gofer Project Loader' ).
 (ConfigurationOfGLASS project version: versionString) load ]
 	on: (Smalltalk at: #MetacelloSkipDirtyPackageLoad) 
