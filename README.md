@@ -22,7 +22,7 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
 
 ## Dealing with Failure
 
-Here's a [the output for a build that failed][4] because of unit test failures. Scroll to
+Here's [sample output for a build that failed][4] because of unit test failures. Scroll to
 the bottom of the console list and you'll see the following:
 
 ```
