@@ -1,18 +1,27 @@
+| gitPath |
+gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
+
 "Sample travisCI.st file:
 
   Edit the Metacello api and test harness invocation
   using the correct configuration name and repository 
-  location"
+  location.
 
-"Use Metacello to load your project and tests"
+See https://github.com/dalehenrich/filetree/blob/pharo1.4/tests/travisCI.st for example"
+
 Metacello new
-  configuration: 'MyProject';
-  repository: 'filetree://', MetacelloBuilderTravisCI gitPath, '/MyProject/repository';
-  load: 'Tests'.
+  baseline: '<projectName>';
+  repository: 'filetree://', gitPath, '/<projectName>/<path to filetree packages root>';
+  get.
+
+Metacello new
+  baseline: '<projectName>';
+  repository: 'filetree://', gitPath, '/<projectName>/<path to filetree packages root>';
+  load: 'TravisCI'.
 
 "Run the tests"
 TravisCIHarness
-  value: #( 'ConfigurationOfMyProject' )
+  value: #( '<full baseline name>' )
   value: 'TravisCISuccess.txt' 
   value: 'TravisCIFailure.txt'.
 
