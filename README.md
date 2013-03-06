@@ -18,6 +18,9 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
    and FileTree are pre-installed in the image.
 3. Create a [tests/travisCI.st][2] that contains the code to load your project, its tests and launch 
    the test harness.
+4. If you have questions or comments 
+   [open an issue](https://github.com/dalehenrich/builderCI/issues/new) 
+   or [join and comment on the Metacello Mailing list](https://groups.google.com/forum/#!forum/metacello).
 4. Enjoy.
 
 ## Dealing with Failure
