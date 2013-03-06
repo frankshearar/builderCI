@@ -27,5 +27,5 @@ install:
    - source build_env_vars
    - ./build_image.sh
 
-script: ./testBuilderCI.sh -verbose
+script: ./testBuilderCI.sh # -verbose # use verbose flag to dump transcript unconditionally
 
