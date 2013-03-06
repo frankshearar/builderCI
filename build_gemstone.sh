@@ -124,7 +124,7 @@ echo "RUNNING TESTS..."
 while true; do sleep 60; echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"; done &
 
 topaz -l -q -T50000 <<EOF
-output push travis.log only
+output push TravisTranscript.txt only
 set gemstone seaside
 set user DataCurator pass swordfish
 iferr 1 stk
@@ -140,13 +140,11 @@ exit 0
 EOF
 
 if [[ $? != 0 ]] ; then
-  cat travis.log
+  cat TravisTranscript.txt
   exit 1; 
 fi
 
 kill %1 #kill Issue #38 travis loop
-
-rm -rf travis.log
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
