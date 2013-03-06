@@ -1,4 +1,4 @@
-| fileDirectoryClass fileInBlock resultFileBlock transcriptFileName transcriptStream |
+| fileDirectoryClass fileInBlock resultFileBlock transcriptFileName transcriptStream platformIsGemStone |
 "Initialize Image for batch testing with Metacello"
 Smalltalk at: #Deprecation ifPresent: [:class | 
   (class respondsTo: #'raiseWarning:')
@@ -27,12 +27,14 @@ fileInBlock value: 'FileStream-show.st'.
 fileInBlock value: 'MetacelloBuilderTravisCI.st'.
 Smalltalk at: #'TravisResultFileBlock' put: resultFileBlock.
 Smalltalk at: #'OLDTranscript' put: Transcript.
-(Transcript respondsTo: #'file')
-  ifTrue: [ 
-    self error: 'Transcript does respondTo: #file' ].
-    (Smalltalk globals associationAt: #'Transcript') value: transcriptStream.
-    Transcript file lineEndConvention: #'lf' ]
-  ifFalse: [ self error: 'Transcript does not respondTo: #file' ].
+platformIsGemStone := false.
+Smalltalk at: #MetacelloPlatform ifPresent: [
+  platformIsGemStone := MetacelloPlatform current defaultPlatformAttributes includes: #gemstone ].
+  platformIsGemStone
+    ifFalse: [ 
+      "Transcript streams to stdout in GemStone by default"
+      (Smalltalk globals associationAt: #'Transcript') value: transcriptStream.
+      Transcript file lineEndConvention: #'lf' ].
 Transcript
   cr;
   show: 'travis---->before.st'
