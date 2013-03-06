@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# Test driver script for builderCI itself
+# Generic test driver script for builderCI
+#
+#      -verbose flag causes unconditional transcript display
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
@@ -9,7 +11,5 @@ if [[ $? != 0 ]] ; then exit 1; fi
 cd "${BUILD_PATH}/travisCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
 if [[ $? != 0 ]] ; then exit 1; fi
-$BUILDER_CI_HOME/buildTravisStatusCheck.sh # dump Transcript on failed tests and exit
+$BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@" # dump Transcript on failed tests and exit
 if [[ $? != 0 ]] ; then exit 1; fi
-# reach here on successful build
-# cat TravisTranscript.txt

@@ -2,11 +2,13 @@
 #
 # Test driver script for builderCI itself
 #
+#      -verbose flag causes unconditional transcript display
+#
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
 #run tests
-./testTravisCI.sh
+./testTravisCI.sh "$@"
 if [[ $? != 0 ]] ; then exit 1; fi
 
 # make sure that system runs okay when you skip the metacello bootstrap step
@@ -16,6 +18,5 @@ if [[ $? != 0 ]] ; then exit 1; fi
 cd "${BUILD_PATH}/travisCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh
 if [[ $? != 0 ]] ; then exit 1; fi
-$BUILDER_CI_HOME/buildTravisStatusCheck.sh 
+$BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@"
 if [[ $? != 0 ]] ; then exit 1; fi
-cat TravisTranscript.txt
