@@ -6,7 +6,7 @@
 #
 
 # build configuration
-BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
+BEFORE_SCRIPTS=("$SCRIPTS_PATH/before_gemstone.st" "$SCRIPTS_PATH/before.st")
 
 # help function
 function display_help() {
@@ -110,9 +110,10 @@ SCRIPTS=("${BEFORE_SCRIPTS[@]}" "${SCRIPTS[@]}" "$SCRIPTS_PATH/after.st")
 
 for FILE in "${SCRIPTS[@]}" ; do
 	echo "run" >> "$OUTPUT_SCRIPT"
-  echo "\"builderCI file: $FILE\"" >> "$OUTPUT_SCRIPT"
+	echo "\"builderCI file: $FILE\"" >> "$OUTPUT_SCRIPT"
 	cat "$FILE" >> "$OUTPUT_SCRIPT"
 	echo "%" >> "$OUTPUT_SCRIPT"
+	echo "commit" >> "$OUTPUT_SCRIPT"
 done
 
 cd ${BUILD_PATH}/travisCI
@@ -123,7 +124,7 @@ echo "RUNNING TESTS..."
 while true; do sleep 60; echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"; done &
 
 topaz -l -q -T50000 <<EOF
-output push travis.log only
+output push travis_gem.log only
 set gemstone seaside
 set user DataCurator pass swordfish
 iferr 1 stk
@@ -131,18 +132,22 @@ iferr 2 stack
 iferr 3 exit 1
 status
 login
+run
+Transcript cr; show: 'GLASS version: ', ConfigurationOfGLASS project currentVersion versionString.
+%
 input $OUTPUT_SCRIPT
 exit 0
 EOF
 
-kill %1
-
 if [[ $? != 0 ]] ; then
-  cat travis.log
+  mv travis_gem.log TravisTranscript.txt
+  cat TravisTranscript.txt
   exit 1; 
 fi
 
-rm -rf travis.log
+mv travis_gem.log TravisTranscript.txt
+
+kill %1 #kill Issue #38 travis loop
 
 # remove cache link
 rm -rf "$OUTPUT_CACHE" "$OUTPUT_ZIP"
