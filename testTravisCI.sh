@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Test driver script for builderCI itself
+# Generic test driver script for builderCI
 #
 #      -verbose flag causes unconditional transcript display
 #
