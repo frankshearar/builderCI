@@ -12,6 +12,7 @@ if ( test -e TravisCISuccess.txt); then
     echo "---TRANSCRIPT-----------------------------------------------------------------"
     ls -altr TravisTranscript.txt
     cat TravisTranscript.txt
+    echo " " # force newline
     echo "---TRANSCRIPT-----------------------------------------------------------------"
   fi
   cat TravisCISuccess.txt
@@ -21,6 +22,7 @@ if ( test -e TravisCIFailure.txt ); then
   echo "FAILURE: $(basename $0)"
   echo "---TRANSCRIPT-----------------------------------------------------------------"
   cat TravisTranscript.txt
+  echo " " # force newline
   echo "---TRANSCRIPT-----------------------------------------------------------------"
   cat TravisCIFailure.txt
   exit 1
@@ -30,5 +32,6 @@ if [ "$1" = "-verbose" ] ; then
   echo "---TRANSCRIPT-----------------------------------------------------------------"
   ls -altr TravisTranscript.txt
   cat TravisTranscript.txt
+  echo " " # force newline
   echo "---TRANSCRIPT-----------------------------------------------------------------"
 fi
