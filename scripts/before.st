@@ -29,8 +29,10 @@ Smalltalk at: #'TravisResultFileBlock' put: resultFileBlock.
 Smalltalk at: #'OLDTranscript' put: Transcript.
 (Transcript respondsTo: #'file')
   ifTrue: [ 
+    self error: 'Transcript does respondTo: #file' ].
     (Smalltalk globals associationAt: #'Transcript') value: transcriptStream.
-    Transcript file lineEndConvention: #'lf' ].
+    Transcript file lineEndConvention: #'lf' ]
+  ifFalse: [ self error: 'Transcript does not respondTo: #file' ].
 Transcript
   cr;
   show: 'travis---->before.st'
