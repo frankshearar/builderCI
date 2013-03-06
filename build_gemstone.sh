@@ -96,7 +96,7 @@ mkdir -p "$OUTPUT_PATH"
 
 ln -sf "$GIT_PATH" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/mcz" "$OUTPUT_PATH/"
-ln -sf "$BUI:LDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
+ln -sf "$BUILDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/FileStream-show.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/MetacelloBuilderTravisCI.st" "$OUTPUT_PATH/"
 
