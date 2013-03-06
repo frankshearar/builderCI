@@ -1,4 +1,5 @@
-## Intro
+## Intro [![Build Status](https://secure.travis-ci.org/dalehenrich/builderCI.png?branch=master)](http://travis-ci.org/dalehenrich/builderCI)
+
 [Serge got things started](https://github.com/SergeStinckwich/PlayerST) 
 using [Lukas' builder](https://github.com/renggli/builder), with [travis-ci](http://travis-ci.org/), so I'm aiming
 to team up [Metacello](https://github.com/dalehenrich/metacello-work) and **builder** to make the 
@@ -64,10 +65,6 @@ test failure:
 * [FileTree](https://github.com/dalehenrich/filetree)
 * [Ston](https://github.com/dalehenrich/ston)
 * [Control](https://github.com/frankshearar/Control)
-
-### Travis CI results
-
-[![Build Status](https://secure.travis-ci.org/dalehenrich/builderCI.png?branch=master)](http://travis-ci.org/dalehenrich/builderCI)
 
 [1]: https://github.com/dalehenrich/builderCI/blob/master/templates/travis.yml
 [2]: https://github.com/dalehenrich/builderCI/blob/master/templates/travisCI.st
