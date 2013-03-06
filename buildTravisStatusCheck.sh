@@ -7,7 +7,7 @@
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 if ( test -e TravisCISuccess.txt); then 
-  echo "SUCCESS"
+  echo "SUCCESS: $(basename $0)"
   if [ "$1" = "-verbose" ] ; then
     ls -altr TravisTranscript.txt
     cat TravisTranscript.txt
@@ -16,12 +16,12 @@ if ( test -e TravisCISuccess.txt); then
   exit 0
 fi
 if ( test -e TravisCIFailure.txt ); then 
-  echo "FAILURE"
+  echo "FAILURE: $(basename $0)"
   cat TravisTranscript.txt
   cat TravisCIFailure.txt
   exit 1
 fi
-echo "neither SUCCESS nor FAILURE"
+echo "neither SUCCESS nor FAILURE: $(basename $0)"
 if [ "$1" = "-verbose" ] ; then
   ls -altr TravisTranscript.txt
   cat TravisTranscript.txt
