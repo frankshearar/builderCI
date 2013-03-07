@@ -15,8 +15,9 @@ if [[ $? != 0 ]] ; then exit 1; fi
 cd $BUILDER_CI_HOME
 ./build.sh -i $ST -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
 if [[ $? != 0 ]] ; then 
-  cd "${BUILD_PATH}/travisCI/"
   echo "ERROR: $(basename $0)"
+  cd "${BUILD_PATH}/travisCI/"
+  $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
   echo "---TRANSCRIPT-----------------------------------------------------------------"
   ls -altr TravisTranscript.txt
   cat TravisTranscript.txt

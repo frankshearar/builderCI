@@ -10,6 +10,7 @@
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
   cd "${BUILD_PATH}/travisCI/"
+  $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
   echo "---TRANSCRIPT-----------------------------------------------------------------"
   ls -altr TravisTranscript.txt
   cat TravisTranscript.txt
