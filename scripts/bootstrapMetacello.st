@@ -1,7 +1,7 @@
 Transcript cr; show: 'travis---->bootstrapMetacello.st'.
 
 "Bootstrap Metacello-Base to simulate conditions when it's included in base images"
-(Smalltalk
+[(Smalltalk
   at: #'MetacelloProject'
   ifAbsent: []) 
     ifNil: [
@@ -26,6 +26,10 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
         configuration: 'MetacelloPreview';
         version: '1.0.0-beta.32.4';
         repository: 'github://dalehenrich/metacello-work:configuration';
-        load ].
+        load ]]
+	on: Warning
+	do: [:ex |
+		Transcript cr; show: 'Warning: ', ex description.
+		ex resume: true].
 
 
