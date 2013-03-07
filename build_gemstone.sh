@@ -100,6 +100,15 @@ ln -sf "$BUILDER_CI_HOME/scripts/Metacello-Base.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/FileStream-show.st" "$OUTPUT_PATH/"
 ln -sf "$BUILDER_CI_HOME/scripts/MetacelloBuilderTravisCI.st" "$OUTPUT_PATH/"
 
+# special doit needed for 2.4.4.x
+case "$ST" in
+        GemStone-2.4.4.1|GemStone-2.4.4.7)
+	BEFORE_SCRIPTS=("${BEFORE_SCRIPTS[@]}" "$SCRIPTS_PATH/gemstone244x.st")
+        ;;
+        *) #do nothing by default
+        ;;
+esac
+
 # prepare script file
 if [ "$BOOTSTRAP_METACELLO" == include ] ; then
   BEFORE_SCRIPTS=("${BEFORE_SCRIPTS[@]}" "$SCRIPTS_PATH/bootstrapMetacello.st")
