@@ -4,7 +4,7 @@
 #
 #      -verbose flag causes unconditional transcript display
 #
-# Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2012-2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
 #run tests
@@ -14,7 +14,16 @@ if [[ $? != 0 ]] ; then exit 1; fi
 # make sure that system runs okay when you skip the metacello bootstrap step
 cd $BUILDER_CI_HOME
 ./build.sh -i $ST -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
-if [[ $? != 0 ]] ; then exit 1; fi
+if [[ $? != 0 ]] ; then 
+  cd "${BUILD_PATH}/travisCI/"
+  echo "ERROR: $(basename $0)"
+  echo "---TRANSCRIPT-----------------------------------------------------------------"
+  ls -altr TravisTranscript.txt
+  cat TravisTranscript.txt
+  echo " " # force newline
+  echo "---TRANSCRIPT-----------------------------------------------------------------"
+  exit 1
+fi
 cd "${BUILD_PATH}/travisCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh
 if [[ $? != 0 ]] ; then exit 1; fi
