@@ -123,7 +123,7 @@ echo "RUNNING TESTS..."
 
 while true; do sleep 60; echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"; done &
 
-topaz -l -q -T50000 <<EOF
+topaz -l -q -T100000 <<EOF
 output push travis_gem.log only
 set gemstone seaside
 set user DataCurator pass swordfish
