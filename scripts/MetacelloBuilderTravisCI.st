@@ -19,7 +19,7 @@ gitPathFor: gitCacheName
     ^ (Smalltalk at: #'FileDirectory' ifAbsent: [  ])
         ifNil: [ 
             "Pharo-2.x"
-            ((Smalltalk at: #'FileSystem') workingDirectory / gitCacheName) pathString ]
+            (((Smalltalk at: #'FileSystem') perform: #workingDirectory) / gitCacheName) pathString ]
         ifNotNil: [ :fileDirectoryClass | 
             "Pharo-1.x"
             (fileDirectoryClass default directoryNamed: gitCacheName) fullName ]! !
@@ -129,6 +129,6 @@ runHarnessFor: configurationClassNameList successFilename: successFilename failF
 !MetacelloBuilderTravisCI class methodsFor: 'filein' stamp: 'dkh 9/4/2012 18:33'!
 fileIn: fileName
     (Smalltalk at: #'FileDirectory' ifAbsent: [  ])
-        ifNil: [ (Smalltalk at: #'FileSystem') workingDirectory / fileName readStreamDo: [ :fileStream | fileStream fileIn ] ]
+        ifNil: [ ((Smalltalk at: #'FileSystem') perform: #workingDirectory) / fileName readStreamDo: [ :fileStream | fileStream fileIn ] ]
         ifNotNil: [ :fileDirectoryClass | fileDirectoryClass default fileNamed: fileName do: [ :fileStream | fileStream fileIn ] ]! !
 
