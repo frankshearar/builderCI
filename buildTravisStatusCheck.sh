@@ -17,6 +17,7 @@ fi
 if ( test -e TravisCIFailure.txt ); then 
   echo "FAILURE: $(basename $0)"
   $BUILDER_CI_HOME/dumpTranscript.sh
+  cat TravisCIFailure.txt
   exit 1
 fi
 echo "neither SUCCESS nor FAILURE: $(basename $0)"
