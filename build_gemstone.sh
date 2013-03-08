@@ -163,7 +163,6 @@ EOF
 
 if [[ $? != 0 ]] ; then
   mv travis_gem.log TravisTranscript.txt
-  cat TravisTranscript.txt
   exit 1; 
 fi
 

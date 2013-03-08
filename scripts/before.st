@@ -23,13 +23,14 @@ transcriptFileName := 'TravisTranscript.txt'.
       fileDirectoryClass default forceNewFileNamed: resultsFileName do: streamBlock ].
     transcriptStream := fileDirectoryClass default
       newFileNamed: transcriptFileName ].
-fileInBlock value: 'FileStream-show.st'.
-fileInBlock value: 'MetacelloBuilderTravisCI.st'.
-Smalltalk at: #'TravisResultFileBlock' put: resultFileBlock.
-Smalltalk at: #'OLDTranscript' put: Transcript.
 platformIsGemStone := false.
 Smalltalk at: #MetacelloPlatform ifPresent: [:platformClass |
   platformIsGemStone := platformClass current defaultPlatformAttributes includes: #gemstone ].
+platformIsGemStone
+  ifFalse: [ fileInBlock value: 'FileStream-show.st' ].
+fileInBlock value: 'MetacelloBuilderTravisCI.st'.
+Smalltalk at: #'TravisResultFileBlock' put: resultFileBlock.
+Smalltalk at: #'OLDTranscript' put: Transcript.
 platformIsGemStone
   ifFalse: [ 
     "Transcript streams to stdout in GemStone by default"
