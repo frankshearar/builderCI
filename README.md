@@ -69,6 +69,7 @@ test failure:
 * [FileTree](https://github.com/dalehenrich/filetree)
 * [Ston](https://github.com/dalehenrich/ston)
 * [Control](https://github.com/frankshearar/Control)
+* [Sample](https://github.com/dalehenrich/sample)
 
 [1]: https://github.com/dalehenrich/builderCI/blob/master/templates/travis.yml
 [2]: https://github.com/dalehenrich/builderCI/blob/master/templates/travisCI.st
