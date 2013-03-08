@@ -1,5 +1,6 @@
 | glassVersion versionString |
 "upgrade to GemStone 1.0-beta.8.7.4 ... earliest support for FileTree, that loades into all versions"
+Transcript cr; show: 'travis--->before_gemstone.st'.
 glassVersion := ConfigurationOfGLASS project currentVersion.
 versionString := '1.0-beta.8.7.4'.
 Transcript cr; show: 'GLASS: ', glassVersion versionString.
