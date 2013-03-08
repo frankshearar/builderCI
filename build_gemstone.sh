@@ -109,7 +109,7 @@ ln -sf "$BUILDER_CI_HOME/scripts/MetacelloBuilderTravisCI.st" "$OUTPUT_PATH/"
 if [ "$BOOTSTRAP_GLASS" == "include" ] ; then
 	BEFORE_SCRIPTS=("$SCRIPTS_PATH/before_gemstone.st" "$SCRIPTS_PATH/before.st")
 else
-        BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
+        BEFORE_SCRIPTS=("$SCRIPTS_PATH/patch_gemstone.st" "$SCRIPTS_PATH/before.st")
 fi
 
 
