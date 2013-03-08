@@ -4,11 +4,15 @@ Transcript cr; show: 'travis---->travisCI.st'.
 "Use the Sample project to verify that Metacello and FileTree are 
  booting correctly"
 
-Metacello new
+[Metacello new
   configuration: 'Sample';
   version: '0.9.0';
   repository: 'github://dalehenrich/sample:configuration';
-  load: 'Tests'.
+  load: 'Tests' ]
+        on: Warning
+        do: [:ex |
+                Transcript cr; show: 'Warning: ', ex description.
+                ex resume: true].
 
 "Run the tests"
 TravisCIHarness

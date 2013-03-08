@@ -14,8 +14,8 @@ case "$ST" in
 	exit 0
   ;;
   GemStone-2.4.4.1|GemStone-2.4.4.7|GemStone-2.4.5|GemStone-2.4.5.1|GemStone-3.0.1|GemStone-3.1.0.2)
-	      ./build_gemstone.sh "$@"
-        if [[ $? != 0 ]] ; then exit 1; fi
+      	./build_gemstone.sh "$@"
+      	if [[ $? != 0 ]] ; then exit 1; fi
 	exit 0
   ;;
 
