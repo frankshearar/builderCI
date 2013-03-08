@@ -33,8 +33,8 @@ case "$ST" in
         GEMSTONE_VERSION_NAME="2.4.5.1"
         KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
  ;;
-  GemStone-2.4.5.3)
-        GEMSTONE_VERSION_NAME="2.4.5.3"
+  GemStone-2.4.5.2)
+        GEMSTONE_VERSION_NAME="2.4.5.2"
         KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
  ;;
   GemStone-3.0.1)
