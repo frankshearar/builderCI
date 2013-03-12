@@ -141,6 +141,30 @@ done
 cd ${BUILD_PATH}/travisCI
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
 # gslist -lc
+
+echo "synchronize timezones"
+
+topaz -l -q <<EOF
+set gemstone seaside
+set user SystemUser pass swordfish
+iferr 1 stk
+iferr 2 stack
+iferr 3 exit 1
+status
+login
+
+run
+TimeZone default: TimeZone fromLinux
+%
+
+commit
+exit 0
+EOF
+
+if [[ $? != 0 ]] ; then
+  exit 1;
+fi
+
 echo "RUNNING TESTS..."
 
 while true; do sleep 60; echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"; done &

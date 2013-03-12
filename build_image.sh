@@ -61,7 +61,7 @@ source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variab
 chmod +w  /opt/gemstone/product/seaside/etc/gemstone.key
 cp $KEY_PATH /opt/gemstone/product/seaside/etc/gemstone.key
 cat - >> /opt/gemstone/product/seaside/data/system.conf << EOF
-STN_MAX_AIO_REQUESTS = 5;
+STN_MAX_SESSIONS = 5;
 EOF
 
 startGemstone
