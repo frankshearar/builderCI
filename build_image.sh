@@ -60,6 +60,11 @@ if [[ $? != 0 ]] ; then exit 1; fi
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
 chmod +w  /opt/gemstone/product/seaside/etc/gemstone.key
 cp $KEY_PATH /opt/gemstone/product/seaside/etc/gemstone.key
+cat - >> /opt/gemstone/product/seaside/data/system.conf << EOF
+# not needed for 3.1.x not debugging and ignored by 2.4.x
+GEM_NATIVE_CODE_ENABLED = TRUE;
+EOF
+
 
 startGemstone
 # gslist -lc
