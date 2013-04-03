@@ -8,16 +8,18 @@
 #
 if ( test -e TravisCISuccess.txt); then 
   echo "SUCCESS: $(basename $0)"
+  cat TravisCISuccess.txt # dump first in case travis truncates log
   if [ "$1" = "-verbose" ] ; then
     $BUILDER_CI_HOME/dumpTranscript.sh
+    cat TravisCISuccess.txt # dump last in case travis doesn't truncate log
   fi
-  cat TravisCISuccess.txt
   exit 0
 fi
 if ( test -e TravisCIFailure.txt ); then 
   echo "FAILURE: $(basename $0)"
+  cat TravisCIFailure.txt # dump first in case travis truncates log
   $BUILDER_CI_HOME/dumpTranscript.sh
-  cat TravisCIFailure.txt
+  cat TravisCIFailure.txt # dump last in case travis doesn't truncate log
   exit 1
 fi
 echo "neither SUCCESS nor FAILURE: $(basename $0)"
