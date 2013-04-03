@@ -25,8 +25,9 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
 
 ## Dealing with Failure
 
-Here's [sample output for a build that failed][4] because of unit test failures. Scroll to
-the bottom of the console list and you'll see the following:
+Here's [sample output for a build that failed][4] because of unit test failures. [Scroll to
+the bottom of the console](https://github.com/dalehenrich/builderCI/issues/44)
+and you'll see a test summary that looks like the following:
 
 ```
 ***********************************************
