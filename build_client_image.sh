@@ -1,7 +1,7 @@
 #!/bin/bash -x
 #
 # build_client_image.sh -- Downloads and installs the desired Smalltalk
-#   installation: PharoCore-1-3, Pharo-1.4, Squeak-4.3, Squeak-4.4
+#   installation: PharoCore-1-3, Pharo-1.4, Pharo-2.0, Squeak-4.3, Squeak-4.4
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
