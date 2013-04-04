@@ -7,7 +7,7 @@ language: erlang
 
 env:
 #   - ST=PharoCore-1.0  # pharo 1.0 needs a different VM
-#   - ST=Pharo-2.0 #Pharo-2.0 has trouble loading Metacello (FileTree issues)
+   - ST=Pharo-2.0 #Pharo-2.0 has trouble loading Metacello (FileTree issues)
    - ST=PharoCore-1.1
    - ST=Squeak-4.5
    - ST=GemStone-3.1.0.2
