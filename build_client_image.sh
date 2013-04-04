@@ -72,9 +72,24 @@ case "$ST" in
   # Pharo-2.0
   Pharo-2.0)
     cd $IMAGES_PATH
-    wget -q https://ci.lille.inria.fr/pharo/view/Pharo%202.0/job/Pharo-2.0/lastSuccessfulBuild/artifact/Pharo-2.0.zip
-    unzip Pharo-2.0.zip
+    mkdir Pharo-2.0
     cd Pharo-2.0
+    wget --quiet -O - get.pharo.org/20+vm | bash
+    IMAGE_BASE_NAME=Pharo
+    # move VM to $IMAGES_PATH 
+    mv pharo ..
+    mv vm ..
+  ;;
+  # Pharo-3.0
+  Pharo-3.0)
+    cd $IMAGES_PATH
+    mkdir Pharo-3.0
+    cd Pharo-3.0
+    wget --quiet -O - get.pharo.org/30+vm | bash
+    IMAGE_BASE_NAME=Pharo
+    # move VM to $IMAGES_PATH 
+    mv pharo ..
+    mv vm ..
   ;;
   # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
