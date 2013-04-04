@@ -190,6 +190,7 @@ uname -a
 echo "RUNNING TESTS..."
 
 # build image in the background
+echo "$PHARO_VM $PHARO_PARAM $OUTPUT_IMAGE $OUTPUT_SCRIPT"
 exec "$PHARO_VM" $PHARO_PARAM "$OUTPUT_IMAGE" "$OUTPUT_SCRIPT" &
 pid="$!"
 
