@@ -16,7 +16,7 @@ case "$(uname -s)" in
 		if [ -f "$IMAGES_PATH/pharo" ] ; then
 		    # Pharo generic script to run the VM (since Pharo2) 
 			PHARO_VM="$IMAGES_PATH/pharo"
-		if [ -f "$(which cog)" ] ; then
+		elif [ -f "$(which cog)" ] ; then
 			PHARO_VM="$(which cog)"
 		elif [ -f "$(which squeak)" ] ; then
 			PHARO_VM="$(which squeak)"
