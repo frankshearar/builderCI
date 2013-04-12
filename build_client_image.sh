@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # build_client_image.sh -- Downloads and installs the desired Smalltalk
 #   installation: PharoCore-1-3, Pharo-1.4, Pharo-2.0, Squeak-4.3, Squeak-4.4
@@ -78,7 +78,7 @@ case "$ST" in
     IMAGE_BASE_NAME=Pharo
     # move VM to $IMAGES_PATH 
     mv pharo ..
-    mv vm ..
+    mv pharo-vm ..
   ;;
   # Pharo-3.0
   Pharo-3.0)
@@ -89,7 +89,7 @@ case "$ST" in
     IMAGE_BASE_NAME=Pharo
     # move VM to $IMAGES_PATH 
     mv pharo ..
-    mv vm ..
+    mv pharo-vm ..
   ;;
   # Squeak-4.3 ... allow Squeak4.3 for backwards compatibility
   Squeak-4.3|Squeak4.3)
