@@ -13,19 +13,14 @@
 # vm configuration
 case "$(uname -s)" in
 	"Linux")
-		if [ -f "$IMAGES_PATH/pharo" ] ; then
-		    # Pharo generic script to run the VM (since Pharo2) 
-			PHARO_VM="$IMAGES_PATH/pharo"
-		elif [ -f "$(which cog)" ] ; then
+		if [ -f "$(which cog)" ] ; then
 			PHARO_VM="$(which cog)"
-    		PHARO_PARAM="-nodisplay -nosound"
-		elif [ -f "$(which squeak)" ] ; then
+		elif [ -  f "$(which squeak)" ] ; then
 			PHARO_VM="$(which squeak)"
-    		PHARO_PARAM="-nodisplay -nosound"
 		else
 			PHARO_VM="$VM_PATH/Linux/squeak"
-    		PHARO_PARAM="-nodisplay -nosound"
 		fi
+		PHARO_PARAM="-nodisplay -nosound"
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
@@ -40,6 +35,11 @@ case "$(uname -s)" in
 		exit 1
 		;;
 esac
+if [ -f "$IMAGES_PATH/pharo" ] ; then
+	# Pharo generic script to run the VM (since Pharo2)
+    PHARO_VM="$IMAGES_PATH/pharo"
+   	PHARO_PARAM=
+fi
 
 # build configuration
 BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
