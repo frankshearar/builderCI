@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# GemStone GCI Test driver script for builderCI
+# GemStone GCI Test driver script for builderCI. Use with templates gci_travis.yml
 #
 #      -verbose flag causes unconditional transcript display
 #
