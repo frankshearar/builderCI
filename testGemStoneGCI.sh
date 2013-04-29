@@ -18,10 +18,7 @@ if [[ $? != 0 ]] ; then
   exit 1
 fi
 echo "Starting Client: $CLIENT"
-pwd
-ls
 cd $BUILDER_CI_HOME
-ls
 ST="$CLIENT"
 ./build.sh -i $ST -m -f "$PROJECT_HOME/tests/clientGCI.st" -o travisCI
 if [[ $? != 0 ]] ; then 
