@@ -12,6 +12,8 @@ ST="$GemStone"
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
   cd "${BUILD_PATH}/travisCI/"
+  $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
+  if [[ $? != 0 ]] ; then exit 1; fi
   $BUILDER_CI_HOME/dumpTranscript.sh
   exit 1
 fi

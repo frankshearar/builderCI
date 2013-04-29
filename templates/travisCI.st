@@ -1,4 +1,6 @@
 | gitPath |
+Transcript cr; show: 'travis---->travisCI.st'.
+
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
 "Sample travisCI.st file:

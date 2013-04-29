@@ -1,4 +1,6 @@
 | gitPath |
+Transcript cr; show: 'travis---->gemstoneGCI.st'.
+
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
 "Sample gemstoneGCI.st file:

@@ -1,5 +1,5 @@
 "Load the Server-side support code for gci tests. See testGemStoneGCI.sh"
-Transcript cr; show: 'travis---->gemstoneGCI.st'.
+Transcript cr; show: 'travis---->clientGCI.st'.
 
 "Use the Sample project to verify that Metacello and FileTree are 
  booting correctly"
