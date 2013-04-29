@@ -17,7 +17,7 @@ if [[ $? != 0 ]] ; then
 fi
 echo "Starting Client: $CLIENT"
 ST="$CLIENT"
-./build.sh -i $ST -m -f "$PROJECT_HOME/tests/travisCI.st" -o travisCI
+./build.sh -i $ST -m -f "$PROJECT_HOME/tests/clientGCI.st" -o travisCI
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
   cd "${BUILD_PATH}/travisCI/"
