@@ -46,6 +46,7 @@ while getopts ":i:mnGXo:f:s:?" OPT ; do
 
     # netldi
     n)
+      source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
       startnet
       gslist -lc
       ;;
