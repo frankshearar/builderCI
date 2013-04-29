@@ -1,15 +1,15 @@
 | gitPath |
-Transcript cr; show: 'travis---->travisCI.st'.
+Transcript cr; show: 'travis---->clientGCI.st'.
 
 gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
 
-"Sample travisCI.st file:
+"Sample clientGCI.st file:
 
-  Edit the Metacello api and test harness invocation
+  Edit the Metacello api and test harness invocation used to launch GCI tests
   using the correct configuration name and repository 
   location.
 
-See https://github.com/dalehenrich/filetree/blob/pharo1.4/tests/travisCI.st for example"
+Use gci_travis.yml as template .travis.yml for gci tests"
 
 Metacello new
   baseline: '<projectName>';

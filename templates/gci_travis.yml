@@ -14,10 +14,11 @@ install:
    - source build_env_vars
    - export ST="$GemStone"
    - ./build_image.sh
+   - cp /opt/gemstone/product/lib32/*.so $IMAGES_PATH
    - export ST="$CLIENT"
    - ./build_image.sh
 
 # use -verbose flag to control whether or not transcript is dumped
 # to travis log
-script: ./testGemStoneGCI.sh  -verbose
+script: $BUILDER_CI_HOME/testGemStoneGCI.sh # -verbose
 
