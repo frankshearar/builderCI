@@ -7,10 +7,11 @@
 
 # help function
 function display_help() {
-	echo "$(basename $0) -i input -o output {-m} {-s script} {-f full-path-to-script} {-G} {-X}"
+	echo "$(basename $0) -i input -o output {-m} {-n} {-s script} {-f full-path-to-script} {-G} {-X}"
 	echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
 	echo " -i input product name, image from images-directory, or successful jenkins build"
 	echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
+  echo " -n start a netldi"
 	echo " -o output product name"
 	echo " -s one or more scripts from the scripts-directory to build the image, can be intermixed with -m and -f options"
 	echo " -G do not bootstrap GemStone to a known version of GLASS (currently GLASS 1.0-beta.8.7.4). Implies -X"
@@ -39,9 +40,15 @@ while getopts ":i:mGXo:f:s:?" OPT ; do
 			GEMSTONE_VERSION="$OPTARG"
 			;;
 
-    		# include standard Metacello test harness
-    		m) SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/travisCIHarness.st" )
-    			;; 
+    # include standard Metacello test harness
+   	m) SCRIPTS=("${SCRIPTS[@]}" "$SCRIPTS_PATH/travisCIHarness.st" )
+   		;;
+
+    # netldi
+    n)
+      startnet
+      gslist -lc
+      ;;
 
 		# output
 		o)	OUTPUT_NAME="$OPTARG"
@@ -79,8 +86,8 @@ while getopts ":i:mGXo:f:s:?" OPT ; do
 			;;
 
 		# exclude Metacello bootstrap
-    		X) BOOTSTRAP_METACELLO="exclude"
-    			;;
+    X) BOOTSTRAP_METACELLO="exclude"
+    	;;
 
 		# show help
 		\?)	display_help
@@ -88,6 +95,7 @@ while getopts ":i:mGXo:f:s:?" OPT ; do
 		;;
 
 	esac
+
 done
 
 echo "preparing script files"
@@ -109,17 +117,17 @@ ln -sf "$BUILDER_CI_HOME/scripts/MetacelloBuilderTravisCI.st" "$OUTPUT_PATH/"
 if [ "$BOOTSTRAP_GLASS" == "include" ] ; then
 	BEFORE_SCRIPTS=("$SCRIPTS_PATH/before_gemstone.st" "$SCRIPTS_PATH/before.st")
 else
-        BEFORE_SCRIPTS=("$SCRIPTS_PATH/patch_gemstone.st" "$SCRIPTS_PATH/before.st")
+  BEFORE_SCRIPTS=("$SCRIPTS_PATH/patch_gemstone.st" "$SCRIPTS_PATH/before.st")
 fi
 
 
 # special doit needed for 2.4.4.x
 case "$ST" in
-        GemStone-2.4.4.1|GemStone-2.4.4.7)
-	BEFORE_SCRIPTS=("${BEFORE_SCRIPTS[@]}" "$SCRIPTS_PATH/gemstone244x.st")
-        ;;
-        *) #do nothing by default
-        ;;
+  GemStone-2.4.4.1|GemStone-2.4.4.7)
+	   BEFORE_SCRIPTS=("${BEFORE_SCRIPTS[@]}" "$SCRIPTS_PATH/gemstone244x.st")
+     ;;
+  *) #do nothing by default
+     ;;
 esac
 
 # prepare script file
