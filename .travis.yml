@@ -7,7 +7,7 @@
 language: erlang
 
 env:
-   - CLIENT=Pharo-1.4 GemStone=3.1.0.2
+   - CLIENT=Pharo-1.4 GemStone=GemStone-3.1.0.2
 
 install:
    - export PROJECT_HOME="$(pwd)"
