@@ -23,7 +23,7 @@ echo "PROCESSING OPTIONS"
 # parse options
 BOOTSTRAP_METACELLO="include"
 BOOTSTRAP_GLASS="include"
-while getopts ":i:mGXo:f:s:?" OPT ; do
+while getopts ":i:mnGXo:f:s:?" OPT ; do
 	case "$OPT" in
 
 		# full path to script
