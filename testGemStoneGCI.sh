@@ -13,7 +13,7 @@ case "$(uname -m)" in
                 echo "64bit os"
                 # 32-bit gci libs
                 sudo apt-get -qq update
-                sudo apt-get -qq install ia32-libs
+                sudo apt-get install ia32-libs
                ;;
         *)
                 echo "32bit os"
