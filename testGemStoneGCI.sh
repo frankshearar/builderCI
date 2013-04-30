@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
-echo "Starting GemStone: $GemStone"
+echo "====STARTING SERVER: $GemStone"
 ST="$GemStone"
 ./build.sh -i $ST -m -n -f "$PROJECT_HOME/tests/gemstoneGCI.st" -o travisCI
 if [[ $? != 0 ]] ; then 
@@ -22,7 +22,7 @@ $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
 if [[ $? != 0 ]] ; then exit 1; fi
 $BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@" # dump Transcript on failed tests and exit
 if [[ $? != 0 ]] ; then exit 1; fi
-echo "Starting Client: $CLIENT"
+echo "====STARTING CLIENT: $CLIENT"
 cd $BUILDER_CI_HOME
 ST="$CLIENT"
 ./build.sh -i $ST -m -f "$PROJECT_HOME/tests/clientGCI.st" -o travisCI
