@@ -156,9 +156,8 @@ for FILE in "${SCRIPTS[@]}" ; do
 	echo "commit" >> "$OUTPUT_SCRIPT"
 done
 
-cd ${BUILD_PATH}/travisCI
+cd ${BUILD_PATH}/${OUTPUT_NAME}
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
-# gslist -lc
 
 echo "synchronize timezones"
 
