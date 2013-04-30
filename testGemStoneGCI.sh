@@ -22,6 +22,8 @@ $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
 if [[ $? != 0 ]] ; then exit 1; fi
 $BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@" # dump Transcript on failed tests and exit
 if [[ $? != 0 ]] ; then exit 1; fi
+ls -altr
+rm -f TravisCISuccess.txt
 echo "====STARTING CLIENT: $CLIENT"
 cd $BUILDER_CI_HOME
 ST="$CLIENT"
