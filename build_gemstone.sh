@@ -101,10 +101,6 @@ done
 
 echo "preparing script files"
 
-# prepare output path
-if [ -d "$OUTPUT_PATH" ] ; then
-	rm -rf "$OUTPUT_PATH"
-fi
 mkdir -p "$OUTPUT_PATH"
 
 # hook up the git_cache, Metacello bootstrap and mcz repo
