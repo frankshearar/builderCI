@@ -22,27 +22,24 @@ $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
 if [[ $? != 0 ]] ; then exit 1; fi
 $BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@" # dump Transcript on failed tests and exit
 if [[ $? != 0 ]] ; then exit 1; fi
-ls -altr
-rm -f TravisCISuccess.txt
 echo "====STARTING CLIENT: $CLIENT"
 cd $BUILDER_CI_HOME
 ST="$CLIENT"
 # copy the gci libraries to the OUTPUT_PATH directory
 mkdir -p $BUILD_PATH/clientGCI
 cp /opt/gemstone/product/lib32/*.so $BUILD_PATH/clientGCI
+ls /opt/gemstone/log
 ./build.sh -i $ST -d -m -f "$PROJECT_HOME/tests/clientGCI.st" -o clientGCI
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
-  ls -altr $BUILD_PATH
-  ls -altr $BUILD_PATH/clientGCI
+  ls -altr /opt/gemstone/log
   cd "${BUILD_PATH}/clientGCI/"
   $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
   if [[ $? != 0 ]] ; then exit 1; fi
   $BUILDER_CI_HOME/dumpTranscript.sh
   exit 1
 fi
-  ls -altr $BUILD_PATH
-  ls -altr $BUILD_PATH/clientGCI
+ls -altr /opt/gemstone/log
 cd "${BUILD_PATH}/clientGCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
 if [[ $? != 0 ]] ; then exit 1; fi
