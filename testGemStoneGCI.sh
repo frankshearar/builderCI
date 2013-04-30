@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # GemStone GCI Test driver script for builderCI. Use with templates gci_travis.yml
 #
@@ -32,6 +32,7 @@ ls /opt/gemstone/log
 ./build.sh -i $ST -d -m -f "$PROJECT_HOME/tests/clientGCI.st" -o clientGCI
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
+  ls -altr $BUILD_PATH/clientGCI
   ls -altr /opt/gemstone/log
   cd "${BUILD_PATH}/clientGCI/"
   $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
@@ -39,6 +40,7 @@ if [[ $? != 0 ]] ; then
   $BUILDER_CI_HOME/dumpTranscript.sh
   exit 1
 fi
+ls -altr $BUILD_PATH/clientGCI
 ls -altr /opt/gemstone/log
 cd "${BUILD_PATH}/clientGCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh # dump Transcript on error and exit
