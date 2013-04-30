@@ -29,6 +29,7 @@ ST="$CLIENT"
 mkdir -p $BUILD_PATH/clientGCI
 cp /opt/gemstone/product/lib32/*.so $BUILD_PATH/clientGCI
 ls /opt/gemstone/log
+echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 ./build.sh -i $ST -d -m -f "$PROJECT_HOME/tests/clientGCI.st" -o clientGCI
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
