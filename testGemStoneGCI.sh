@@ -6,6 +6,19 @@
 #
 # Copyright (c) 2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
+
+#install 32 bit libs if necessary
+case "$(uname -m)" in
+        "x86_64")
+                echo "64bit os"
+                # 32-bit gci libs
+                sudo apt-get -qq update
+                sudo apt-get -qq install ia32-libs
+               ;;
+        *)
+                echo "32bit os"
+                ;;
+esac
 echo "====STARTING SERVER: $GemStone"
 ST="$GemStone"
 ./build.sh -i $ST -m -n -f "$PROJECT_HOME/tests/gemstoneGCI.st" -o serverGCI
