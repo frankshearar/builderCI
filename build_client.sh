@@ -147,10 +147,6 @@ fi
 
 echo "BUILDING IMAGE FILE"
 
-# prepare output path
-if [ -d "$OUTPUT_PATH" ] ; then
-	rm -rf "$OUTPUT_PATH"
-fi
 mkdir -p "$OUTPUT_PATH"
 mkdir -p "$BUILD_CACHE/${JOB_NAME:=$OUTPUT_NAME}"
 ln -sf "$BUILD_CACHE/${JOB_NAME:=$OUTPUT_NAME}" "$OUTPUT_CACHE"
