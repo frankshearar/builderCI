@@ -13,14 +13,11 @@
 # vm configuration
 case "$(uname -s)" in
 	"Linux")
-		if [ -f "$(which cog)" ] ; then
-			PHARO_VM="$(which cog)"
-		elif [ -f "$(which squeak)" ] ; then
-			PHARO_VM="$(which squeak)"
-		else
-			PHARO_VM="$VM_PATH/Linux/squeak"
-		fi
-		PHARO_PARAM="-nodisplay -nosound"
+		PHARO_VM="$VM_PATH/Linux/squeak"
+		PHARO_PARAM="-nodisplay \
+      -nosound \
+      -plugins "$VM_PATH/Linux" \
+	    -encoding latin1"
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
