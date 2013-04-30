@@ -27,9 +27,10 @@ rm -f TravisCISuccess.txt
 echo "====STARTING CLIENT: $CLIENT"
 cd $BUILDER_CI_HOME
 ST="$CLIENT"
+# copy the gci libraries to the OUTPUT_PATH directory
 mkdir -p $BUILD_PATH/clientGCI
 cp /opt/gemstone/product/lib32/*.so $BUILD_PATH/clientGCI
-./build.sh -i $ST -m -f "$PROJECT_HOME/tests/clientGCI.st" -o clientGCI
+./build.sh -i $ST -d -m -f "$PROJECT_HOME/tests/clientGCI.st" -o clientGCI
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
   ls -altr $BUILD_PATH
