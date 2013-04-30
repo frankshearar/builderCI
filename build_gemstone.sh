@@ -7,7 +7,8 @@
 
 # help function
 function display_help() {
-	echo "$(basename $0) -i input -o output {-m} {-n} {-s script} {-f full-path-to-script} {-G} {-X}"
+	echo "$(basename $0) -i input -o output {-m} {-n} {-s script} {-d} {-f full-path-to-script} {-G} {-X}"
+  echo " -d skip delete of OUTPUT_PATH"
 	echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
 	echo " -i input product name, image from images-directory, or successful jenkins build"
 	echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
@@ -23,10 +24,15 @@ echo "PROCESSING OPTIONS"
 # parse options
 BOOTSTRAP_METACELLO="include"
 BOOTSTRAP_GLASS="include"
+DELETE_OUTPUT_PATH=true
 while getopts ":i:mnGXo:f:s:?" OPT ; do
 	case "$OPT" in
 
-		# full path to script
+		    # skip delete of OUTPUT_PATH
+    d) DELETE_OUTPUT_PATH=false
+    ;;
+
+      # full path to script
 	  	f)	if [ -f "$OPTARG" ] ; then
                 	SCRIPTS=("${SCRIPTS[@]}" "$OPTARG")
 			else
@@ -100,6 +106,13 @@ while getopts ":i:mnGXo:f:s:?" OPT ; do
 done
 
 echo "preparing script files"
+
+#prepare output path
+if [ "$DELETE_OUTPUT_PATH" == true ] ; then
+  if [ -d "$OUTPUT_PATH" ] ; then
+	  rm -rf "$OUTPUT_PATH"
+  fi
+fi
 
 mkdir -p "$OUTPUT_PATH"
 
