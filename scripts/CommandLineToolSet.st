@@ -24,7 +24,7 @@ debugError: anError
 			nextPutAll: String cr;
 			nextPutAll: problemPlace sender sender methodNode printString;
 			nextPutAll: String cr].
-	(problemPlace stackOfSize: 20) do: [:ctx | s cr. ctx printOn: s].
+	(problemPlace stackOfSize: 500) do: [:ctx | s cr. ctx printOn: s].
 	s flush.
 
 	SmalltalkImage current snapshot: false andQuit: true! !
@@ -33,6 +33,7 @@ debugError: anError
 unload
 	ToolSet unregister: self.! !
 
-!CommandLineToolSet class methodsFor: 'as yet unclassified' stamp: 'dkh 4/30/2013 23:07'!
-initialize
-	ToolSet register: self.! !
+"register and make me the default"
+ToolSet register: CommandLineToolSet.
+ToolSet default: CommandLineToolSet.!
+
