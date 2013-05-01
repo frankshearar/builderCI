@@ -1,4 +1,5 @@
-| fileDirectoryClass fileInBlock resultFileBlock transcriptFileName transcriptStream platformIsGemStone |
+| fileDirectoryClass fileInBlock resultFileBlock transcriptFileName
+transcriptStream platformIsGemStone  |
 "Initialize Image for batch testing with Metacello"
 Smalltalk at: #Deprecation ifPresent: [:class | 
   (class respondsTo: #'raiseWarning:')
@@ -28,6 +29,15 @@ Smalltalk at: #MetacelloPlatform ifPresent: [:platformClass |
   platformIsGemStone := platformClass current defaultPlatformAttributes includes: #gemstone ].
 platformIsGemStone
   ifFalse: [ fileInBlock value: 'FileStream-show.st' ].
+Smalltalk
+  at: #'SystemVersion'
+  ifPresent: [ :cl | 
+    | versionString |
+    versionString := cl current version.
+    (versionString beginsWith: 'Squeak')
+      ifTrue:  [
+        "see https://github.com/dalehenrich/builderCI/issues/48"
+        fileInBlock value: 'CommandLineToolSet.st' ]].
 fileInBlock value: 'MetacelloBuilderTravisCI.st'.
 Smalltalk at: #'TravisResultFileBlock' put: resultFileBlock.
 Smalltalk at: #'OLDTranscript' put: Transcript.
