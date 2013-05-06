@@ -24,7 +24,7 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
         version: '1.0-beta.32') load.
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
-        version: '1.0.0-beta.32.4';
+        version: #'stable';
         repository: 'github://dalehenrich/metacello-work:configuration';
         load ]]
 	on: Warning

@@ -13,14 +13,11 @@
 # vm configuration
 case "$(uname -s)" in
 	"Linux")
-		if [ -f "$(which cog)" ] ; then
-			PHARO_VM="$(which cog)"
-		elif [ -  f "$(which squeak)" ] ; then
-			PHARO_VM="$(which squeak)"
-		else
-			PHARO_VM="$VM_PATH/Linux/squeak"
-		fi
-		PHARO_PARAM="-nodisplay -nosound"
+		PHARO_VM="$VM_PATH/Linux/squeak"
+		PHARO_PARAM="-nodisplay \
+      -nosound \
+      -plugins "$VM_PATH/Linux" \
+	    -encoding latin1"
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
@@ -35,18 +32,14 @@ case "$(uname -s)" in
 		exit 1
 		;;
 esac
-if [ -f "$IMAGES_PATH/pharo" ] ; then
-	# Pharo generic script to run the VM (since Pharo2)
-    PHARO_VM="$IMAGES_PATH/pharo"
-   	PHARO_PARAM=
-fi
 
 # build configuration
 BEFORE_SCRIPTS=("$SCRIPTS_PATH/before.st")
 
 # help function
 function display_help() {
-	echo "$(basename $0) -i input -o output {-m} {-s script} {-f full-path-to-script} {-X}"
+	echo "$(basename $0) -i input -o output {-m} {-s script} {-d} {-f full-path-to-script} {-X}"
+  echo " -d skip delete of OUTPUT_PATH"
   echo " -f one or more scripts (full path) to build the image, can be intermixed with -m and -s options"
 	echo " -i input product name, image from images-directory, or successful jenkins build"
 	echo " -m use Metacello test harness: FileTree, Metacello, travisCIHarness.st, can be intermixed with -f and -s options"
@@ -59,9 +52,13 @@ echo "PROCESSING OPTIONS"
 
 # parse options
 BOOTSTRAP_METACELLO=include
-while getopts ":i:mXo:f:s:?" OPT ; do
+DELETE_OUTPUT_PATH=true
+while getopts ":i:mXdo:f:s:?" OPT ; do
 	case "$OPT" in
 
+    # skip delete of OUTPUT_PATH
+    d) DELETE_OUTPUT_PATH=false
+    ;;
 		# full path to script
 	  f)	if [ -f "$OPTARG" ] ; then
                 SCRIPTS=("${SCRIPTS[@]}" "$OPTARG")
@@ -152,10 +149,13 @@ fi
 
 echo "BUILDING IMAGE FILE"
 
-# prepare output path
-if [ -d "$OUTPUT_PATH" ] ; then
-	rm -rf "$OUTPUT_PATH"
+#prepare output path
+if [ "$DELETE_OUTPUT_PATH" == true ] ; then
+  if [ -d "$OUTPUT_PATH" ] ; then
+	  rm -rf "$OUTPUT_PATH"
+  fi
 fi
+
 mkdir -p "$OUTPUT_PATH"
 mkdir -p "$BUILD_CACHE/${JOB_NAME:=$OUTPUT_NAME}"
 ln -sf "$BUILD_CACHE/${JOB_NAME:=$OUTPUT_NAME}" "$OUTPUT_CACHE"
@@ -192,7 +192,6 @@ uname -a
 echo "RUNNING TESTS..."
 
 # build image in the background
-echo "$PHARO_VM $PHARO_PARAM $OUTPUT_IMAGE $OUTPUT_SCRIPT"
 exec "$PHARO_VM" $PHARO_PARAM "$OUTPUT_IMAGE" "$OUTPUT_SCRIPT" &
 pid="$!"
 
