@@ -14,7 +14,7 @@ transcriptFileName := 'TravisTranscript.txt'.
     (Smalltalk at: #'FileSystem') workingDirectory / resultsFileName
       readStreamDo: streamBlock ].
     transcriptStream := ((Smalltalk at: #'FileSystem') workingDirectory
-      / transcriptFileName) readStream ]
+      / transcriptFileName) writeStream ]
   ifNotNil: [ 
     fileInBlock := [ :fileName | 
     fileDirectoryClass default
