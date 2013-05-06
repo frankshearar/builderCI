@@ -1,0 +1,24 @@
+#
+# Template .travis.yml for GemStone GCI testing
+#
+# Copyright (c) 2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+#
+
+language: erlang
+
+env:
+   - CLIENT=Pharo-1.4 GemStone=GemStone-3.1.0.2
+
+install:
+   - export PROJECT_HOME="$(pwd)"
+   - source build_env_vars
+   - export ST="$GemStone"
+   - ./build_image.sh
+   - cp /opt/gemstone/product/lib32/*.so $IMAGES_PATH
+   - export ST="$CLIENT"
+   - ./build_image.sh
+
+# use -verbose flag to control whether or not transcript is dumped
+# to travis log
+script: $BUILDER_CI_HOME/testGemStoneGCI.sh # -verbose
+

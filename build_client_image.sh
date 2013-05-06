@@ -16,6 +16,7 @@ case "$(uname -m)" in
         "x86_64")
                 echo "64bit os"
                 # 32-bit VM
+                sudo apt-get -qq update
                 sudo apt-get -qq install libc6:i386
                 # UUIDPlugin
                 sudo apt-get -qq install libuuid1:i386
