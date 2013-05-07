@@ -31,4 +31,3 @@ install:
 # use -verbose flag to control whether or not transcript is dumped
 # to travis log
 script: ./testBuilderCI.sh # -verbose
-
