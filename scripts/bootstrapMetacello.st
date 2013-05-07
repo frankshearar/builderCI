@@ -21,10 +21,10 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
           package: 'ConfigurationOfMetacello';
           load ].
       ((Smalltalk at: #ConfigurationOfMetacello) project 
-        version: '1.0-beta.32') load.
+        version: #'previewBootstrap') load.
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
-        version: #'stable';
+        version: '1.0.0-beta.32.6';
         repository: 'github://dalehenrich/metacello-work:configuration';
         load ]]
 	on: Warning
