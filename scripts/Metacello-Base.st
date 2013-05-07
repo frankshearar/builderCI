@@ -217,7 +217,7 @@ ensureMetacello: loadList
                     perform: #'package:' with: 'ConfigurationOfMetacello';
                     perform: #'load' ] ].
           version := (Smalltalk at: #'ConfigurationOfMetacello') project
-            version: #'previewBootstrap'.	"bootstrap with #'previewBootstrap' currently 1.0-beta.32.1"
+            version: '1.0-beta.32.1'. "explicit version here, but should be #previewBootstrap in code"
           version load: loadList.
           self
             retry: [ 
@@ -231,7 +231,7 @@ ensureMetacello: loadList
                       with: 'ConfigurationOfMetacelloPreview';
                     perform: #'load' ] ].
           version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project
-            version: #'stable'.	"load latest from GitHub"
+            version: '1.0.0-beta.32.6'.	"explicit version here, but should be #stable in code"
           version load: loadList.
           ^ self ]
             on: Error

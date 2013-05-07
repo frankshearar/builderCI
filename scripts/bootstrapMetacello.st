@@ -6,6 +6,7 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
   ifAbsent: []) 
     ifNil: [
       "Metacello not pre-installed install Metacello-Base"
+      Transcript cr; show: 'Metacello not pre-installed install Metacello-Base'.
       MetacelloBuilderTravisCI fileIn: 'Metacello-Base.st'.
 
       "ensure that Gofer is available on Squeak"
@@ -15,13 +16,14 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
           repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'. ]]
     ifNotNil: [
       "Metacello already installed, install Preview"
-      MetacelloBuilderTravisCI retry: [
+      Transcript cr; show: 'Metacello pre-installed install Metacello Preview'.
+       MetacelloBuilderTravisCI retry: [
         (Smalltalk at: #Gofer) new
           gemsource: 'metacello';
           package: 'ConfigurationOfMetacello';
           load ].
       ((Smalltalk at: #ConfigurationOfMetacello) project 
-        version: #'previewBootstrap') load.
+        version: '1.0-beta.32.1') load.
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
         version: '1.0.0-beta.32.6';
