@@ -207,6 +207,7 @@ ensureMetacello: loadList
           "bootstrap Metacello"
           [ 
           self bootstrapMetacelloFrom: repositoryUrl.
+          Transcript cr; show: 'Platform [0]:', (Smalltalk at: #MetacelloPlatform) current printString.
           Smalltalk
             at: #'ConfigurationOfMetacello'
             ifAbsent: [ 
@@ -220,6 +221,7 @@ ensureMetacello: loadList
           version := (Smalltalk at: #'ConfigurationOfMetacello') project
             version: '1.0-beta.32.1'. "explicit version here, but should be #previewBootstrap in code"
           version load: loadList.
+          Transcript cr; show: 'Platform [1]:', (Smalltalk at: #MetacelloPlatform) current printString.
           self
             retry: [ 
               gofer := (Smalltalk at: #'Gofer') new.
@@ -234,6 +236,7 @@ ensureMetacello: loadList
           version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project
             version: '1.0.0-beta.32.6'.	"explicit version here, but should be #stable in code"
           version load: loadList.
+          Transcript cr; show: 'Platform [2]:', (Smalltalk at: #MetacelloPlatform) current printString.
           ^ self ]
             on: Error
             do: [ :ex | 
