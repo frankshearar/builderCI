@@ -1,7 +1,10 @@
-| gitPath |
+| gitPath gitCache |
 Transcript cr; show: 'travis---->travisCI.st'.
 
-gitPath := (FileDirectory default directoryNamed: 'git_cache') fullName.
+gitCache := 'git_cache'.
+gitPath := (Smalltalk at: #'FileDirectory' ifAbsent: [  ])
+  ifNil: [ ((Smalltalk at: #'FileSystem') workingDirectory / gitCache) pathString ]
+  ifNotNil: [:fileDirectoryClass | (fileDirectoryClass default directoryNamed: gitCache ) fullName].
 
 "Sample travisCI.st file:
 
