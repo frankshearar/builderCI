@@ -23,10 +23,10 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
           package: 'ConfigurationOfMetacello';
           load ].
       ((Smalltalk at: #ConfigurationOfMetacello) project 
-        version: '1.0-beta.32.1') load.
+        version: '1.0-beta.32.1') load. "should correlate with Metacello-Base.st"
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
-        version: '1.0.0-beta.32.6';
+        version: '1.0.0-beta.32.6'; "should correlate with Metacello-Base.st"
         repository: 'github://dalehenrich/metacello-work:configuration';
         load ]]
 	on: Warning

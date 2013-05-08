@@ -135,7 +135,7 @@ bootstrapMetacelloFrom: repositoryUrl
 
   | platformPkg |
   self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
-  #('Metacello-Base-dkh.104' 'Metacello-Core-dkh.678' 'Metacello-MC-dkh.674')
+  #('Metacello-Base-dkh.105' 'Metacello-Core-dkh.678' 'Metacello-MC-dkh.674')
     do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
   platformPkg := Smalltalk
     at: #'SystemVersion'
@@ -201,7 +201,7 @@ ensureMetacello: loadList
       | version error gofer |
       (Array
         with: 'http://seaside.gemstone.com/ss/metacello'
-        with: 'http://www.squeaksource.com/metacello')
+        with: 'http://smalltalkhub.com/mc/dkh/metacello/main')
         do: [ :repositoryUrl | 
           "bootstrap Metacello"
           [ 
