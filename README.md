@@ -12,7 +12,7 @@ and [Squeak](http://www.squeak.org/) as painless as possible ...
 2. [Create a Baseline for your project](https://github.com/dalehenrich/metacello-work/blob/master/docs/GettingStartedWithGitHub.md#create-baseline).
 2. Create your own .travis.yml file by copying [the template travis.yml][1] into the 
    home directory of your git project. 
-3. Decide which platforms you want tested (Squeak-4.5, Pharo-1.4, GemStone-3.1.0.2, etc.) and edit the .travis.yml 
+3. Decide which platforms you want tested (Squeak-4.4, Pharo-1.4, GemStone-3.1.0.2, etc.) and edit the .travis.yml 
    file to create your build matrix. See the [builderCI .travis.yml][5] for the current list of supported platforms. If you 
    are using [Metacello][3] with your project you shouldn't have to make any other edits. Metacello
    and FileTree are pre-installed in the image.
