@@ -134,7 +134,6 @@ bootstrapMetacelloFrom: repositoryUrl
   "KEEP MetacelloConfigTemplate class>>ensureMetacelloBaseConfiguration in synch!!"
 
   | platformPkg |
-  Transcript cr; show: 'bootstrapMetacelloFrom: [0]'.
   self ensureGoferVersion: 'Gofer-Core-lr.115' repositoryUrl: repositoryUrl.
   #('Metacello-Core-dkh.678' 'Metacello-MC-dkh.674')
     do: [ :pkg | self bootstrapPackage: pkg from: repositoryUrl ].
@@ -151,12 +150,10 @@ bootstrapMetacelloFrom: repositoryUrl
         ifFalse: [ 
           (versionString beginsWith: 'Pharo')
             ifTrue: [ 
-              Transcript cr; show: 'bootstrapMetacelloFrom: [1]: Metacello-PharoCommonPlatform-dkh.2'.
               self bootstrapPackage: 'Metacello-PharoCommonPlatform-dkh.2' from: repositoryUrl.
               (versionString beginsWith: 'Pharo2')
                 ifTrue: [ 'Metacello-Platform.pharo20-dkh.33' ]
                 ifFalse: [ 'Metacello-Platform.pharo-dkh.34' ] ] ] ].
-  Transcript cr; show: 'bootstrapMetacelloFrom: [2]: ', platformPkg, ' ', repositoryUrl printString.
   self bootstrapPackage: platformPkg from: repositoryUrl! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 9/4/2012 17:09'!
@@ -165,7 +162,6 @@ bootstrapPackage: aString from: aPath
     repository := (MCCacheRepository default includesVersionNamed: aString)
         ifTrue: [ MCCacheRepository default ]
         ifFalse: [ MCHttpRepository location: aPath user: '' password: '' ].
-Transcript cr; show: 'bootstrapPackage:from: ', aString, ' ', aPath.
     self
         retry: [ 
             repository
@@ -173,7 +169,6 @@ Transcript cr; show: 'bootstrapPackage:from: ', aString, ' ', aPath.
                 do: [ :reader | 
                     version := reader version.
                     version load.
-Transcript cr; show: 'bootstrapPackage:from: LOAD', aString, ' ', repository description printString.
                     version workingCopy repositoryGroup addRepository: repository ] ]! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
@@ -212,7 +207,6 @@ ensureMetacello: loadList
           "bootstrap Metacello"
           [ 
           self bootstrapMetacelloFrom: repositoryUrl.
-          Transcript cr; show: 'Platform [0]:', (Smalltalk at: #MetacelloPlatform) current printString.
           Smalltalk
             at: #'ConfigurationOfMetacello'
             ifAbsent: [ 
@@ -226,7 +220,6 @@ ensureMetacello: loadList
           version := (Smalltalk at: #'ConfigurationOfMetacello') project
             version: '1.0-beta.32.1'. "explicit version here, but should be #previewBootstrap in code"
           version load: loadList.
-          Transcript cr; show: 'Platform [1]:', (Smalltalk at: #MetacelloPlatform) current printString.
           self
             retry: [ 
               gofer := (Smalltalk at: #'Gofer') new.
@@ -241,7 +234,6 @@ ensureMetacello: loadList
           version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project
             version: '1.0.0-beta.32.6'.	"explicit version here, but should be #stable in code"
           version load: loadList.
-          Transcript cr; show: 'Platform [2]:', (Smalltalk at: #MetacelloPlatform) current printString.
           ^ self ]
             on: Error
             do: [ :ex | 
