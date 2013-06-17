@@ -18,7 +18,7 @@ case "$ST" in
         exit 0
   ;;
   GemStone-2.4.*)
-        GEMSTONE_VERSION_NAME="$ST"
+        GEMSTONE_VERSION_NAME="${ST:9}"
         KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
  ;;
   GemStone-3.0.1)
@@ -26,7 +26,7 @@ case "$ST" in
         KEY_PATH="./gemstone/GemStone64Bit3.0.0-x86_64.Linux.key"
  ;;
   GemStone-3.1.0.*)
-        GEMSTONE_VERSION_NAME="$ST"
+        GEMSTONE_VERSION_NAME="${ST:9}"
         KEY_PATH="./gemstone/GemStone64Bit3.1.0-x86_64.Linux.key"
  ;;
 
