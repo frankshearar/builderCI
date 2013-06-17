@@ -17,32 +17,16 @@ case "$ST" in
 	if [[ $? != 0 ]] ; then exit 1; fi
         exit 0
   ;;
-  GemStone-2.4.4.1)
-        GEMSTONE_VERSION_NAME="2.4.4.1"
-        KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
- ;;
-  GemStone-2.4.4.7)
-        GEMSTONE_VERSION_NAME="2.4.4.7"
-        KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
- ;;
-  GemStone-2.4.5)
-        GEMSTONE_VERSION_NAME="2.4.5"
-        KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
- ;;
-  GemStone-2.4.5.1)
-        GEMSTONE_VERSION_NAME="2.4.5.1"
-        KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
- ;;
-  GemStone-2.4.5.2)
-        GEMSTONE_VERSION_NAME="2.4.5.2"
+  GemStone-2.4.*)
+        GEMSTONE_VERSION_NAME="${ST:9}"
         KEY_PATH="./gemstone/GemStone64Bit2.4.0-x86_64.Linux.key"
  ;;
   GemStone-3.0.1)
         GEMSTONE_VERSION_NAME="3.0.1"
         KEY_PATH="./gemstone/GemStone64Bit3.0.0-x86_64.Linux.key"
  ;;
-  GemStone-3.1.0.2)
-        GEMSTONE_VERSION_NAME="3.1.0.2"
+  GemStone-3.1.0.*)
+        GEMSTONE_VERSION_NAME="${ST:9}"
         KEY_PATH="./gemstone/GemStone64Bit3.1.0-x86_64.Linux.key"
  ;;
 
