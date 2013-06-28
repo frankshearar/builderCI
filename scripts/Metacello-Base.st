@@ -175,16 +175,22 @@ bootstrapPackage: aString from: aPath
 ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
     "load the p=file goferVersion if Gofer isn't loaded or an earlier version of Gofer is currently loaded"
 
-    | goferVersionNumber wc pName |
+    | goferVersionNumber wc pName versionFromPackage |
     (Smalltalk at: #'Gofer' ifAbsent: [  ]) == nil
-        ifTrue: [ ^ self bootstrapPackage: goferVersion from: repositoryUrl ].
+        ifTrue: [ 
+            Transcript cr; show: 'Gofer not present'.
+            ^ self bootstrapPackage: goferVersion from: repositoryUrl ].
+    Transcript cr; show: 'Gofer present'.
     goferVersionNumber := (goferVersion copyAfterLast: $.) asNumber.
     wc := [ ((Smalltalk at: #'GoferPackageReference') name: 'Gofer') workingCopy ]
         on: Error
         do: [ :ex | ex return: ((Smalltalk at: #'GoferPackageReference') name: 'Gofer-Core') workingCopy ].
     pName := wc ancestry ancestors first name.
-    (pName copyAfterLast: $.) asNumber <= goferVersionNumber
-        ifTrue: [ self bootstrapPackage: goferVersion from: repositoryUrl ]! !
+    (versionFromPackage := pName copyAfterLast: $.) asNumber <= goferVersionNumber
+        ifTrue: [ 
+            Transcript cr; show: 'bootstrapping ', goferVersion printString.
+            self bootstrapPackage: goferVersion from: repositoryUrl ].
+    Transcript show: 'Gofer package: ', pName printString! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 11:05'!
 ensureMetacello
