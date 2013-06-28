@@ -170,10 +170,10 @@ bootstrapPackage: aString from: aPath
                 versionReaderForFileNamed: aString , '.mcz'
                 do: [ :reader |
                     version := reader version.
-                    Transcript cr show: 'Attemp to load version: ', version printString.
+                    Transcript cr; show: 'Attempt to load version: ', version printString.
                     version load.
                     version workingCopy repositoryGroup addRepository: repository.
-                    Transcript cr; show: 'Successful load!' ] ]! !
+                    Transcript cr; show: 'Successful load' ] ]! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
 ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
