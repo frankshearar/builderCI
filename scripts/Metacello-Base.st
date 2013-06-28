@@ -211,7 +211,7 @@ ensureMetacello: loadList
     ifAbsent: [ 
       | version error gofer |
       (Array
-        with: 'http://seaside.gemstone.com/ss/metacello'
+        with: 'http://seaside.gemtalksystems.com/ss/metacello'
         with: 'http://smalltalkhub.com/mc/dkh/metacello/main')
         do: [ :repositoryUrl | 
           "bootstrap Metacello"
