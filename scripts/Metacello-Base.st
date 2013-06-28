@@ -750,7 +750,7 @@ croquet: projectName
 
 !Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
 gemsource: projectName
-    self repository: 'http://seaside.gemstone.com/ss/' , projectName! !
+    self repository: 'http://seaside.gemtalksystems.com/ss/' , projectName! !
 
 !Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
 impara: projectName

@@ -13,7 +13,7 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
       MetacelloBuilderTravisCI retry: [
         (Smalltalk at: #ConfigurationOf) 
           ensureGoferVersion: 'Gofer-Core-lr.115' 
-          repositoryUrl: 'http://seaside.gemstone.com/ss/metacello'. ]]
+          repositoryUrl: 'http://seaside.gemtalksystems.com/ss/metacello'. ]]
     ifNotNil: [
       "Metacello already installed, install Preview"
       Transcript cr; show: 'Metacello pre-installed install Metacello Preview'.
