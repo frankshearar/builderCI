@@ -162,14 +162,18 @@ bootstrapPackage: aString from: aPath
     repository := (MCCacheRepository default includesVersionNamed: aString)
         ifTrue: [ MCCacheRepository default ]
         ifFalse: [ MCHttpRepository location: aPath user: '' password: '' ].
+    Transcript cr; show: 'repository: ', repository description printString.
     self
-        retry: [ 
+        retry: [
+            Transcript cr; show: 'Attempt to load: ', aString printString.
             repository
                 versionReaderForFileNamed: aString , '.mcz'
-                do: [ :reader | 
+                do: [ :reader |
                     version := reader version.
+                    Transcript cr show: 'Attemp to load version: ', version printString.
                     version load.
-                    version workingCopy repositoryGroup addRepository: repository ] ]! !
+                    version workingCopy repositoryGroup addRepository: repository.
+                    Transcript cr; show: 'Successful load!' ] ]! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
 ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
