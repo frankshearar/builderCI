@@ -19,7 +19,7 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
       Transcript cr; show: 'Metacello pre-installed install Metacello Preview'.
        MetacelloBuilderTravisCI retry: [
         (Smalltalk at: #Gofer) new
-          gemsource: 'metacello';
+          url: 'http://seaside.gemtalksystems.com/ss/metacello';
           package: 'ConfigurationOfMetacello';
           load ].
       ((Smalltalk at: #ConfigurationOfMetacello) project 

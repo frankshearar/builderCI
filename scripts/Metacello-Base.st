@@ -34,7 +34,7 @@ To create a new Metacello configuration:
       <baseline: '1.0-baseline'>
 
       spec for: #common do: [
-        spec repository: 'http://ss3.gemstone.com/ss/Example'.
+        spec repository: 'http://ss3.gemtalksystems.com/ss/Example'.
         spec
           package: 'Example-Core';
           package: 'Example-Tests' with: [
@@ -770,7 +770,7 @@ squeakfoundation: projectName
 
 !Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:50'!
 squeaksource3: projectName
-    self repository: 'http://ss3.gemstone.com/ss/' , projectName! !
+    self repository: 'http://ss3.gemtalksystems.com/ss/' , projectName! !
 
 !Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:50'!
 squeaksource: projectName
