@@ -162,29 +162,39 @@ bootstrapPackage: aString from: aPath
     repository := (MCCacheRepository default includesVersionNamed: aString)
         ifTrue: [ MCCacheRepository default ]
         ifFalse: [ MCHttpRepository location: aPath user: '' password: '' ].
+    Transcript cr; show: 'repository: ', repository description printString.
     self
-        retry: [ 
+        retry: [
+            Transcript cr; show: 'Attempt to load: ', aString printString.
             repository
                 versionReaderForFileNamed: aString , '.mcz'
-                do: [ :reader | 
+                do: [ :reader |
                     version := reader version.
+                    Transcript cr; show: 'Attempt to load version: ', version printString.
                     version load.
-                    version workingCopy repositoryGroup addRepository: repository ] ]! !
+                    version workingCopy repositoryGroup addRepository: repository.
+                    Transcript cr; show: 'Successful load' ] ]! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/10/2012 22:01'!
 ensureGoferVersion: goferVersion repositoryUrl: repositoryUrl
     "load the p=file goferVersion if Gofer isn't loaded or an earlier version of Gofer is currently loaded"
 
-    | goferVersionNumber wc pName |
+    | goferVersionNumber wc pName versionFromPackage |
     (Smalltalk at: #'Gofer' ifAbsent: [  ]) == nil
-        ifTrue: [ ^ self bootstrapPackage: goferVersion from: repositoryUrl ].
+        ifTrue: [ 
+            Transcript cr; show: 'Gofer not present'.
+            ^ self bootstrapPackage: goferVersion from: repositoryUrl ].
+    Transcript cr; show: 'Gofer present'.
     goferVersionNumber := (goferVersion copyAfterLast: $.) asNumber.
     wc := [ ((Smalltalk at: #'GoferPackageReference') name: 'Gofer') workingCopy ]
         on: Error
         do: [ :ex | ex return: ((Smalltalk at: #'GoferPackageReference') name: 'Gofer-Core') workingCopy ].
     pName := wc ancestry ancestors first name.
-    (pName copyAfterLast: $.) asNumber <= goferVersionNumber
-        ifTrue: [ self bootstrapPackage: goferVersion from: repositoryUrl ]! !
+    (versionFromPackage := pName copyAfterLast: $.) asNumber <= goferVersionNumber
+        ifTrue: [ 
+            Transcript cr; show: 'bootstrapping ', goferVersion printString.
+            self bootstrapPackage: goferVersion from: repositoryUrl ].
+    Transcript show: 'Gofer package: ', pName printString! !
 
 !ConfigurationOf class methodsFor: 'private' stamp: 'dkh 6/11/2012 11:05'!
 ensureMetacello
@@ -201,7 +211,7 @@ ensureMetacello: loadList
     ifAbsent: [ 
       | version error gofer |
       (Array
-        with: 'http://seaside.gemstone.com/ss/metacello'
+        with: 'http://seaside.gemtalksystems.com/ss/metacello'
         with: 'http://smalltalkhub.com/mc/dkh/metacello/main')
         do: [ :repositoryUrl | 
           "bootstrap Metacello"
@@ -218,7 +228,7 @@ ensureMetacello: loadList
                     perform: #'package:' with: 'ConfigurationOfMetacello';
                     perform: #'load' ] ].
           version := (Smalltalk at: #'ConfigurationOfMetacello') project
-            version: '1.0-beta.32.1'. "explicit version here, but should be #previewBootstrap in code"
+            version: #'previewBootstrap'. "explicit version here, but should be #previewBootstrap in code"
           version load: loadList.
           self
             retry: [ 
@@ -232,7 +242,7 @@ ensureMetacello: loadList
                       with: 'ConfigurationOfMetacelloPreview';
                     perform: #'load' ] ].
           version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project
-            version: '1.0.0-beta.32.6'.	"explicit version here, but should be #stable in code"
+            version: #'stable'.	"explicit version here, but should be #stable in code"
           version load: loadList.
           ^ self ]
             on: Error
@@ -740,7 +750,7 @@ croquet: projectName
 
 !Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
 gemsource: projectName
-    self repository: 'http://seaside.gemstone.com/ss/' , projectName! !
+    self repository: 'http://seaside.gemtalksystems.com/ss/' , projectName! !
 
 !Metacello methodsFor: 'api repository shortcuts' stamp: 'dkh 7/17/2012 16:48'!
 impara: projectName
