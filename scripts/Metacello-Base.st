@@ -228,7 +228,7 @@ ensureMetacello: loadList
                     perform: #'package:' with: 'ConfigurationOfMetacello';
                     perform: #'load' ] ].
           version := (Smalltalk at: #'ConfigurationOfMetacello') project
-            version: #'previewBootstrap'. "explicit version here, but should be #previewBootstrap in code"
+            version: #'previewBootstrap'. 
           version load: loadList.
           self
             retry: [ 
@@ -242,7 +242,7 @@ ensureMetacello: loadList
                       with: 'ConfigurationOfMetacelloPreview';
                     perform: #'load' ] ].
           version := (Smalltalk at: #'ConfigurationOfMetacelloPreview') project
-            version: #'stable'.	"explicit version here, but should be #stable in code"
+            version: #'stable'.	
           version load: loadList.
           ^ self ]
             on: Error
