@@ -15,20 +15,30 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
           ensureGoferVersion: 'Gofer-Core-lr.115' 
           repositoryUrl: 'http://seaside.gemtalksystems.com/ss/metacello'. ]]
     ifNotNil: [
-      "Metacello already installed, install Preview"
-      Transcript cr; show: 'Metacello pre-installed install Metacello Preview'.
-       MetacelloBuilderTravisCI retry: [
-        (Smalltalk at: #Gofer) new
-          url: 'http://seaside.gemtalksystems.com/ss/metacello';
-          package: 'ConfigurationOfMetacello';
-          load ].
-      ((Smalltalk at: #ConfigurationOfMetacello) project 
-        version: #'previewBootstrap') load. 
+      "MetacelloProject already installed, install Metacello Preview"
+      Smalltalk 
+        at: #Metacello
+        ifAbsent: [
+          "Metacello class not present, so let's bootstrap the Metacello Preview"
+          Transcript cr; show: 'Metacello pre-installed bootstrap Metacello Preview'.
+          MetacelloBuilderTravisCI retry: [
+            (Smalltalk at: #Gofer) new
+              url: 'http://seaside.gemtalksystems.com/ss/metacello';
+              package: 'ConfigurationOfMetacello';
+              load ].
+          ((Smalltalk at: #ConfigurationOfMetacello) project 
+            version: #'previewBootstrap') load ].
+      Transcript cr; show: 'Install stable version of Metacello Preview'.
       (Smalltalk at: #Metacello) new
         configuration: 'MetacelloPreview';
         version: #'stable'; 
         repository: 'github://dalehenrich/metacello-work:configuration';
-        load ]]
+        get.
+      (Smalltalk at: #Metacello) new
+        configuration: 'MetacelloPreview';
+        version: #'stable'; 
+        repository: 'github://dalehenrich/metacello-work:configuration';
+        load ]] 
 	on: Warning
 	do: [:ex |
 		Transcript cr; show: 'Warning: ', ex description.
