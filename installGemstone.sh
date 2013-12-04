@@ -86,7 +86,7 @@ case "$vers" in
     ftp_address=ftp.gemstone.com
     ;;
   *)
-    ftp_address=ftp.gemtalksystems.com
+    ftp_address=ftp.gemtalksystems.com:80
     ;;
 esac
 
