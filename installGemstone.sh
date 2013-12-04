@@ -74,16 +74,16 @@ gss_file=${gsvers}.zip
 # set ftp_address
 case "$vers" in
   2.4.4.1|2.4.4.2|2.4.4.3|2.4.4.4|2.4.4.5|2.4.4.6)
-    ftp://ftp_address=ftp.gemstone.com
+    ftp_address=ftp://ftp.gemstone.com
     ;;
   2.4.5|2.4.5.2)
-    ftp://ftp_address=ftp.gemstone.com
+    ftp_address=ftp://ftp.gemstone.com
     ;;
   3.0.0|3.0.1)
-    ftp://ftp_address=ftp.gemstone.com
+    ftp_address=ftp://ftp.gemstone.com
     ;;
   3.1.0|3.1.0.1|3.1.0.2)
-    ftp://ftp_address=ftp.gemstone.com
+    ftp_address=ftp://ftp.gemstone.com
     ;;
   *)
     ftp_address=http://ftp.gemtalksystems.com:80
@@ -224,13 +224,11 @@ else
     grep "^gs64ldi" /etc/services
 fi
 
-# Look for either wget or curl to download GemStone
+# Look for either wget to download GemStone
 if [ -e "`which wget`" ]; then
     cmd="`which wget`"
-elif [ -e "`which curl`" ]; then
-    cmd="`which curl` -O"
 else
-    echo "[Error] Neither wget nor curl is available. Install one of them and rerun this script."
+    echo "[Error] wget is not available. Install wget and rerun this script."
     exit 1
 fi
 
