@@ -226,7 +226,7 @@ fi
 
 # Look for either wget or curl to download GemStone
 if [ -e "`which wget`" ]; then
-    cmd="`which wget`"
+    cmd="`which wget` --no-passive-ftp"
 elif [ -e "`which curl`" ]; then
     cmd="`which curl` -O"
 else
