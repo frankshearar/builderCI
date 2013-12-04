@@ -76,7 +76,7 @@ case "$vers" in
   2.4.4.1|2.4.4.2|2.4.4.3|2.4.4.4|2.4.4.5|2.4.4.6)
     ftp_address=ftp.gemstone.com
     ;;
-  2.4.5)
+  2.4.5|2.4.5.2)
     ftp_address=ftp.gemstone.com
     ;;
   3.0.0|3.0.1)
