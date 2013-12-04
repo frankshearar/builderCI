@@ -71,6 +71,25 @@ esac
 # set zipfile name from gsvers
 gss_file=${gsvers}.zip
 
+# set ftp_address
+case "$vers" in
+  2.4.4.1|2.4.4.2|2.4.4.3|2.4.4.4|2.4.4.5|2.4.4.6)
+    ftp_address=ftp.gemstone.com
+    ;;
+  2.4.5)
+    ftp_address=ftp.gemstone.com
+    ;;
+  3.0.0|3.0.1)
+    ftp_address=ftp.gemstone.com
+    ;;
+  3.1.0|3.1.0.1|3.1.0.2)
+    ftp_address=ftp.gemstone.com
+    ;;
+  *)
+    ftp_address=ftp.gemtalksystems.com
+    ;;
+esac
+
 # We should run this as a normal user, not root.
 if [ `id | cut -f2 -d= | cut -f1 -d\(` -eq 0 ]
     then
@@ -218,7 +237,7 @@ fi
 # Download GemStone
 if [ ! -e $gss_file ]; then
     echo "[Info] Downloading $gss_file using ${cmd}"
-    $cmd ftp://ftp.gemstone.com/pub/GemStone64/$bucket/$gss_file
+    $cmd ftp://${ftp_address}/pub/GemStone64/$bucket/$gss_file
 else
     echo "[Info] $gss_file already exists"
     echo "to replace it, remove or rename it and rerun this script"
