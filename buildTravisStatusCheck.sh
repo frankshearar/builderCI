@@ -5,6 +5,7 @@
 #      -verbose flag causes unconditional transcript display
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
 if ( test -e TravisCISuccess.txt); then 
   echo "SUCCESS: $(basename $0)"

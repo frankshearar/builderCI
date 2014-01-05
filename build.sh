@@ -4,6 +4,7 @@
 #   scripts. Best to be used together with Jenkins.
 #
 # Copyright (c) 2012,2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
 
 case "$ST" in

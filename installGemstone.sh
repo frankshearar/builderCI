@@ -2,6 +2,7 @@
 
 #=========================================================================
 # Copyright (C) VMware, Inc. 1986-2011.  All Rights Reserved.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
 # Name - installGemstone.sh <gemstone version (e.g., 3.1.0.1)>
 #

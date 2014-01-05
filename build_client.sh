@@ -6,6 +6,7 @@
 # Copyright (c) 2010 Yanni Chiu <yanni@rogers.com>
 # Copyright (c) 2010-2011 Lukas Renggli <renggli@gmail.com>
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
 
 # Environment variables now defined in .travis.yml

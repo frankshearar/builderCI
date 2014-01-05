@@ -3,6 +3,7 @@
 # build_image.sh -- Downloads and installs the desired Smalltalk
 #
 # Copyright (c) 2012,2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
 
 # Environment variables defined in .travis.yml

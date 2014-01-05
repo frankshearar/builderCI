@@ -4,11 +4,10 @@
 #   installation: PharoCore-1-3, Pharo-1.4, Pharo-2.0, Squeak-4.3, Squeak-4.4
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
-
 # Environment variables defined in .travis.yml
 #
-# Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
 #install 32 bit libs if necessary
