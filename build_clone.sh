@@ -3,6 +3,7 @@
 # build_clone.sh -- Clone the git repositories
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
 
 # Environment variables defined in .travis.yml

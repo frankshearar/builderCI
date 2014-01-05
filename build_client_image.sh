@@ -4,11 +4,10 @@
 #   installation: PharoCore-1-3, Pharo-1.4, Pharo-2.0, Squeak-4.3, Squeak-4.4
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
-
 # Environment variables defined in .travis.yml
 #
-# Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
 #
 
 #install 32 bit libs if necessary
@@ -21,7 +20,7 @@ case "$(uname -m)" in
                 # UUIDPlugin
                 sudo apt-get -qq install libuuid1:i386
                 # SqueakSSL
-                sudo apt-get -qq install libssl0.9.8:i386 libkrb5-3:i386 libk5crypto3:i386 zlib1g:i386 libcomerr2:i386 libkrb5support0:i386 libkeyutils1:i386
+                sudo apt-get -qq install libssl1.0.0:i386 libkrb5-3:i386 libk5crypto3:i386 zlib1g:i386 libcomerr2:i386 libkrb5support0:i386 libkeyutils1:i386
                 ;;
         *)
                 echo "32bit os"

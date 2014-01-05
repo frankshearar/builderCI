@@ -7,6 +7,7 @@ Transcript cr; show: 'GLASS: ', glassVersion versionString.
 Transcript cr; show: 'Metacello: ' , ConfigurationOfMetacello project currentVersion versionNumber versionString.
 glassVersion versionNumber >= versionString asMetacelloVersionNumber 
     ifTrue: [ 
+        ConfigurationOfGLASS project updateProject.
         Transcript cr; show: 'GLASS up-to-date'.
 	^nil].
 ConfigurationOfGLASS project updateProject.

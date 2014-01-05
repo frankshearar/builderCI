@@ -3,6 +3,7 @@
 # build_gemstone.sh -- Run Gemstone instance
 #
 # Copyright (c) 2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (c) 2013-2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
 #
 
 # help function
