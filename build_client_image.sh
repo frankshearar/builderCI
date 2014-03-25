@@ -104,14 +104,12 @@ case "$ST" in
   # Squeak-4.4
   Squeak-4.4)
     cd $IMAGES_PATH
-    wget -q http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
-    mkdir -p Squeak4.4
-    unzip Squeak4.4-12327.zip
     # 4.3 stores things in a Squeak4.3 directory. 4.4 doesn't.
     # So we mimic the behaviour of 4.3.
-    mv Squeak4.4-12327.changes Squeak4.4/Squeak4.4-12327.changes
-    mv Squeak4.4-12327.image Squeak4.4/Squeak4.4-12327.image
+    mkdir -p Squeak4.4
     cd Squeak4.4
+    wget -q http://ftp.squeak.org/4.4/Squeak4.4-12327.zip
+    unzip Squeak4.4-12327.zip
     wget -q http://ftp.squeak.org/4.4/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.4-12327
@@ -119,9 +117,23 @@ case "$ST" in
   # Squeak-4.5
   Squeak-4.5)
     cd $IMAGES_PATH
-    wget -q http://build.squeak.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/*zip*/target.zip
-    unzip target.zip
-    cd target
+    # 4.3 stores things in a Squeak4.3 directory. 4.5 doesn't.
+    # So we mimic the behaviour of 4.3.
+    mkdir -p Squeak4.5
+    cd Squeak4.5
+    wget -q http://ftp.squeak.org/4.5/Squeak4.5-13680.zip
+    unzip Squeak4.5-13680.zip
+    wget -q http://ftp.squeak.org/4.5/SqueakV41.sources.gz
+    gunzip SqueakV41.sources.gz
+    IMAGE_BASE_NAME=Squeak4.5-13680
+    ;;
+  # Squeak-Trunk
+  Squeak-Trunk)
+    cd $IMAGES_PATH
+    mkdir -p TrunkImage
+    cd TrunkImage
+    wget -q http://build.squeak.org/job/SqueakTrunk/lastSuccessfulBuild/artifact/target/TrunkImage.zip
+    unzip TrunkImage.zip
     wget -q http://ftp.squeak.org/4.1/SqueakV41.sources.gz
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=TrunkImage
