@@ -37,7 +37,8 @@ Smalltalk
     (versionString beginsWith: 'Squeak')
       ifTrue:  [
         "Force-update. Squeak does release artifacts too seldom."
-        MCMcmUpdater updateFromDefaultRepository.
+        Smalltalk at: #MCMcmUpdater ifPresent: [ :updater |
+          updater updateFromDefaultRepository. ].
         "see https://github.com/dalehenrich/builderCI/issues/48"
         fileInBlock value: 'CommandLineToolSet.st' ]].
 fileInBlock value: 'MetacelloBuilderTravisCI.st'.
