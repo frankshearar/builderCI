@@ -50,11 +50,6 @@ platformIsGemStone
     "Transcript streams to stdout in GemStone by default"
     (Smalltalk globals associationAt: #'Transcript') value: transcriptStream.
     Transcript file lineEndConvention: #'lf' ].
-"Load krono's filetree fork from GitHub"
-(Smalltalk at: #Metacello) new
-  baseline: 'FileTree';
-  repository: 'github://krono/filetree:48a986627bba1b64024fdd0a7c4d3314b2d545c0/repository';
-  load.
 Transcript
   cr;
   show: 'travis---->before.st'
