@@ -43,10 +43,17 @@ Transcript cr; show: 'travis---->bootstrapMetacello.st'.
 	do: [:ex |
 		Transcript cr; show: 'Warning: ', ex description.
 		ex resume: true].
-"Load krono's filetree fork from GitHub"
-(Smalltalk at: #Metacello) new
-  baseline: 'FileTree';
-  repository: 'github://krono/filetree:48a986627bba1b64024fdd0a7c4d3314b2d545c0/repository';
-  load.
+Smalltalk
+  at: #'SystemVersion'
+  ifPresent: [ :cl | 
+    | versionString |
+    versionString := cl current version.
+    (versionString beginsWith: 'Squeak')
+      ifTrue:  [
+            "Load krono's filetree fork from GitHub"
+            (Smalltalk at: #Metacello) new
+              baseline: 'FileTree';
+              repository: 'github://krono/filetree:48a986627bba1b64024fdd0a7c4d3314b2d545c0/repository';
+              load.]].
 
 
