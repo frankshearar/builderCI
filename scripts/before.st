@@ -36,6 +36,10 @@ Smalltalk
     versionString := cl current version.
     (versionString beginsWith: 'Squeak')
       ifTrue:  [
+        "Force-update. Squeak does release artifacts too seldom."
+        Smalltalk at: #MCMcmUpdater ifPresent: [ :updater |
+          [updater updateFromDefaultRepository]
+          on: Warning do: [ :ex | ex resume: true ]].
         "see https://github.com/dalehenrich/builderCI/issues/48"
         fileInBlock value: 'CommandLineToolSet.st' ]].
 fileInBlock value: 'MetacelloBuilderTravisCI.st'.

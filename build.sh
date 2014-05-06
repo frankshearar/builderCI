@@ -16,7 +16,7 @@ case "$ST" in
     ;&
   Pharo-3.0)
     ;&
-  Squeak-4.3|Squeak4.3|Squeak-4.4|Squeak-4.5)
+  Squeak-4.3|Squeak4.3|Squeak-4.4|Squeak-4.5|Squeak-Trunk)
         ./build_client.sh "$@"
         if [[ $? != 0 ]] ; then exit 1; fi
 	exit 0
