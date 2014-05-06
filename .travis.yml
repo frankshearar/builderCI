@@ -6,7 +6,8 @@
 language: erlang
 
 env:
-   - ST=GemStone-3.2
+   - ST=GemStone-3.2.0
+   - ST=GEMSTONE-3.1.0.6
 
 #   - ST=Pharo-1.4
 #   - ST=Pharo-2.0 
