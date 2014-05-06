@@ -5,6 +5,7 @@
 #      -verbose flag causes unconditional transcript display
 #
 # Copyright (c) 2012-2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (C) 2014 GemTalk Systems LLC <dale.henrichs@gemtalksystems.com>
 #
 ./build.sh -i $ST -m -f "$PROJECT_HOME/tests/travisCI.st" -o travisCI
 if [[ $? != 0 ]] ; then 

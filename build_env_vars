@@ -1,6 +1,7 @@
 # Environment variables defined `source` me
 #
 # Copyright (c) 2012 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (C) 2014 GemTalk Systems LLC <dale.henrichs@gemtalksystems.com>
 #
 
 export BUILDER_CI_HOME="$(pwd)"

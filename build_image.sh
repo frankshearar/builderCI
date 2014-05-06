@@ -56,7 +56,7 @@ EOF
 
 
 startGemstone
-# gslist -lc
-# cat /opt/gemstone/log/seaside.log
+gslist -lc
+cat /opt/gemstone/log/seaside.log
 
 
