@@ -160,8 +160,8 @@ done
 cd ${BUILD_PATH}/${OUTPUT_NAME}
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
 
-gslist -lc
-cat /opt/gemstone/log/seaside.log
+# gslist -lc
+# cat /opt/gemstone/log/seaside.log
 
 echo "synchronize timezones"
 
@@ -183,8 +183,6 @@ exit 0
 EOF
 
 if [[ $? != 0 ]] ; then
-  gslist -lc
-  cat /opt/gemstone/log/seaside.log
   exit 1;
 fi
 
