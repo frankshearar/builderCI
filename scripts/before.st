@@ -17,6 +17,8 @@ transcriptFileName := 'TravisTranscript.txt'.
       / transcriptFileName) writeStream ]
   ifNotNil: [ 
     fileInBlock := [ :fileName | 
+GsFile gciLogServer: 'before.st:: fileName ::', fileName printString.
+GsFile gciLogServer: 'before.st:: fileDirectoryClass default fullName ::', fileDirectoryClass default fullName printString.
     fileDirectoryClass default
       fileNamed: fileName
       do: [ :fileStream | fileStream fileIn ] ].
