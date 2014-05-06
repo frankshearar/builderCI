@@ -43,7 +43,7 @@ case "$ST" in
 esac
 
 # only GemStone gets here
-# uname -a 
+uname -a 
 ./installGemstone.sh $GEMSTONE_VERSION_NAME
 if [[ $? != 0 ]] ; then exit 1; fi
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
