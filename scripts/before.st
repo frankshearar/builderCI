@@ -44,9 +44,9 @@ Smalltalk
           on: Warning do: [ :ex | ex resume: true ]].
         "see https://github.com/dalehenrich/builderCI/issues/48"
         fileInBlock value: 'CommandLineToolSet.st' ]].
-GsFile gciLogServer: 'before.st [1]:: MetacelloBuilderTravisCI ::', (Smalltalk at: #MetacelloBuilderTravisCI ifAbent: ['not here']) printString.
+GsFile gciLogServer: 'before.st [1]:: MetacelloBuilderTravisCI ::', (Smalltalk at: #MetacelloBuilderTravisCI ifAbsent: ['not here']) printString.
 fileInBlock value: 'MetacelloBuilderTravisCI.st'.
-GsFile gciLogServer: 'before.st [2]:: MetacelloBuilderTravisCI ::', (Smalltalk at: #MetacelloBuilderTravisCI ifAbent: ['not here']) printString.
+GsFile gciLogServer: 'before.st [2]:: MetacelloBuilderTravisCI ::', (Smalltalk at: #MetacelloBuilderTravisCI ifAbsent: ['not here']) printString.
 Smalltalk at: #'TravisResultFileBlock' put: resultFileBlock.
 Smalltalk at: #'OLDTranscript' put: Transcript.
 platformIsGemStone
