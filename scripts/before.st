@@ -18,7 +18,7 @@ transcriptFileName := 'TravisTranscript.txt'.
   ifNotNil: [ 
     fileInBlock := [ :fileName | 
     fileDirectoryClass default
-      fileNamed: fileName
+      readOnlyFileNamed: fileName
       do: [ :fileStream | fileStream fileIn ] ].
     resultFileBlock := [ :resultsFileName :streamBlock |
       fileDirectoryClass default forceNewFileNamed: resultsFileName do: streamBlock ].

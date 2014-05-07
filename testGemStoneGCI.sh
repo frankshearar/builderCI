@@ -5,6 +5,7 @@
 #      -verbose flag causes unconditional transcript display
 #
 # Copyright (c) 2013 VMware, Inc. All Rights Reserved <dhenrich@vmware.com>.
+# Copyright (C) 2014 GemTalk Systems LLC <dale.henrichs@gemtalksystems.com>
 #
 
 #install 32 bit libs if necessary

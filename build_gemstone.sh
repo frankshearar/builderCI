@@ -160,6 +160,9 @@ done
 cd ${BUILD_PATH}/${OUTPUT_NAME}
 source /opt/gemstone/product/seaside/defSeaside #set GemStone environment variables
 
+# gslist -lc
+# cat /opt/gemstone/log/seaside.log
+
 echo "synchronize timezones"
 
 topaz -l -q <<EOF
