@@ -20,7 +20,7 @@ transcriptFileName := 'TravisTranscript.txt'.
 GsFile gciLogServer: 'before.st:: fileName ::', fileName printString.
 GsFile gciLogServer: 'before.st:: fileDirectoryClass default fullName ::', fileDirectoryClass default fullName printString.
     fileDirectoryClass default
-      fileNamed: fileName
+      readOnlyFileNamed: fileName
       do: [ :fileStream | fileStream fileIn ] ].
     resultFileBlock := [ :resultsFileName :streamBlock |
       fileDirectoryClass default forceNewFileNamed: resultsFileName do: streamBlock ].
