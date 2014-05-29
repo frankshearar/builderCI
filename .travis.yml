@@ -10,7 +10,7 @@ env:
 
    # - ST=Pharo-1.4
    # - ST=Pharo-2.0 
-   - ST=Squeak-4.5
+   - ST=Squeak-4.5 SQUEAK_SCREENSHOT=true
    # - ST=GemStone-3.2.0
 
    # - ST=PharoCore-1.1
@@ -29,7 +29,6 @@ env:
    # - ST=GemStone-3.1.0.4
    # - ST=GemStone-3.1.0.5
    # - ST=GemStone-3.1.0.6
-   - SQUEAK_SCREENSHOT=true
 
 before_install:
   - "export DISPLAY=:99.0"
