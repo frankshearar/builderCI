@@ -226,10 +226,19 @@ if [ $pid ] ; then
 		fi
 		let "tictoc = $COUNTER % 60"
 		if [ "$tictoc" -eq 0 ] ; then
+                    echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
+                    echo "capturing and uploading screenshot ..."
                     FILENAME=$(date +%s)
-                    $(import -window root $FILENAME.png)
-                    $(curl -X POST -F file=@$FILENAME.png http://87.117.252.97:5000/upload/$FILENAME.png)
-               		echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
+                    import -window root $FILENAME.png
+                    API_KEY="273b7108a37679d9ac31ad5a9f1a314a"
+                    $curl -s -F "image=@$FILENAME.png" -F "key=$API_KEY" https://api.imgur.com/2/upload.json > "$OUTPUT"
+                    python -c "
+                    import json
+                    with open('$OUTPUT') as f:
+                       output = json.load(f)
+                    print output['upload']['links']['original']
+                    print output['upload']['links']['delete_page']
+                    "
                 fi 
 	done
         wait $pid
