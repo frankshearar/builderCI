@@ -230,9 +230,8 @@ if [ $pid ] ; then
                     echo "capturing and uploading screenshot ..."
                     FILENAME=$(date +%s)
                     import -window root $FILENAME.png
-                    API_KEY="273b7108a37679d9ac31ad5a9f1a314a"
-                    $curl -s -F "image=@$FILENAME.png" -F "key=$API_KEY" https://api.imgur.com/2/upload.json > "$OUTPUT"
-                    python -c "import json\nwith open('$OUTPUT') as f:\n\toutput = json.load(f)\nprint output['upload']['links']['original']\nprint output['upload']['links']['delete_page']"
+                    $curl -s -H "Authorization: Client-ID bb44aa930f3bc82" -F "image=@$FILENAME.png" https://api.imgur.com/3/upload > "$OUTPUT"
+                    python -c "exec \"\nimport json\nwith open('$OUTPUT') as f:\n    output = json.load(f)\nprint output['data']['link']\nprint output['data']['deletehash']\n\""
                 fi 
 	done
         wait $pid
