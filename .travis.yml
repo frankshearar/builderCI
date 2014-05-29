@@ -29,9 +29,9 @@ env:
    # - ST=GemStone-3.1.0.4
    # - ST=GemStone-3.1.0.5
    # - ST=GemStone-3.1.0.6
+   - SQUEAK_SCREENSHOT=true
 
 before_install:
-  - sudo apt-get install -qq libx11-6:i386 libgl1-mesa-swx11:i386 libsm6:i386 libuuid1:i386 libc6:i386
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 
