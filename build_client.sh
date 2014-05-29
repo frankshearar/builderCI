@@ -229,8 +229,9 @@ if [ $pid ] ; then
                     echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
                     echo "capturing and uploading screenshot ..."
                     FILENAME=$(date +%s)
-                    import -window root $FILENAME.png
-                    $curl -s -H "Authorization: Client-ID bb44aa930f3bc82" -F "image=@$FILENAME.png" https://api.imgur.com/3/upload > "$OUTPUT"
+                    $(import -window root $FILENAME.png)
+                    OUTPUT="/tmp/$FILENAME.json"
+                    curl -s -H "Authorization: Client-ID bb44aa930f3bc82" -F "image=@$FILENAME.png" https://api.imgur.com/3/upload > "$OUTPUT"
                     python -c "exec \"\nimport json\nwith open('$OUTPUT') as f:\n    output = json.load(f)\nprint output['data']['link']\nprint output['data']['deletehash']\n\""
                 fi 
 	done
