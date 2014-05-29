@@ -153,6 +153,12 @@ if [ -z "$OUTPUT_IMAGE" ] ; then
 	exit 1
 fi
 
+if [ $SCREENSHOT ]; then
+    echo "STARTING xvfb"
+    export DISPLAY=:99.0
+    sh -e /etc/init.d/xvfb start
+fi
+
 echo "BUILDING IMAGE FILE"
 
 #prepare output path

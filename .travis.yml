@@ -30,10 +30,6 @@ env:
    - ST=GemStone-3.1.0.5
    - ST=GemStone-3.1.0.6
 
-before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-
 install:
    - export PROJECT_HOME="$(pwd)"
    - source build_env_vars
