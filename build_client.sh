@@ -15,10 +15,14 @@
 case "$(uname -s)" in
 	"Linux")
 		PHARO_VM="$VM_PATH/Linux/squeak"
-		PHARO_PARAM="-vm display=X11
-      -nosound \
-      -plugins "$VM_PATH/Linux" \
+		PHARO_PARAM="-nosound \
+        -plugins "$VM_PATH/Linux" \
 	    -encoding latin1"
+        if [ $SCREENSHOT ]; then
+            PHARO_PARAM+=" -vm display=X11"
+        else
+            PHARO_PARAM+=" -nodisplay"
+        fi
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
