@@ -10,7 +10,7 @@ env:
 
    - ST=Pharo-1.4
    - ST=Pharo-2.0 
-   - ST=Squeak-4.5
+   - ST=Squeak-4.5 SCREENSHOT=true
    - ST=GemStone-3.2.0
 
    - ST=PharoCore-1.1

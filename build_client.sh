@@ -15,10 +15,14 @@
 case "$(uname -s)" in
 	"Linux")
 		PHARO_VM="$VM_PATH/Linux/squeak"
-		PHARO_PARAM="-nodisplay \
-      -nosound \
-      -plugins "$VM_PATH/Linux" \
+		PHARO_PARAM="-nosound \
+        -plugins "$VM_PATH/Linux" \
 	    -encoding latin1"
+        if [ $SCREENSHOT ]; then
+            PHARO_PARAM+=" -vm display=X11"
+        else
+            PHARO_PARAM+=" -nodisplay"
+        fi
 		;;
 	"Darwin")
 		PHARO_VM="$VM_PATH/MacOS/Squeak VM Opt"
@@ -153,6 +157,12 @@ if [ -z "$OUTPUT_IMAGE" ] ; then
 	exit 1
 fi
 
+if [ $SCREENSHOT ]; then
+    echo "STARTING xvfb"
+    export DISPLAY=:99.0
+    sh -e /etc/init.d/xvfb start
+fi
+
 echo "BUILDING IMAGE FILE"
 
 #prepare output path
@@ -227,7 +237,15 @@ if [ $pid ] ; then
 		fi
 		let "tictoc = $COUNTER % 60"
 		if [ "$tictoc" -eq 0 ] ; then
-               		echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
+                    echo "travis ... be patient PLEASE: https://github.com/dalehenrich/builderCI/issues/38"
+                    if [ $SCREENSHOT ]; then
+                            echo "capturing and uploading screenshot ..."
+                            FILENAME=$(date +%s)
+                            import -window root $FILENAME.png
+                            OUTPUT="/tmp/$FILENAME.json"
+                            curl -s -H "Authorization: Client-ID bb44aa930f3bc82" -F "image=@$FILENAME.png" https://api.imgur.com/3/upload > "$OUTPUT"
+                            python -c "exec \"\nimport json\nwith open('$OUTPUT') as f:\n    output = json.load(f)\nprint output['data']['link']\nprint output['data']['deletehash']\n\""
+                    fi
                 fi 
 	done
         wait $pid
