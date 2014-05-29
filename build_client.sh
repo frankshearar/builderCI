@@ -241,9 +241,9 @@ if [ $pid ] ; then
                     if [ $SCREENSHOT ]; then
                             echo "capturing and uploading screenshot ..."
                             SCREENSHOT_TIMESTAMP=$(date +%s)
-                            import -window root $SCREENSHOT_TIMESTAMP.png
+                            import -window root "/tmp/$SCREENSHOT_TIMESTAMP.png"
                             OUTPUT_IMGUR="/tmp/$SCREENSHOT_TIMESTAMP.json"
-                            curl -s -H "Authorization: Client-ID bb44aa930f3bc82" -F "image=@$SCREENSHOT_TIMESTAMP.png" https://api.imgur.com/3/upload > "$OUTPUT_IMGUR"
+                            curl -s -H "Authorization: Client-ID bb44aa930f3bc82" -F "image=@/tmp/$SCREENSHOT_TIMESTAMP.png" https://api.imgur.com/3/upload > "$OUTPUT_IMGUR"
                             python -c "exec \"\nimport json\nwith open('$OUTPUT_IMGUR') as f:\n    output = json.load(f)\nprint output['data']['link']\nprint output['data']['deletehash']\n\""
                     fi
                 fi 
