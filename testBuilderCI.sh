@@ -25,5 +25,5 @@ fi
 cd "${BUILD_PATH}/travisCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh
 if [[ $? != 0 ]] ; then exit 1; fi
-$BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@"
+$BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@ -testBuilderCI"
 if [[ $? != 0 ]] ; then exit 1; fi

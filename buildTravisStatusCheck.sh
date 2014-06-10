@@ -27,4 +27,7 @@ echo "neither SUCCESS nor FAILURE: $(basename $0)"
 if [ "$1" = "-verbose" ] ; then
   $BUILDER_CI_HOME/dumpTranscript.sh
 fi
-exit 1
+# exit with non-zero status except if builderCI is tested
+if [ "$1" != "-testBuilderCI" ] && [ "$2" != "-testBuilderCI" ] ; then
+  exit 1
+fi
