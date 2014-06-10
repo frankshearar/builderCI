@@ -8,8 +8,10 @@
 # Copyright (C) 2014 GemTalk Systems LLC <dale.henrichs@gemtalksystems.com>
 #
 
+export TEST_BUILDERCI=true
+
 #run tests
-./testTravisCI.sh "$@ -testBuilderCI"
+./testTravisCI.sh "$@"
 if [[ $? != 0 ]] ; then exit 1; fi
 
 # make sure that system runs okay when you skip the metacello bootstrap step
@@ -25,5 +27,5 @@ fi
 cd "${BUILD_PATH}/travisCI/"
 $BUILDER_CI_HOME/buildImageErrorCheck.sh
 if [[ $? != 0 ]] ; then exit 1; fi
-$BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@ -testBuilderCI"
+$BUILDER_CI_HOME/buildTravisStatusCheck.sh "$@"
 if [[ $? != 0 ]] ; then exit 1; fi
