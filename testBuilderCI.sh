@@ -9,7 +9,7 @@
 #
 
 #run tests
-./testTravisCI.sh "$@"
+./testTravisCI.sh "$@ -testBuilderCI"
 if [[ $? != 0 ]] ; then exit 1; fi
 
 # make sure that system runs okay when you skip the metacello bootstrap step
