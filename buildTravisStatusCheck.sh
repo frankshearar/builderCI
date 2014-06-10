@@ -27,3 +27,4 @@ echo "neither SUCCESS nor FAILURE: $(basename $0)"
 if [ "$1" = "-verbose" ] ; then
   $BUILDER_CI_HOME/dumpTranscript.sh
 fi
+exit 1
