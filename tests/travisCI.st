@@ -19,10 +19,3 @@ TravisCIHarness
   value: #( 'ConfigurationOfSample' )
   value: 'TravisCISuccess.txt' 
   value: 'TravisCIFailure.txt'.
-
-"If there are not tests ... getting this far is success anyway ... ususally 
- you use one or the other of these blocks."
-
-TravisCISuccessNoFailure
-      value: 'TravisCISuccess.txt'.
-
