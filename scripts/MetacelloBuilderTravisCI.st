@@ -143,11 +143,9 @@ successOnNoFailures: successFilename
       lf;
       nextPutAll: '**************************************************************************************';
       lf.
-    fileStream
       tab;
       nextPutAll: 'No failures..';
       lf;
-    fileStream
       nextPutAll: '**************************************************************************************';
       lf].
  (Transcript respondsTo: #close)
