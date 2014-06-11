@@ -8,8 +8,6 @@
 # Copyright (C) 2014 GemTalk Systems LLC <dale.henrichs@gemtalksystems.com>
 #
 
-export TEST_BUILDERCI=true
-
 #run tests
 ./testTravisCI.sh "$@"
 if [[ $? != 0 ]] ; then exit 1; fi
