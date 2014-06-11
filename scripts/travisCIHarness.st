@@ -13,4 +13,18 @@
           MetacelloBuilderTravisCI 
             runHarnessFor: configurationClassNameList 
             successFilename: successFilename 
-            failFilename: failFilename]
+            failFilename: failFilename].
+
+"Use this expression when you want to indicate that you had successful run
+  just by surviving ... no explicit tests to run
+
+    TravisCISuccessNoFailure
+      value: 'TravisCISuccess.txt'.
+"
+
+    Smalltalk
+        at: #'TravisCISuccessNoFailure'
+        put: [ :successFilename  |
+          MetacelloBuilderTravisCI successOnNoFailures: successFilename ]
+
+ 

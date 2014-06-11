@@ -19,4 +19,3 @@ TravisCIHarness
   value: #( 'ConfigurationOfSample' )
   value: 'TravisCISuccess.txt' 
   value: 'TravisCIFailure.txt'.
-

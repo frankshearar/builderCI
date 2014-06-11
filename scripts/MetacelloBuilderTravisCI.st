@@ -132,3 +132,26 @@ fileIn: fileName
         ifNil: [ ((Smalltalk at: #'FileSystem') perform: #workingDirectory) / fileName readStreamDo: [ :fileStream | fileStream fileIn ] ]
         ifNotNil: [ :fileDirectoryClass | fileDirectoryClass default fileNamed: fileName do: [ :fileStream | fileStream fileIn ] ]! !
 
+
+!MetacelloBuilderTravisCI class methodsFor: 'test harness' stamp: 'dkh 06/11/2014 7:44'!
+successOnNoFailures: successFilename 
+
+(Smalltalk at: #'TravisResultFileBlock')
+  value: successFilename
+  value: [ :fileStream |
+    fileStream
+      lf;
+      nextPutAll: '**************************************************************************************';
+      lf;
+      tab;
+      nextPutAll: 'No failures..';
+      lf;
+      nextPutAll: '**************************************************************************************';
+      lf].
+ (Transcript respondsTo: #close)
+   ifTrue: [
+     | stream |
+     stream := Transcript.
+     (Smalltalk globals associationAt: #'Transcript') value: (Smalltalk at: #'OLDTranscript').
+     stream close ].! !
+

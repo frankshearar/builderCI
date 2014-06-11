@@ -16,7 +16,7 @@ if [[ $? != 0 ]] ; then exit 1; fi
 
 # make sure that system runs okay when you skip the metacello bootstrap step
 cd $BUILDER_CI_HOME
-./build.sh -i $ST -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
+./build.sh -i $ST -m -X -f "$BUILDER_CI_HOME/tests/skipMetacelloBootstrap.st" -o travisCI
 if [[ $? != 0 ]] ; then 
   echo "ERROR: $(basename $0)"
   cd "${BUILD_PATH}/travisCI/"
