@@ -142,7 +142,7 @@ successOnNoFailures: successFilename
     fileStream
       lf;
       nextPutAll: '**************************************************************************************';
-      lf.
+      lf;
       tab;
       nextPutAll: 'No failures..';
       lf;
