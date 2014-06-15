@@ -8,13 +8,13 @@ Transcript cr; show: 'Metacello: ' , ConfigurationOfMetacello project currentVer
 glassVersion versionNumber >= versionString asMetacelloVersionNumber 
     ifTrue: [ 
         Gofer new
-          repository: 'http://seaside.gemtalksystems.com/ss/MetacelloRepository';
+          url: 'http://seaside.gemtalksystems.com/ss/MetacelloRepository';
           package: 'ConfigurationOfGLASS';
           load.
         Transcript cr; show: 'GLASS up-to-date'.
 	^nil].
 Gofer new
-  repository: 'http://seaside.gemtalksystems.com/ss/MetacelloRepository';
+  url: 'http://seaside.gemtalksystems.com/ss/MetacelloRepository';
   package: 'ConfigurationOfGLASS';
   load.
 ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' asMetacelloVersionNumber 
@@ -26,13 +26,13 @@ ConfigurationOfMetacello project currentVersion versionNumber < '1.0-beta.31.1' 
 	Transcript cr; show: 'load basic Metacello packages for version 1.0-beta.31.1'.
 	[
 	((Smalltalk at: #Gofer) new)
-                repository: 'http://seaside.gemtalksystems.com/ss/metacello';
+                url: 'http://seaside.gemtalksystems.com/ss/metacello';
 		version: 'Metacello-Base-DaleHenrichs.19';
 		version: 'Metacello-Core-dkh.468';
 		version: 'Metacello-MC-dkh.531';
 		load.
 	((Smalltalk at: #Gofer) new)
-		repository: 'http://seaside.gemtalksystems.com/ss/metacello';
+		url: 'http://seaside.gemtalksystems.com/ss/metacello';
 		version: 'Metacello-Platform.gemstone-dkh.23';
 		load ]
                         on: Warning
