@@ -131,6 +131,19 @@ case "$ST" in
     gunzip SqueakV41.sources.gz
     IMAGE_BASE_NAME=Squeak4.5-13680
     ;;
+  # Squeak-4.6
+  Squeak-4.6)
+    cd $IMAGES_PATH
+    # 4.3 stores things in a Squeak4.3 directory. 4.6 doesn't.
+    # So we mimic the behaviour of 4.3.
+    mkdir -p Squeak4.6
+    cd Squeak4.6
+    wget -q http://ftp.squeak.org/4.6alpha/Squeak4.6-13700.zip # TODO: Change this URL when 4.6 is released.
+    unzip Squeak4.6-13700.zip
+    wget -q http://ftp.squeak.org/4.5/SqueakV41.sources.gz # TODO: Find out if 4.6 will change the sources file. (Probably not?)
+    gunzip SqueakV41.sources.gz
+    IMAGE_BASE_NAME=Squeak4.6-13700
+    ;;
   # Squeak-Trunk
   Squeak-Trunk)
     cd $IMAGES_PATH
